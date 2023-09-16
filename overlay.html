@@ -1,0 +1,107 @@
+<html>
+	<head>
+		<!-- Include the following scripts in your HTML -->
+		<link rel="stylesheet" href="overlay.css">
+		<script src="https://unpkg.com/@microsoft/signalr@latest/dist/browser/signalr.min.js"></script>
+		<script src="http://localhost:8085/dist/gameHookMapperClient.js"></script>
+		<script src="Controller/overlayController.js"></script>
+		<script src="Controller/State.js"></script>
+		<script src="View/overlayView.js"></script>
+		<script src="Model/Yellow/MoveLookup.js"></script>
+		<script src="Model/Yellow/TypeLookup.js"></script>
+		<script src="Model/Yellow/TmsLookup.js"></script>
+		<script src="Model/Yellow/HmsLookup.js"></script>
+		<script src="Model/Yellow/PokemonMovesLookup.js"></script>
+		<script src="Model/Yellow/PokemonIndexToDexIndex.js"></script>
+		<script src="Model/Yellow/DexIndexToPokemonIndex.js"></script>
+		<script src="Model/Yellow/SpeciesNameLookup.js"></script>
+		<script src="Model/Yellow/SpeciesImageLookup.js"></script>
+		<script src="Model/Yellow/PokemonStatsLookup.js"></script>
+		<script src="Model/Yellow/TrainersLookup.js"></script>
+		<script src="Model/Yellow/PokemonMechanics.js"></script>
+		<script src="Model/Yellow/PokemonExperienceGroupsLookup.js"></script>
+		<script src="Model/Common/PlayerState.js"></script>
+		<script src="Model/Common/PlayerTeamPokemonState.js"></script>
+		<script src="Model/Common/BagState.js"></script>
+		<script src="Model/Common/PlayerItemState.js"></script>
+		<script src="Model/Common/MapState.js"></script>
+		<script src="Model/Common/EncounterState.js"></script>
+		<script src="Model/Common/SafariZoneState.js"></script>
+		<script src="Model/Common/MapDataState.js"></script>
+		<script src="Model/Common/BattleState.js"></script>
+		<script src="Model/Common/BattleTrainerState.js"></script>
+		<script src="Model/Common/BattlePlayerTeamPokemonState.js"></script>
+		<script src="Model/Common/BattleEnemyPokemonState.js"></script>
+		<script src="Model/Common/RivalState.js"></script>
+		<script src="Model/Common/EventsState.js"></script>
+		<script src="Model/Common/AudioState.js"></script>
+		<script src="Model/Common/ScreenState.js"></script>
+		<script src="Model/Common/GameTimeState.js"></script>
+		<script src="Util/ElementUtils.js"></script>
+		<script src="Util/TableUtils.js"></script>
+		<script src="Util/External/AjaxRequest/AjaxRequest.js"></script>
+		<script src="Util/External/he/he.js"></script>
+		<script type="text/javascript">
+			var overlayView;
+			var overlayController;
+			var state;
+			
+			var divs;
+			var divsLoaded;
+			
+			function loadHtml() {
+				divs = ElementUtils.getChildrenByTag(document.body, "div");
+				divsLoaded = [];
+				
+				divs.forEach((div) => {
+					divsLoaded[div.id] = false;
+				});
+				
+				divs.forEach((div) => {
+					var file = "View/" + div.id + ".txt";
+					var ajax = new AjaxRequest();var meta = document.createElement('meta');
+					ajax.loadHTML(file, "GET", { "ver": (new Date()).getTime() }, { a: 1, b:2 }, { "Content-type" : "text/html; charset=UTF-8"}, function(html) {
+						document.getElementById(div.id).innerHTML = html;
+						divsLoaded[div.id] = true;
+						onDivLoaded();
+					});
+					//div.load(file);
+				});
+			}
+			
+			function onDivLoaded() {
+				var loaded = true;
+				divs.forEach((div) => {
+					if(!divsLoaded[div.id]) {
+						loaded = false;
+					}
+				});
+				if(loaded)
+				{
+					state = new State();
+					overlayView = new OverlayView();
+					overlayController = new OverlayController(overlayView, state);
+				}
+			}
+			
+			function load() {
+				loadHtml();
+			}
+		</script>
+	</head>
+	<body onload="javascript:load()" onsubmit="javascript:false">
+		<table width="100%" height="100%">
+			<tr width="100%" height="100%">
+				<td width="20%" id="left_panel">
+					<div id="left_panel_div" width="100%" height="100%" style="height: 100%; width= 100%;" />
+				</td>
+				<td width="60%" id="middle_panel">
+					<div id="middle_panel_div" width="100%" height="100%" style="height: 100%; width= 100%;" />
+				</td>
+				<td width="20%" id="right_panel">
+					<div id="right_panel_div_title" width="100%" height="100%" style="height: 100%; width= 100%;" />
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

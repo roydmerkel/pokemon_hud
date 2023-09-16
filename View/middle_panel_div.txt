@@ -1,0 +1,54 @@
+					<table width="100%" height="100%">
+						<tr width="100%" height="90%">
+							<td>
+								a
+							</td>
+						</tr>
+						<tr width="100%" height="10%" id="resets_panel">
+							<td>
+								<table width="100%" height="100%">
+									<tr>
+										<td width="10%" height="100%">
+										</td>
+										<td width="80%" height="100%" class="container">
+											<table width="100%" height="100%">
+												<tr>
+													<td width="10%">
+														<p>BATTLES:</p>
+													</td>
+													<td  width="10%">
+														<p id="battle_count">-1</p>
+													</td>
+													<td width="10%">
+														<p>RESETS:</p>
+													</td>
+													<td width="15%">
+														<p id="reset_count">-1</p>
+													</td>
+													<td width="10%">
+														&nbsp;
+													</td>
+													<td width="45%">
+														<table>
+															<tr>
+																<td>
+																	<p id="play_time">TIME:    </p>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<p id="game_time">GAME TIME:    </p>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</table>
+										</td>
+										<td width="10%" height="100%">
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>

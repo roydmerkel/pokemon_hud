@@ -1,0 +1,491 @@
+					<table width="100%" height="100%" id="title_rhs" class="hide">
+						<tr width="100%" height="100%">
+							<td width="100%" height="100%">
+							</td>
+						</tr>
+					</table>
+					<table width="100%" height="100%" id="overworld_rhs">
+						<tr width="100%" height="100%">
+							<td width="100%" height="100%">
+								<table id="pokemon_moves_1" class="pokemon-moves" width="100%">
+									<thead>
+										<tr>
+											<th colspan=6>
+												LEVEL-UP, HM AND TM MOVES
+											</th>
+										</tr>
+										<tr>
+											<th>
+												LV.
+											</th>
+											<th>
+												MOVE
+											</th>
+											<th>
+												TYPE
+											</th>
+											<th>
+												PWR
+											</th>
+											<th>
+												ACC
+											</th>
+											<th>
+												PP
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												a
+											</td>
+											<td>
+												b
+											</td>
+											<td>
+												c
+											</td>
+											<td>
+												d
+											</td>
+											<td>
+												e
+											</td>
+											<td>
+												f
+											</td>
+										</tr>
+										<tr>
+											<td>
+												g
+											</td>
+											<td>
+												h
+											</td>
+											<td>
+												i
+											</td>
+											<td>
+												j
+											</td>
+											<td>
+												k
+											</td>
+											<td>
+												l
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<table id="pokemon_moves_2" class="pokemon-moves hide" width="100%">
+									<thead>
+										<tr>
+											<th colspan=6>
+												TM MOVES CONTINUED
+											</th>
+										</tr>
+										<tr>
+											<th>
+												LV.
+											</th>
+											<th>
+												MOVE
+											</th>
+											<th>
+												TYPE
+											</th>
+											<th>
+												PWR
+											</th>
+											<th>
+												ACC
+											</th>
+											<th>
+												PP
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												a
+											</td>
+											<td>
+												b
+											</td>
+											<td>
+												c
+											</td>
+											<td>
+												d
+											</td>
+											<td>
+												e
+											</td>
+											<td>
+												f
+											</td>
+										</tr>
+										<tr>
+											<td>
+												g
+											</td>
+											<td>
+												h
+											</td>
+											<td>
+												i
+											</td>
+											<td>
+												j
+											</td>
+											<td>
+												k
+											</td>
+											<td>
+												l
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<table id="pokemon_moves_3" class="pokemon-moves hide" width="100%">
+									<thead>
+										<tr>
+											<th colspan=6>
+												TM MOVES CONTINUED
+											</th>
+										</tr>
+										<tr>
+											<th>
+												LV.
+											</th>
+											<th>
+												MOVE
+											</th>
+											<th>
+												TYPE
+											</th>
+											<th>
+												PWR
+											</th>
+											<th>
+												ACC
+											</th>
+											<th>
+												PP
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												a
+											</td>
+											<td>
+												b
+											</td>
+											<td>
+												c
+											</td>
+											<td>
+												d
+											</td>
+											<td>
+												e
+											</td>
+											<td>
+												f
+											</td>
+										</tr>
+										<tr>
+											<td>
+												g
+											</td>
+											<td>
+												h
+											</td>
+											<td>
+												i
+											</td>
+											<td>
+												j
+											</td>
+											<td>
+												k
+											</td>
+											<td>
+												l
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</table>
+					<table width="100%" height="100%" id="battle_rhs" class="hide">
+						<tr width="100%" height="100%">
+							<td width="100%" height="100%">
+								<table width="100%" height="100%" id="enemy_pokemon">
+									<tr width="100%" height="50%">
+										<td valign="middle" align="center" height="100%" >
+											<table height="100%">
+												<tr width="100%" height="60%" align="center">
+													<td>
+														<table>
+															<tr>
+																<td style="position:relative; z-index:0">
+																	<img id="enemy_trainer_image" style="position:absolute; top:0; left:0; z-index:1" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"/>
+																	<img id="enemy_pokemon_image" style="position:absolute; top:0; left:-50px; z-index:2" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"/>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr width="100%" align="center">
+													<td>
+														<table>
+															<tr id="enemy_trainer_image_reference_tr">
+																<td>
+																	trainer: 
+																</td>
+																<td>
+																	<a id="enemy_trainer_image_reference" href="https://stackoverflow.com/a/19126281">https://stackoverflow.com/a/19126281</a>
+																</td>
+															</tr>
+															<tr id="enemy_pokemon_image_reference_tr">
+																<td>
+																	pokemon:
+																</td>
+																<td>
+																	<a id="enemy_pokemon_image_reference" href="https://stackoverflow.com/a/19126281">https://stackoverflow.com/a/19126281</a>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr width="100%" align="center">
+													<td>
+														<p id="enemy_pokemon_trainer_prefix" style="font-size:24px;color:white"></p>
+														<p id="enemy_pokemon_species_name" style="font-size:24px;color:white"></p>
+													</td>
+												</tr>
+												<tr width="100%" align="center">
+													<td>
+														<table>
+															<tr>
+																<td width="60px" height="20px" class="type-base no-type hide-vertical" id="enemy_pokemon_first_type"><span style="color:#FFF;" id="enemy_pokemon_first_type_text"></span></td>
+																<td width="60px" height="20px" class="type-base no-type hide-vertical" id="enemy_pokemon_second_type"><span style="color:#FFF;" id="enemy_pokemon_second_type_text"></span></td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr width="100%" height="20%">
+										<td>
+											<table width="100%" height="100%">
+												<tr>
+													<td width="5%">&nbsp;</td>
+													<td width="90%" height="100%" class="container">
+														<table width="100%" height="100%" id="enemy-pokemon-stats">
+															<tr>
+																<th id="enemy-pokemon-stats-lvl-th">LV. 100 STATS</th>
+															</tr>
+															<tr width="100%">
+																<td width="100%">
+																	<table width="100%" height="100%">
+																		<tr id="enemy-pokemon-stats-hp-tr" width="100%" height="100%">
+																			<td width="40%">
+																				<b><p id="enemy-pokemon-stats-hp-val">HP: 26/26</p></b>
+																			</td>
+																			<td width="40%" style="padding: 0px;" >
+																				<button id="enemy-pokemon-stats-hp-button"><p>&nbsp;</p></button>
+																			</td>
+																			<td width="20%">
+																				<p id="enemy-pokemon-stats-hp-modifier">-6</p>
+																			</td>
+																		</tr>
+																	</table>
+																</td>
+															</tr>
+															<tr width="100%">
+																<td width="100%">
+																	<table width="100%" height="100%">
+																		<tr id="enemy-pokemon-stats-att-tr" width="100%" height="100%">
+																			<td width="40%">
+																				<b><p id="enemy-pokemon-stats-att-val">ATT: 26</p></b>
+																			</td>
+																			<td width="40%" style="padding: 0px;" >
+																				<button id="enemy-pokemon-stats-att-button"><p>&nbsp;</p></button>
+																			</td>
+																			<td width="20%">
+																				<p id="enemy-pokemon-stats-att-modifier">-6</p>
+																			</td>
+																		</tr>
+																	</table>
+																</td>
+															</tr>
+															<tr width="100%">
+																<td width="100%">
+																	<table width="100%" height="100%">
+																		<tr id="enemy-pokemon-stats-def-tr" width="100%" height="100%">
+																			<td width="40%">
+																				<b><p id="enemy-pokemon-stats-def-val">DEF: 26</p></b>
+																			</td>
+																			<td width="40%" style="padding: 0px;" >
+																				<button id="enemy-pokemon-stats-def-button"><p>&nbsp;</p></button>
+																			</td>
+																			<td width="20%">
+																				<p id="enemy-pokemon-stats-def-modifier">-6</p>
+																			</td>
+																		</tr>
+																	</table>
+																</td>
+															</tr>
+															<tr width="100%">
+																<td width="100%">
+																	<table width="100%" height="100%">
+																		<tr id="enemy-pokemon-stats-spc-tr" width="100%" height="100%">
+																			<td width="40%">
+																				<b><p id="enemy-pokemon-stats-spc-val">SPC: 26</p></b>
+																			</td>
+																			<td width="40%" style="padding: 0px;" >
+																				<button id="enemy-pokemon-stats-spc-button"><p>&nbsp;</p></button>
+																			</td>
+																			<td width="20%">
+																				<p id="enemy-pokemon-stats-spc-modifier">-6</p>
+																			</td>
+																		</tr>
+																	</table>
+																</td>
+															</tr>
+															<tr width="100%">
+																<td width="100%">
+																	<table width="100%" height="100%">
+																		<tr id="enemy-pokemon-stats-spd-tr" width="100%" height="100%">
+																			<td width="40%">
+																				<b><p id="enemy-pokemon-stats-spd-val">SPD: 26</p></b>
+																			</td>
+																			<td width="40%" style="padding: 0px;" >
+																				<button id="enemy-pokemon-stats-spd-button"><p id="enemy-pokemon-stats-crit-val">CRIT: 100.00%</p></button>
+																			</td>
+																			<td width="20%">
+																				<p id="enemy-pokemon-stats-spd-modifier">-6</p>
+																			</td>
+																		</tr>
+																	</table>
+																</td>
+															</tr>
+															<tr width="100%">
+																<td width="100%">
+																	<table width="100%" height="100%">
+																		<tr id="enemy-pokemon-stats-acc-eva-tr" width="100%" height="100%">
+																			<td width="40%" colspan="2">
+																				<b><p>EVA: </p></b>
+																			</td>
+																			<td width="10%">
+																				<p id="enemy-pokemon-stats-eva-modifier">-6</p>
+																			</td>
+																			<td width="40%" colspan="2">
+																				<b><p>ACC: </p></b>
+																			</td>
+																			<td width="10%">
+																				<p id="enemy-pokemon-stats-acc-modifier">-6</p>
+																			</td>
+																		</tr>
+																	</table>
+																</td>
+															</tr>
+														</table>
+													</td>
+													<td width="5%">&nbsp;</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr width="100%" height="20%">
+										<td width="100%" height="100%">
+											<table id="enemy_pokemon_cur_moves" class="pokemon-moves" width="100%">
+												<thead>
+													<tr>
+														<th>
+															MOVE
+														</th>
+														<th>
+															TYPE
+														</th>
+														<th>
+															PWR
+														</th>
+														<th>
+															ACC
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>
+															b
+														</td>
+														<td>
+															c
+														</td>
+														<td>
+															d
+														</td>
+														<td>
+															e
+														</td>
+													</tr>
+													<tr>
+														<td>
+															b
+														</td>
+														<td>
+															c
+														</td>
+														<td>
+															d
+														</td>
+														<td>
+															e
+														</td>
+													</tr>
+													<tr>
+														<td>
+															b
+														</td>
+														<td>
+															c
+														</td>
+														<td>
+															d
+														</td>
+														<td>
+															e
+														</td>
+													</tr>
+													<tr>
+														<td>
+															b
+														</td>
+														<td>
+															c
+														</td>
+														<td>
+															d
+														</td>
+														<td>
+															e
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>

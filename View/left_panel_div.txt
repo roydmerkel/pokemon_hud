@@ -1,0 +1,273 @@
+					<table width="100%" height="100%" id="current_pokemon">
+						<tr width="100%" height="50%">
+							<td valign="middle" align="center" height="100%" >
+								<table height="100%">
+									<tr width="100%" height="60%" align="center">
+										<td>
+											<img class="img-hor" id="pokemon_image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"/>
+										</td>
+									</tr>
+									<tr width="100%" align="center">
+										<td>
+											<a id="pokemon_image_reference" href="https://stackoverflow.com/a/19126281">https://stackoverflow.com/a/19126281</a>
+										</td>
+									</tr>
+									<tr width="100%" align="center">
+										<td>
+											<p id="pokemon_species_name" style="font-size:24px;color:white"></p>
+										</td>
+									</tr>
+									<tr width="100%" align="center">
+										<td>
+											<p id="pokemon_nickname" style="font-size:12px;color:white"></p>
+										</td>
+									</tr>
+									<tr width="100%" align="center">
+										<td>
+											<table>
+												<tr>
+													<td width="60px" height="20px" class="type-base no-type hide-vertical" id="pokemon_first_type"><span style="color:#FFF;" id="pokemon_first_type_text"></span></td>
+													<td width="60px" height="20px" class="type-base no-type hide-vertical" id="pokemon_second_type"><span style="color:#FFF;" id="pokemon_second_type_text"></span></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr width="100%" height="20%">
+							<td>
+								<table width="100%" height="100%">
+									<tr>
+										<td width="5%">&nbsp;</td>
+										<td width="90%" height="100%" class="container">
+											<table width="100%" height="100%" id="pokemon-stats">
+												<tr>
+													<th id="pokemon-stats-lvl-th">LV. 100 STATS</th>
+												</tr>
+												<tr width="100%">
+													<td width="100%">
+														<table width="100%" height="100%">
+															<tr id="pokemon-stats-hp-tr" width="100%" height="100%">
+																<td width="40%">
+																	<b><p id="pokemon-stats-hp-val">HP: 26/26</p></b>
+																</td>
+																<td width="40%" style="padding: 0px;" >
+																	<button id="pokemon-stats-hp-button"><p>&nbsp;</p></button>
+																</td>
+																<td width="20%">
+																	<p id="pokemon-stats-hp-modifier">-6</p>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr width="100%">
+													<td width="100%">
+														<table width="100%" height="100%">
+															<tr id="pokemon-stats-att-tr" width="100%" height="100%">
+																<td width="40%">
+																	<b><p id="pokemon-stats-att-val">ATT: 26</p></b>
+																</td>
+																<td width="40%" style="padding: 0px;" >
+																	<button id="pokemon-stats-att-button"><p>&nbsp;</p></button>
+																</td>
+																<td width="20%">
+																	<p id="pokemon-stats-att-modifier">-6</p>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr width="100%">
+													<td width="100%">
+														<table width="100%" height="100%">
+															<tr id="pokemon-stats-def-tr" width="100%" height="100%">
+																<td width="40%">
+																	<b><p id="pokemon-stats-def-val">DEF: 26</p></b>
+																</td>
+																<td width="40%" style="padding: 0px;" >
+																	<button id="pokemon-stats-def-button"><p>&nbsp;</p></button>
+																</td>
+																<td width="20%">
+																	<p id="pokemon-stats-def-modifier">-6</p>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr width="100%">
+													<td width="100%">
+														<table width="100%" height="100%">
+															<tr id="pokemon-stats-spc-tr" width="100%" height="100%">
+																<td width="40%">
+																	<b><p id="pokemon-stats-spc-val">SPC: 26</p></b>
+																</td>
+																<td width="40%" style="padding: 0px;" >
+																	<button id="pokemon-stats-spc-button"><p>&nbsp;</p></button>
+																</td>
+																<td width="20%">
+																	<p id="pokemon-stats-spc-modifier">-6</p>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr width="100%">
+													<td width="100%">
+														<table width="100%" height="100%">
+															<tr id="pokemon-stats-spd-tr" width="100%" height="100%">
+																<td width="40%">
+																	<b><p id="pokemon-stats-spd-val">SPD: 26</p></b>
+																</td>
+																<td width="40%" style="padding: 0px;" >
+																	<button id="pokemon-stats-spd-button"><p id="pokemon-stats-crit-val">CRIT: 100.00%</p></button>
+																</td>
+																<td width="20%">
+																	<p id="pokemon-stats-spd-modifier">-6</p>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr width="100%">
+													<td width="100%">
+														<table width="100%" height="100%">
+															<tr id="pokemon-stats-acc-eva-tr" width="100%" height="100%">
+																<td width="40%" colspan="2">
+																	<b><p>EVA: </p></b>
+																</td>
+																<td width="10%">
+																	<p id="pokemon-stats-eva-modifier">-6</p>
+																</td>
+																<td width="40%" colspan="2">
+																	<b><p>ACC: </p></b>
+																</td>
+																<td width="10%">
+																	<p id="pokemon-stats-acc-modifier">-6</p>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</table>
+										</td>
+										<td width="5%">&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr width="100%" height="10%">
+							<td width="100%" height="100%">
+								<table width="100%" height="100%">
+									<tr width="100%" height="50%">
+										<td><img id="badge-1-image" src="https://static.merkelhaus.us/overlayimages/badges/75px-Boulder_Badge.png"/></td>
+										<td><img id="badge-2-image" src="https://static.merkelhaus.us/overlayimages/badges/75px-Cascade_Badge.png"/></td>
+										<td><img id="badge-3-image" src="https://static.merkelhaus.us/overlayimages/badges/75px-Thunder_Badge.png"/></td>
+										<td><img id="badge-4-image" src="https://static.merkelhaus.us/overlayimages/badges/75px-Rainbow_Badge.png"/></td>
+									</tr>
+									<tr width="100%" height="50%">
+										<td><img id="badge-5-image" src="https://static.merkelhaus.us/overlayimages/badges/75px-Soul_Badge.png"/></td>
+										<td><img id="badge-6-image" src="https://static.merkelhaus.us/overlayimages/badges/75px-Marsh_Badge.png"/></td>
+										<td><img id="badge-7-image" src="https://static.merkelhaus.us/overlayimages/badges/75px-Volcano_Badge.png"/></td>
+										<td><img id="badge-8-image" src="https://static.merkelhaus.us/overlayimages/badges/75px-Earth_Badge.png"/></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr width="100%" height="20%">
+							<td width="100%" height="100%">
+								<table id="pokemon_cur_moves" class="pokemon-moves" width="100%">
+									<thead>
+										<tr>
+											<th>
+												MOVE
+											</th>
+											<th>
+												TYPE
+											</th>
+											<th>
+												PWR
+											</th>
+											<th>
+												ACC
+											</th>
+											<th>
+												PP
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												b
+											</td>
+											<td>
+												c
+											</td>
+											<td>
+												d
+											</td>
+											<td>
+												e
+											</td>
+											<td>
+												f
+											</td>
+										</tr>
+										<tr>
+											<td>
+												b
+											</td>
+											<td>
+												c
+											</td>
+											<td>
+												d
+											</td>
+											<td>
+												e
+											</td>
+											<td>
+												f
+											</td>
+										</tr>
+										<tr>
+											<td>
+												b
+											</td>
+											<td>
+												c
+											</td>
+											<td>
+												d
+											</td>
+											<td>
+												e
+											</td>
+											<td>
+												f
+											</td>
+										</tr>
+										<tr>
+											<td>
+												b
+											</td>
+											<td>
+												c
+											</td>
+											<td>
+												d
+											</td>
+											<td>
+												e
+											</td>
+											<td>
+												f
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</table>

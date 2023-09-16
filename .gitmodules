@@ -1,0 +1,6 @@
+[submodule "Util/External/ie4-ajax-request-lib"]
+	path = Util/External/AjaxRequest
+	url = https://github.com/roydmerkel/ie4-ajax-request-lib.git
+[submodule "Util/External/he-ie4-compatible"]
+	path = Util/External/he
+	url = https://github.com/roydmerkel/he-ie4-compatible

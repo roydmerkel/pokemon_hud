@@ -1,0 +1,501 @@
+/* CSS */
+body {
+	background-color: #1c76be
+	/*background-color: #FFFFFF*/
+}
+.pokemon-moves {
+  /*table-layout: fixed;*/
+  border-collapse: collapse;
+  border: 1.5px solid black;
+  text-align: center;
+  vertical-align: center;
+  background: linear-gradient(to bottom right, rgba(224, 225, 222, 1), rgba(238, 232, 204, 1));
+  width: 100%;
+}
+.pokemon-moves thead {
+  border: 1.5px solid black;
+}
+.pokemon-moves tbody {
+  border: 1.5px solid black;
+}
+.pokemon-moves tr {
+	border: 1px solid black;
+}
+.pokemon-moves th {
+	font-family:"Courier New", Courier, monospace;
+	font-size: 11;
+	border: 1px solid black;
+}
+.pokemon-moves td {
+	font-family:"Courier New", Courier, monospace;
+	font-size: 14.5;
+	border: 1px solid black;
+}
+
+#pokemon-stats thead {
+}
+
+#pokemon-stats tbody {
+	/*border: 1.5px solid black;*/
+}
+
+#pokemon-stats p {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#pokemon-stats tr {
+	/*border: 1px solid black;*/
+}
+
+#pokemon-stats th {
+}
+
+#pokemon-stats td {
+	/*border: 1px solid black;*/
+}
+
+#pokemon-stats-hp-tr {
+	background: linear-gradient(to bottom, #ff5857, #ff5857);
+}
+
+#pokemon-stats-hp-button {
+	display:inline-block;
+	background: linear-gradient(to bottom, #fe0100, #fe0100);
+	height: 100%;
+	width: 100%;
+	border: 0px solid;
+	margin: 0px;
+	border-spacing: 0px;
+	padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#pokemon-stats-att-tr {
+	background: linear-gradient(to bottom, #f7ac79, #f7ac79);
+}
+
+#pokemon-stats-att-button {
+	display:inline-block;
+	background: linear-gradient(to bottom, #ef8030, #ef8030);
+	height: 100%;
+	width: 100%;
+	border: 0px solid;
+	margin: 0px;
+	border-spacing: 0px;
+	padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#pokemon-stats-def-tr {
+	background: linear-gradient(to bottom, #fbe079, #fbe079);
+}
+
+#pokemon-stats-def-button {
+	display:inline-block;
+	background: linear-gradient(to bottom, #fad130, #fad130);
+	height: 100%;
+	width: 100%;
+	border: 0px solid;
+	margin: 0px;
+	border-spacing: 0px;
+	padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#pokemon-stats-spc-tr {
+	background: linear-gradient(to bottom, #9db7f5, #9db7f5);
+}
+
+#pokemon-stats-spc-button {
+	display:inline-block;
+	background: linear-gradient(to bottom, #688fef, #688fef);
+	height: 100%;
+	width: 100%;
+	border: 0px solid;
+	margin: 0px;
+	border-spacing: 0px;
+	padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#pokemon-stats-spd-tr {
+	background: linear-gradient(to bottom, #fd8fb2, #fd8fb2);
+}
+
+#pokemon-stats-spd-button {
+	display:inline-block;
+	background: linear-gradient(to bottom, #fd5c8c, #fd5c8c);
+	height: 100%;
+	width: 100%;
+	border: 0px solid;
+	margin: 0px;
+	border-spacing: 0px;
+	padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+	white-space: nowrap;
+	text-align: left;
+	font-size: 11px;
+}
+
+#pokemon-stats-acc-eva-tr {
+	background: linear-gradient(to bottom, #8fee91, #8fee91);
+}
+
+#enemy-pokemon-stats thead {
+}
+
+#enemy-pokemon-stats tbody {
+	/*border: 1.5px solid black;*/
+}
+
+#enemy-pokemon-stats p {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#enemy-pokemon-stats tr {
+	/*border: 1px solid black;*/
+}
+
+#enemy-pokemon-stats th {
+}
+
+#enemy-pokemon-stats td {
+	/*border: 1px solid black;*/
+}
+
+#enemy-pokemon-stats-hp-tr {
+	background: linear-gradient(to bottom, #ff5857, #ff5857);
+}
+
+#enemy-pokemon-stats-hp-button {
+	display:inline-block;
+	background: linear-gradient(to bottom, #fe0100, #fe0100);
+	height: 100%;
+	width: 100%;
+	border: 0px solid;
+	margin: 0px;
+	border-spacing: 0px;
+	padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#enemy-pokemon-stats-att-tr {
+	background: linear-gradient(to bottom, #f7ac79, #f7ac79);
+}
+
+#enemy-pokemon-stats-att-button {
+	display:inline-block;
+	background: linear-gradient(to bottom, #ef8030, #ef8030);
+	height: 100%;
+	width: 100%;
+	border: 0px solid;
+	margin: 0px;
+	border-spacing: 0px;
+	padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#enemy-pokemon-stats-def-tr {
+	background: linear-gradient(to bottom, #fbe079, #fbe079);
+}
+
+#enemy-pokemon-stats-def-button {
+	display:inline-block;
+	background: linear-gradient(to bottom, #fad130, #fad130);
+	height: 100%;
+	width: 100%;
+	border: 0px solid;
+	margin: 0px;
+	border-spacing: 0px;
+	padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#enemy-pokemon-stats-spc-tr {
+	background: linear-gradient(to bottom, #9db7f5, #9db7f5);
+}
+
+#enemy-pokemon-stats-spc-button {
+	display:inline-block;
+	background: linear-gradient(to bottom, #688fef, #688fef);
+	height: 100%;
+	width: 100%;
+	border: 0px solid;
+	margin: 0px;
+	border-spacing: 0px;
+	padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#enemy-pokemon-stats-spd-tr {
+	background: linear-gradient(to bottom, #fd8fb2, #fd8fb2);
+}
+
+#enemy-pokemon-stats-spd-button {
+	display:inline-block;
+	background: linear-gradient(to bottom, #fd5c8c, #fd5c8c);
+	height: 100%;
+	width: 100%;
+	border: 0px solid;
+	margin: 0px;
+	border-spacing: 0px;
+	padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+	white-space: nowrap;
+	text-align: left;
+	font-size: 11px;
+}
+
+#enemy-pokemon-stats-acc-eva-tr {
+	background: linear-gradient(to bottom, #8fee91, #8fee91);
+}
+
+.container {
+  background-image: linear-gradient(180deg, #00a2a3, #00a2a3);
+  background-repeat: no-repeat;
+  
+  /* top-left top-right bottom-right bottom-left */
+  border-radius: 15px 15px 15px 15px;
+  border: 5px solid;
+  border-color: #035d61
+}
+.img-hor {
+    -moz-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+}
+.type-base {
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-khtml-border-radius: 20px;
+	-icab-border-radius: 20px;
+	-o-border-radius: 20px;
+	margin-left: 5px; 
+	margin-bottom: 5px;
+	/*float:right;*/
+	float:left;
+	text-align:center;
+	vertical-align:middle;
+	font-family: sans-serif;
+	display:table-cell;
+}
+.normal-type {
+	background:#A8A878;
+	border-color: #6D6D4E;
+	border: 2px solid #6D6D4E;
+}
+.fire-type {
+	background:#F08030;
+	border-color: #9C531F;
+	border: 2px solid #9C531F;
+}
+.fighting-type {
+	background:#C03028;
+	border-color: #7D1F1A;
+	border: 2px solid #7D1F1A;
+}
+.water-type {
+	background:#6890F0;
+	border-color: #445E9C;
+	border: 2px solid #445E9C;
+}
+.flying-type {
+	background:#A890F0;
+	border-color: #C6B7F5;
+	border: 2px solid #C6B7F5;
+}
+.grass-type {
+	background:#78C850;
+	border-color: #4E8234;
+	border: 2px solid #4E8234;
+}
+.poison-type {
+	background:#A040A0;
+	border-color: #682A68;
+	border: 2px solid #682A68;
+}
+.electric-type {
+	background:#F8D030;
+	border-color: #A1871F;
+	border: 2px solid #A1871F;
+}
+.ground-type {
+	background:#E0C068;
+	border-color: #927D44;
+	border: 2px solid #927D44;
+}
+.psychic-type {
+	background:#F85888;
+	border-color: #A13959;
+	border: 2px solid #A13959;
+}
+.rock-type {
+	background:#B8A038;
+	border-color: #786824;
+	border: 2px solid #786824;
+}
+.ice-type {
+	background:#98D8D8;
+	border-color: #638D8D;
+	border: 2px solid #638D8D;
+}
+.bug-type {
+	background:#A8B820;
+	border-color: #6D7815;
+	border: 2px solid #6D7815;
+}
+.dragon-type {
+	background:#7038F8;
+	border-color: #4924A1;
+	border: 2px solid #4924A1;
+}
+.ghost-type {
+	background:#705898;
+	border-color: #493963;
+	border: 2px solid #493963;
+}
+.dark-type {
+	background:#705848;
+	border-color: #49392F;
+	border: 2px solid #49392F;
+}
+.steel-type {
+	background:#B8B8D0;
+	border-color: #787887;
+	border: 2px solid #787887;
+}
+.fairy-type {
+	background:#EE99AC;
+	border-color: #9B6470;
+	border: 2px solid #9B6470;
+}
+.questionquestionquestion-type {
+	background:#68A090;
+	border-color: #44685E;
+	border: 2px solid #44685E;
+}
+.bird-type {
+	background:#68A090;
+	border-color: #68A090;
+	border: 2px solid #68A090;
+}
+.fake-type {
+	background:#68A090;
+	border-color: #68A090;
+	border: 2px solid #68A090;
+}
+.no-type {
+}
+
+.hide {
+	table-layout: fixed;
+    visibility: hidden;
+    height: 0px;
+	width: 0px;
+    line-height: 0px;
+    font-size: 0px;
+    padding 0px; 
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+    border-spacing: 0px;
+	border: 0px solid;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-radius: 0px;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-khtml-border-radius: 0px;
+	-icab-border-radius: 0px;
+	-o-border-radius: 0px;
+	margin-left: 0px; 
+	margin-bottom: 0px;
+	min-height: 0px;
+	max-height: 0px;
+	display: none;
+}
+
+.hide thead {
+  border: 0px solid black;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  display: none;
+}
+.hide tbody {
+  border: 0px solid black;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  display: none;
+}
+.hide tr {
+	border: 0px solid black;
+	height: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	display: none;
+}
+.hide th {
+	font-size: 0;
+	border: 0px solid black;
+	height: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	display: none;
+}
+.hide td {
+	font-size: 0;
+	border: 0px solid black;
+	height: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	display: none;
+}
+
+.hide-vertical {
+    visibility: hidden;
+	width: 0;
+	height: 24px;
+	padding-left: 0px;
+	padding-right: 0px;
+	border-left: 0px;
+	border-right: 0px;	
+	border-left-width: 0px;
+	border-right-width: 0px;
+}
