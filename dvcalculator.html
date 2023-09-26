@@ -1,0 +1,360 @@
+<html>
+	<head>
+		<script src="Model/Yellow/SpeciesNameLookup.js"></script>
+		<script src="Model/Yellow/SpeciesImageLookup.js"></script>
+		<script src="Model/Yellow/PokemonStatsLookup.js"></script>
+		<script src="Model/Yellow/PokemonMechanics.js"></script>
+		<script src="Util/ElementUtils.js"></script>
+		<script type="text/javascript">
+			var selectList = null;
+			var pokemonSpecies = null;
+			var attackDv = null;
+			var defenseDv = null;
+			var speedDv = null;
+			var specialDv = null;
+			var baseHp = null;
+			var baseAtk = null;
+			var baseDef = null;
+			var baseSpd = null;
+			var baseSpc = null;
+			var selectedPokemon = null;
+			var selectedPokemonDex = null;
+			var selectedPokemonSpecies = null;
+			var pokemonImage = null;
+			var level = null;
+			var hp = null;
+			var atk = null;
+			var def = null;
+			var spd = null;
+			var spc = null;
+			var hpExpObj = null;
+			var atkExpObj = null;
+			var defExpObj = null;
+			var spdExpObj = null;
+			var spcExpObj = null;
+			
+			var atkDV = "0";
+			var defDV = "0";
+			var spdDV = "0";
+			var spcDV = "0";
+			var curLevel = "5";
+			var hpStatExp = "0";
+			var atkStatExp = "0";
+			var defStatExp = "0";
+			var spdStatExp = "0";
+			var spcStatExp = "0";
+			
+			function onSubmit() {
+				alert("submit");
+			}
+			
+			function onLoad() {
+				selectList = ElementUtils.getChildById(document.body, "pokemon_select");
+				pokemonSpecies = ElementUtils.getChildById(document.body, "pokemon_species");
+				attackDv = ElementUtils.getChildById(document.body, "attack_dv");
+				defenseDv = ElementUtils.getChildById(document.body, "defense_dv");
+				speedDv = ElementUtils.getChildById(document.body, "speed_dv");
+				specialDv = ElementUtils.getChildById(document.body, "special_dv");
+				baseHp = ElementUtils.getChildById(document.body, "base_hp");
+				baseAtk = ElementUtils.getChildById(document.body, "base_atk");
+				baseDef = ElementUtils.getChildById(document.body, "base_def");
+				baseSpd = ElementUtils.getChildById(document.body, "base_spd");
+				baseSpc = ElementUtils.getChildById(document.body, "base_spc");
+				hp = ElementUtils.getChildById(document.body, "hp");
+				atk = ElementUtils.getChildById(document.body, "atk");
+				def = ElementUtils.getChildById(document.body, "def");
+				spd = ElementUtils.getChildById(document.body, "spd");
+				spc = ElementUtils.getChildById(document.body, "spc");
+				pokemonImage = ElementUtils.getChildById(document.body, "pokemon_image");
+				level = ElementUtils.getChildById(document.body, "level");
+				hpExpObj = ElementUtils.getChildById(document.body, "hp_exp");
+				atkExpObj = ElementUtils.getChildById(document.body, "atk_exp");
+				defExpObj = ElementUtils.getChildById(document.body, "def_exp");
+				spdExpObj = ElementUtils.getChildById(document.body, "spd_exp");
+				spcExpObj = ElementUtils.getChildById(document.body, "spc_exp");
+				
+				//console.log("selectList", selectList);
+				//console.log("pokemonSpecies", pokemonSpecies);
+				//console.log("attackDv", attackDv);
+				//console.log("defenseDv", defenseDv);
+				//console.log("speedDv", speedDv);
+				//console.log("specialDv", specialDv);
+				//console.log("baseHp", baseHp);
+				//console.log("baseAtk", baseAtk);
+				//console.log("baseDef", baseDef);
+				//console.log("baseSpd", baseSpd);
+				//console.log("baseSpc", baseSpc);
+				//console.log("hpExpObj", hpExpObj);
+				//console.log("atkExpObj", atkExpObj);
+				//console.log("defExpObj", defExpObj);
+				//console.log("spdExpObj", spdExpObj);
+				//console.log("spcExpObj", spcExpObj);
+				
+				for(var i = PokemonMechanics.getMinimumPokedexId(); i <= PokemonMechanics.getMaximumPokedexId(); i++) {
+					var option = document.createElement("option");
+					option.value = i;
+					option.text = SpeciesNameLookup[i];
+					selectList.appendChild(option);
+				}
+			}
+			
+			function onSelect(selectObject) {
+				if(selectObject && selectObject.value !== "") {
+					var value = selectObject.value;
+					var pokemon = (PokemonStatsLookup && PokemonStatsLookup[value]) ? PokemonStatsLookup[value] : null;
+					if(pokemon) {
+						//console.log("pokemon", ":", pokemon, "selectObject", selectObject, "selectedPokemonDex", selectObject.value);
+						selectedPokemon = pokemon;
+						selectedPokemonDex = selectObject.value;
+						selectedPokemonSpecies = selectList[selectList.selectedIndex].text;
+						updateDVs();
+					} else {
+						clearDVs();
+					}
+				} else {
+					clearDVs();
+				}
+			}
+			
+			function onDVChange(dvObject) {
+				//console.log("dvObject", ":", dvObject);
+				
+				if(attackDv == dvObject) {
+					//console.log("atkDV");
+					atkDV = dvObject.value;
+				} else if(defenseDv == dvObject) {
+					//console.log("defDV");
+					defDV = dvObject.value;
+				} else if(speedDv == dvObject) {
+					//console.log("spdDV");
+					spdDV = dvObject.value;
+				} else if(specialDv == dvObject) {
+					//console.log("spcDV");
+					spcDV = dvObject.value;
+				}
+				if(selectedPokemon) {
+					updateDVs();
+				} else {
+					clearDVs();
+				}
+			}
+			
+			function onEXPChange(expObject) {
+				//console.log("expObject", ":", expObject);
+				
+				if(expObject == hpExpObj) {
+					hpStatExp = expObject.value;
+				} else if(expObject == atkExpObj) {
+					atkStatExp = expObject.value;
+				} else if(expObject == defExpObj) {
+					defStatExp = expObject.value;
+				} else if(expObject == spdExpObj) {
+					spdStatExp = expObject.value;
+				} else if(expObject == spcExpObj) {
+					spcStatExp = expObject.value;
+				}
+				if(selectedPokemon) {
+					updateDVs();
+				} else {
+					clearDVs();
+				}
+			}
+			
+			function onLevelChange(obj) {
+				//console.log("level", ":", level);
+				curLevel = level.value;
+				if(selectedPokemon) {
+					updateDVs();
+				} else {
+					clearDVs();
+				}
+			}
+			
+			function updateDVs() {
+				pokemonSpecies.innerHTML = selectedPokemonSpecies;
+				//console.log("SpeciesImageLookup", ":", SpeciesImageLookup);
+				//console.log("image", ":", SpeciesImageLookup.image[selectedPokemonDex]);
+				pokemonImage.src = SpeciesImageLookup.image[selectedPokemonDex];
+				
+				baseHp.innerHTML = selectedPokemon.base_stats.hp;
+				baseAtk.innerHTML = selectedPokemon.base_stats.atk;
+				baseDef.innerHTML = selectedPokemon.base_stats.def;
+				baseSpd.innerHTML = selectedPokemon.base_stats.spd;
+				baseSpc.innerHTML = selectedPokemon.base_stats.spc;
+				
+				var hpDV = 0;
+				var curhp = PokemonMechanics.getHP(parseInt(atkDV), parseInt(defDV), parseInt(spdDV), parseInt(spcDV), 
+												hpDV, parseInt(curLevel), selectedPokemon.base_stats.hp, parseInt(hpStatExp));
+				var curatk = PokemonMechanics.getAtk(parseInt(atkDV), parseInt(defDV), parseInt(spdDV), parseInt(spcDV), 
+												hpDV, parseInt(curLevel), selectedPokemon.base_stats.atk, parseInt(atkStatExp));
+				var curdef = PokemonMechanics.getDef(parseInt(atkDV), parseInt(defDV), parseInt(spdDV), parseInt(spcDV), 
+												hpDV, parseInt(curLevel), selectedPokemon.base_stats.def, parseInt(defStatExp));
+				var curspd = PokemonMechanics.getSpd(parseInt(atkDV), parseInt(defDV), parseInt(spdDV), parseInt(spcDV), 
+												hpDV, parseInt(curLevel), selectedPokemon.base_stats.spd, parseInt(spdStatExp));
+				var curspc = PokemonMechanics.getSpc(parseInt(atkDV), parseInt(defDV), parseInt(spdDV), parseInt(spcDV), 
+												hpDV, parseInt(curLevel), selectedPokemon.base_stats.spc, parseInt(spcStatExp));
+				hp.innerHTML = curhp;
+				atk.innerHTML = curatk;
+				def.innerHTML = curdef;
+				spd.innerHTML = curspd;
+				spc.innerHTML = curspc;
+			}
+
+			function clearDVs() {
+				pokemonSpecies.innerHTML = "";
+				pokemonImage.src = SpeciesImageLookup.image[""];
+				baseHp.innerHTML = "";
+				baseAtk.innerHTML = "";
+				baseDef.innerHTML = "";
+				baseSpd.innerHTML = "";
+				baseSpc.innerHTML = "";
+			}
+			
+		</script>
+	</head>
+	<body onload="onLoad();">
+		<form onsubmit="onSubmit(); return false;">
+			<table>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td>
+									<select name="pokemon_select" id="pokemon_select" onchange="onSelect(this);">
+										<option value="">Select pokemon</option>
+									</select>
+								</td>
+								<td>
+									Attack DV: <input type="number" id="attack_dv" name="attack_dv" onchange="onDVChange(this);" min="0" max="15" value="0" />
+								</td>
+								<td>
+									Defense DV: <input type="number" id="defense_dv" name="defense_dv" onchange="onDVChange(this);" min="0" max="15" value="0" />
+								</td>
+								<td>
+									Speed DV: <input type="number" id="speed_dv" name="speed_dv" onchange="onDVChange(this);" min="0" max="15" value="0" />
+								</td>
+								<td>
+									Special DV: <input type="number" id="special_dv" name="special_dv" onchange="onDVChange(this);" min="0" max="15" value="0" />
+								</td>
+								<td>
+									Level: <input type="number" id="level" name="level" onchange="onLevelChange(this);" min="0" max="100" value="5" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									HP Stat Exp: <input type="number" id="hp_exp" name="hp_exp" onchange="onEXPChange(this);" min="0" max="65535" value="0" />
+								</td>
+								<td>
+									Attack Stat Exp: <input type="number" id="atk_exp" name="atk_exp" onchange="onEXPChange(this);" min="0" max="65535" value="0" />
+								</td>
+								<td>
+									Defense Stat Exp: <input type="number" id="def_exp" name="def_exp" onchange="onEXPChange(this);" min="0" max="65535" value="0" />
+								</td>
+								<td>
+									Speed Stat Exp: <input type="number" id="spd_exp" name="spd_exp" onchange="onEXPChange(this);" min="0" max="65535" value="0" />
+								</td>
+								<td>
+									Special Stat Exp: <input type="number" id="spc_exp" name="spc_exp" onchange="onEXPChange(this);" min="0" max="65535" value="0" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<b>Pokemon:</b>
+								</td>
+								<td>
+									<p name="pokemon_species" id="pokemon_species"></p>
+								</td>
+								<td>
+									<img name="pokemon_image" id="pokemon_image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" width="64" height="64" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<b>Base HP:</b>
+								</td>
+								<td>
+									<p id="base_hp" name="base_hp"></p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<b>Base ATK:</b>
+								</td>
+								<td>
+									<p id="base_atk" name="base_atk"></p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<b>Base DEF:</b>
+								</td>
+								<td>
+									<p id="base_def" name="base_def"></p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<b>Base SPD:</b>
+								</td>
+								<td>
+									<p id="base_spd" name="base_spd"></p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<b>Base SPC:</b>
+								</td>
+								<td>
+									<p id="base_spc" name="base_spc"></p>
+								</td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>
+									<b>HP:</b>
+								</td>
+								<td>
+									<p id="hp" name="hp"></p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<b>ATK:</b>
+								</td>
+								<td>
+									<p id="atk" name="atk"></p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<b>DEF:</b>
+								</td>
+								<td>
+									<p id="def" name="def"></p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<b>SPD:</b>
+								</td>
+								<td>
+									<p id="spd" name="spd"></p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<b>SPC:</b>
+								</td>
+								<td>
+									<p id="spc" name="spc"></p>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>
