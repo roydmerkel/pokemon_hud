@@ -1,4 +1,4 @@
-import styles from './App.module';
+import * as styles from './App.module';
 import SamplePage from '@pages/Sample';
 import './main.css';
 
