@@ -35,14 +35,21 @@ my $POKEMON_EGG_MOVES_POINTERS_MEMORY_START;
 # parse the index order and constant names.
 binmode(STDOUT, ":utf8") or die "Cannot set STDOUT to binary mode: $!";
 
-if ($#ARGV != 0)
+if ($#ARGV != 1)
 {
 	print("argc: $#ARGV\n");
-	print("wrong number of args: expected: $0 <rom file>\n");
+	print("wrong number of args: expected: $0 <rom file> <dissasembly root>\n");
 	die();
 }
 
 my $romfile = $ARGV[0];
+my $disassembyDir = $ARGV[1];
+
+if(! -d $disassembyDir)
+{
+	print("unknown dissassembly dir: $disassembyDir\n");
+	die();
+}
 
 # move and tm data lookup tables.
 my %movesLookup = ();
@@ -57,7 +64,7 @@ my %moveConstToTmMap = ();
 my %moveConstToHmMap = ();
 my %moveConstToMTMap = ();
 # Read the move constants into a string.
-open(my $moveconstantsfh, "<:encoding(utf8)", "constants/move_constants.asm") or die "Could not open constants/move_constants.asm: $!";
+open(my $moveconstantsfh, "<:encoding(utf8)", "$disassembyDir/constants/move_constants.asm") or die "Could not open $disassembyDir/constants/move_constants.asm: $!";
 
 my $moveConstantsData = "";
 my $namesLength = 0;
@@ -85,7 +92,7 @@ while ($moveConstantsData =~ /const\s+([^\s]*)\s*;\s*([0-9A-Fa-f]{2,2})/sg) {
 }
 
 # Parse the item constants file
-open(my $itemconstantsfh, "<:encoding(utf8)", "constants/item_constants.asm") or die "Could not open constants/item_constants.asm: $!";
+open(my $itemconstantsfh, "<:encoding(utf8)", "$disassembyDir/constants/item_constants.asm") or die "Could not open $disassembyDir/constants/item_constants.asm: $!";
 
 my $curTM = 1;
 my $curHM = 1;
@@ -170,7 +177,7 @@ else
 }
 
 # parse the rom file.
-open(my $pokemonconstantsfh, "<:encoding(utf8)", "constants/pokemon_constants.asm") or die "Could not open constants/pokemon_constants.asm: $!";
+open(my $pokemonconstantsfh, "<:encoding(utf8)", "$disassembyDir/constants/pokemon_constants.asm") or die "Could not open $disassembyDir/constants/pokemon_constants.asm: $!";
 
 my %pokemonIndexToConstantsLookup = ();
 my %pokemonConstantsToIndicesLookup = ();
@@ -476,7 +483,20 @@ for(my $i = 0; $i < 256; $i++)
 			}
 			else
 			{
-				$levelup{$level} = $move;
+				if(exists $levelup{$level} && defined $levelup{$level})
+				{
+					if(!ref($levelup{$level}))
+					{
+						my @movearr = ();
+						push(@movearr, $levelup{$level});
+						$levelup{$level} = \@movearr;
+					}
+					push(@{$levelup{$level}}, $move);
+				}
+				else
+				{
+					$levelup{$level} = $move;
+				}
 			}
 		}
 	}
@@ -547,7 +567,7 @@ for(my $i = 0; $i < 256; $i++)
 }
 
 # Parse the charmap
-open(my $pokemonnamesfh, "<:encoding(utf8)", "data/pokemon/names.asm") or die "Could not open data/pokemon/names.asm: $!";
+open(my $pokemonnamesfh, "<:encoding(utf8)", "$disassembyDir/data/pokemon/names.asm") or die "Could not open $disassembyDir/data/pokemon/names.asm: $!";
 
 my %pokemonNames = ();
 my $curPokemonIdx = 0;
@@ -623,13 +643,13 @@ function PokemonMovesLookup() {
 }
 
 var pokemon_tms_lookup = {
-	"": { initial: [ ],
-			levelup: {}, 
-			tms: [ ], 
-			hms: [ ], 
-			mts: [ ],
-			egg_moves: [ ],
-	}, // undefined / default value. 
+		"": { initial: [ ],
+				levelup: {}, 
+				tms: [ ], 
+				hms: [ ], 
+				mts: [ ],
+				egg_moves: [ ],
+		}, // undefined / default value. 
 END
 for(my $i = 0; $i < 256; $i++)
 {
@@ -649,10 +669,10 @@ for(my $i = 0; $i < 256; $i++)
 	my @hms = sort {$a <=> $b} @hmsUnsorted;
 	my @mts = sort {$a <=> $b} @mtsUnsorted;
 	my @eggMoves = sort {$a <=> $b} @eggMovesUnsorted;
-	printf("\t%d: { initial: [ %s ],\n\t\t\tlevelup: { \n%s\t\t\t},\n\t\t\ttms: [ %s ],\n\t\t\thms: [ %s ],\n\t\t\tmts: [ %s ],\n\t\t\tegg_moves: [ %s ],\n\t}, // %s\n",
+	printf("\t\t%d: { initial: [ %s ],\n\t\t\t\tlevelup: { \n%s\t\t\t\t},\n\t\t\t\ttms: [ %s ],\n\t\t\t\thms: [ %s ],\n\t\t\t\tmts: [ %s ],\n\t\t\t\tegg_moves: [ %s ],\n\t\t}, // %s\n",
 		$i, 
 		join(", ", map { sprintf ("%d", $_) } @initialUnsorted),
-		join("", map { sprintf ("\t\t\t\t%d: %d\n", $_, $levelupHash{$_}) } @levelupKeys),
+		join("", map { (ref($levelupHash{$_}) ? sprintf ("\t\t\t\t\t%d: [ %s ],\n", $_, join(", ", @{$levelupHash{$_}})) : sprintf ("\t\t\t\t\t%d: %d,\n", $_, $levelupHash{$_})) } @levelupKeys),
 		join(", ", map { sprintf ("%d", $_) } @tms),
 		join(", ", map { sprintf ("%d", $_) } @hms),
 		join(", ", map { sprintf ("%d", $_) } @mts),
