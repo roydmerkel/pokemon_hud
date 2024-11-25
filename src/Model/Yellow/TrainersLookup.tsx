@@ -1,4 +1,4 @@
-const TrainersLookup() = () => {
+export class TrainersLookup {
 	private static objMap = (obj, process, shouldProcess) => {
 		return Object.fromEntries(
 			Object.entries(obj).map(([k, v]) => 
@@ -26,7 +26,7 @@ const TrainersLookup() = () => {
 			image: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D",
 			reference: "https://stackoverflow.com/a/19126281",
 			teams: {
-				"": { name: "" }
+				"": { name: "" },
 				"0": { name: "" },
 			}
 		}, // undefined / default value. 
@@ -134,7 +134,7 @@ const TrainersLookup() = () => {
 			name: "JR.TRAINER\u2642",
 			class: "JrTrainerM",
 			//image: "https://archives.bulbagarden.net/wiki/File:Spr_FRLG_Camper.png",
-			image: "https://static.merkelhaus.us/overlayimages/trainers/File:Spr_FRLG_Camper.png",
+			image: "https://static.merkelhaus.us/overlayimages/trainers/Spr_FRLG_Camper.png",
 			reference: "https://archives.bulbagarden.net/wiki/File:Spr_FRLG_Camper.png",
 			teams: {
 				"": { name: "" },
@@ -663,10 +663,10 @@ const TrainersLookup() = () => {
 				"39": { name: "GRUNT" },
 				"40": { name: "GRUNT" },
 				"41": { name: "GRUNT" },
-				"42": { fullname: "TEAM ROCKET", image: "https://static.merkelhaus.us/overlayimages/trainers/team_rocket_jessie_james__ingame_battle_sprite__by_ogjazz_defuy5c-fullview.png" },
-				"43": { fullname: "TEAM ROCKET", image: "https://static.merkelhaus.us/overlayimages/trainers/team_rocket_jessie_james__ingame_battle_sprite__by_ogjazz_defuy5c-fullview.png" },
-				"44": { fullname: "TEAM ROCKET", image: "https://static.merkelhaus.us/overlayimages/trainers/team_rocket_jessie_james__ingame_battle_sprite__by_ogjazz_defuy5c-fullview.png" },
-				"45": { fullname: "TEAM ROCKET", image: "https://static.merkelhaus.us/overlayimages/trainers/team_rocket_jessie_james__ingame_battle_sprite__by_ogjazz_defuy5c-fullview.png" },
+				"42": { fullname: "TEAM ROCKET", image: "https://static.merkelhaus.us/overlayimages/trainers/team_rocket_jessie_james__ingame_battle_sprite__by_ogjazz_defuy5c-fullview.png", reference: "https://www.deviantart.com/ogjazz/art/Team-Rocket-Jessie-James-Ingame-Battle-Sprite-873164640" },
+				"43": { fullname: "TEAM ROCKET", image: "https://static.merkelhaus.us/overlayimages/trainers/team_rocket_jessie_james__ingame_battle_sprite__by_ogjazz_defuy5c-fullview.png", reference: "https://www.deviantart.com/ogjazz/art/Team-Rocket-Jessie-James-Ingame-Battle-Sprite-873164640" },
+				"44": { fullname: "TEAM ROCKET", image: "https://static.merkelhaus.us/overlayimages/trainers/team_rocket_jessie_james__ingame_battle_sprite__by_ogjazz_defuy5c-fullview.png", reference: "https://www.deviantart.com/ogjazz/art/Team-Rocket-Jessie-James-Ingame-Battle-Sprite-873164640" },
+				"45": { fullname: "TEAM ROCKET", image: "https://static.merkelhaus.us/overlayimages/trainers/team_rocket_jessie_james__ingame_battle_sprite__by_ogjazz_defuy5c-fullview.png", reference: "https://www.deviantart.com/ogjazz/art/Team-Rocket-Jessie-James-Ingame-Battle-Sprite-873164640" },
 				"46": { name: "GRUNT" },
 				"47": { name: "GRUNT" },
 				"48": { name: "GRUNT" },
@@ -917,10 +917,8 @@ const TrainersLookup() = () => {
 		},
 	};
   
-	private static trainersLookupTeamsMap = this.objMap(this.trainersLookupKV, (k, v) => { k === "teams" ? new Map(Object.entries(v)) : v; }, (k, v) => { return k !== "teams"; });
+	private static trainersLookupTeamsMap = this.objMap(this.trainersLookupKV, (k, v) => { return k === "teams" ? new Map(Object.entries(v)) : v; }, (k, v) => { return k !== "teams"; });
 	public static trainersLookup = new Map(Object.entries(this.trainersLookupTeamsMap));
-
-	return ( <></> );
 };
 
 export default TrainersLookup;

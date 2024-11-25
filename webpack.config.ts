@@ -10,6 +10,68 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 const plugins: webpack.WebpackPluginInstance[] = [
   new HTMLWebpackPlugin({
     template: './public/index.html',
+	filename: 'index.html',
+	chunks: ['index'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testredmons.html',
+	filename: 'testredmons.html',
+	chunks: ['testredmons'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testyellowmons.html',
+	filename: 'testyellowmons.html',
+	chunks: ['testyellowmons'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testredindexes.html',
+	filename: 'testredindexes.html',
+	chunks: ['testredindexes'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testyellowindexes.html',
+	filename: 'testyellowindexes.html',
+	chunks: ['testyellowindexes'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testgoldmons.html',
+	filename: 'testgoldmons.html',
+	chunks: ['testgoldmons'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testcrystalmons.html',
+	filename: 'testcrystalmons.html',
+	chunks: ['testcrystalmons'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testgoldindexes.html',
+	filename: 'testgoldindexes.html',
+	chunks: ['testgoldindexes'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testcrystalindexes.html',
+	filename: 'testcrystalindexes.html',
+	chunks: ['testcrystalindexes'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testredtrainers.html',
+	filename: 'testredtrainers.html',
+	chunks: ['testredtrainers'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testyellowtrainers.html',
+	filename: 'testyellowtrainers.html',
+	chunks: ['testyellowtrainers'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testgoldtrainers.html',
+	filename: 'testgoldtrainers.html',
+	chunks: ['testgoldtrainers'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testcrystaltrainers.html',
+	filename: 'testcrystaltrainers.html',
+	chunks: ['testcrystaltrainers'],
   }),
 ];
 isDevelopment
@@ -22,10 +84,24 @@ const config: webpack.Configuration = {
     hot: true,
     port: 3000,
   },
-  entry: './src/index.tsx',
+  entry: {
+    index: './src/index.tsx',
+    testredmons: './src/testredmons.tsx',
+    testyellowmons: './src/testyellowmons.tsx',
+    testredindexes: './src/testredindexes.tsx',
+    testyellowindexes: './src/testyellowindexes.tsx',
+    testgoldmons: './src/testgoldmons.tsx',
+    testcrystalmons: './src/testcrystalmons.tsx',
+    testgoldindexes: './src/testgoldindexes.tsx',
+    testcrystalindexes: './src/testcrystalindexes.tsx',
+    testredtrainers: './src/testredtrainers.tsx',
+    testyellowtrainers: './src/testyellowtrainers.tsx',
+    testgoldtrainers: './src/testgoldtrainers.tsx',
+    testcrystaltrainers: './src/testcrystaltrainers.tsx',
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'index.js',
+    filename: '[name].js',
     // more configurations: https://webpack.js.org/configuration/
   },
   plugins,

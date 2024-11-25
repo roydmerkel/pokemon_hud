@@ -1,4 +1,4 @@
-const TrainersLookup() = () => {
+export class TrainersLookup {
 	private static objMap = (obj, process, shouldProcess) => {
 		return Object.fromEntries(
 			Object.entries(obj).map(([k, v]) => 
@@ -1282,10 +1282,8 @@ const TrainersLookup() = () => {
 		},
 	};
   
-	private static trainersLookupTeamsMap = this.objMap(this.trainersLookupKV, (k, v) => { k === "teams" ? new Map(Object.entries(v)) : v; }, (k, v) => { return k !== "teams"; });
+	private static trainersLookupTeamsMap = this.objMap(this.trainersLookupKV, (k, v) => { return k === "teams" ? new Map(Object.entries(v)) : v; }, (k, v) => { return k !== "teams"; });
 	public static trainersLookup = new Map(Object.entries(this.trainersLookupTeamsMap));
-
-	return ( <></> );
 };
 
 export default TrainersLookup;
