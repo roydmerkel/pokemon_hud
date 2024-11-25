@@ -1,8 +1,8 @@
 export class SpeciesImageLookup {
 	private static pokemonImageLookupKV = {
 		"": "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D",
-		//"0": "https://static.wikitide.net/glitchcitywiki/a/a2/S_C000_front.png",
-		"0": "https://static.merkelhaus.us/overlayimages/pokemon/S_C000_front.png",
+		//"0": "https://static.wikitide.net/glitchcitywiki/a/a2/S_C000_front.webp",
+		"0": "https://static.merkelhaus.us/overlayimages/pokemon/S_C000_front.webp",
 		//"1": "https://img.pokemondb.net/sprites/black-white/anim/normal/bulbasaur.gif",
 		"1": "https://static.merkelhaus.us/overlayimages/pokemon/bulbasaur.gif",
 		//"2": "https://img.pokemondb.net/sprites/black-white/anim/normal/ivysaur.gif",
@@ -507,14 +507,14 @@ export class SpeciesImageLookup {
 		//"251": "https://img.pokemondb.net/sprites/black-white/anim/normal/celebi.gif",
 		"251": "https://static.merkelhaus.us/overlayimages/pokemon/celebi.gif",
 		
-		//"252": "https://static.wikitide.net/glitchcitywiki/2/24/S_C252_front.png",
-		"252": "https://static.merkelhaus.us/overlayimages/pokemon/S_C252_front.png",
-		//"253": "https://static.wikitide.net/glitchcitywiki/2/28/S_Gen_II_Egg.png",
-		"253": "https://static.merkelhaus.us/overlayimages/pokemon/S_Gen_II_Egg.png",
-		//"254": "https://static.wikitide.net/glitchcitywiki/2/26/S_C254_front.png",
-		"254": "https://static.merkelhaus.us/overlayimages/pokemon/S_C254_front.png",
-		//"255": "https://static.wikitide.net/glitchcitywiki/3/37/S_C255_front.png",
-		"255": "https://static.merkelhaus.us/overlayimages/pokemon/S_C255_front.png",
+		//"252": "https://static.wikitide.net/glitchcitywiki/2/24/S_C252_front.webp",
+		"252": "https://static.merkelhaus.us/overlayimages/pokemon/S_C252_front.webp",
+		//"253": "https://static.wikitide.net/glitchcitywiki/2/28/S_Gen_II_Egg.webp",
+		"253": "https://static.merkelhaus.us/overlayimages/pokemon/S_Gen_II_Egg.webp",
+		//"254": "https://static.wikitide.net/glitchcitywiki/2/26/S_C254_front.webp",
+		"254": "https://static.merkelhaus.us/overlayimages/pokemon/S_C254_front.webp",
+		//"255": "https://static.wikitide.net/glitchcitywiki/3/37/S_C255_front.webp",
+		"255": "https://static.merkelhaus.us/overlayimages/pokemon/S_C255_front.webp",
 	};
 
 	private static pokemonImageSourceKV = {

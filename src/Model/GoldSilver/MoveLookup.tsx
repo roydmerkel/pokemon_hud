@@ -253,9 +253,9 @@ export class MoveLookup {
         250: { name: "WHIRLPOOL", pp: 15, accuracy: 178, power: 15, type: 0x15 },
         251: { name: "BEAT UP", pp: 10, accuracy: 255, power: 10, type: 0x1b },
         252: { name: "\0\0\0\0\0\0\0\0\0\0\0\0", pp: 250, accuracy: 119, power: 208, type: 0xaf },
-        253: { name: "\x{30D7}\x{2514}\x{30D7}a\x{30D7}\x{00F6}\x{30D7}\x{FF9E}\x{30D7}\x{30B0}\x{30DD}\x{3056}", pp: 115, accuracy: 205, power: 6, type: 0x01 },
-        254: { name: "\x{3077}\x{2500}\x{3077};\x{3077}\x{00C4}\x{3077}\x{308B}\x{3077}9\x{3077}\n", pp: 234, accuracy: 61, power: 84, type: 0xd1 },
-        255: { name: "\n\x{3049}\n)\n\x{3055}\n\x{3092}\n9\n\n", pp: 34, accuracy: 33, power: 197, type: 0xd5 },
+        253: { name: "\u{30D7}\u{2514}\u{30D7}a\u{30D7}\u{00F6}\u{30D7}\u{FF9E}\u{30D7}\u{30B0}\u{30DD}\u{3056}", pp: 115, accuracy: 205, power: 6, type: 0x01 },
+        254: { name: "\u{3077}\u{2500}\u{3077};\u{3077}\u{00C4}\u{3077}\u{308B}\u{3077}9\u{3077}\n", pp: 234, accuracy: 61, power: 84, type: 0xd1 },
+        255: { name: "\n\u{3049}\n)\n\u{3055}\n\u{3092}\n9\n\n", pp: 34, accuracy: 33, power: 197, type: 0xd5 },
 	};
   
 	private static keyValuePairs = Object.entries(this.moveLookupKV);

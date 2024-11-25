@@ -252,10 +252,10 @@ export class MoveLookup {
         249: { name: "ROCK SMASH", pp: 15, accuracy: 255, power: 20, type: 0x01 },
         250: { name: "WHIRLPOOL", pp: 15, accuracy: 178, power: 15, type: 0x15 },
         251: { name: "BEAT UP", pp: 10, accuracy: 255, power: 10, type: 0x1b },
-        252: { name: "\x{FF9E}\x{1D40B}\x{304C}\0\x{3052}\x{3052}\x{30C5}\x{00E4}\x{1D408}\x{30D0}\x{3054}.", pp: 250, accuracy: 119, power: 209, type: 0xaf },
-        253: { name: "\x{2026}\x{2026}Pk\x{306E}\x{FF9E}'t\x{00FC}\x{1D40B}\x{304C}\0", pp: 119, accuracy: 205, power: 6, type: 0x01 },
-        254: { name: "&\x{FE55}POKE\x{1D40C}\n", pp: 234, accuracy: 61, power: 104, type: 0xd2 },
-        255: { name: "\x{1D40B}POKE\x{00B7}.\x{FE55}\x{30DC}\x{00B7}e\x{1D412}", pp: 215, accuracy: 33, power: 197, type: 0xd5 },
+        252: { name: "\u{FF9E}\u{1D40B}\u{304C}\0\u{3052}\u{3052}\u{30C5}\u{00E4}\u{1D408}\u{30D0}\u{3054}.", pp: 250, accuracy: 119, power: 209, type: 0xaf },
+        253: { name: "\u{2026}\u{2026}Pk\u{306E}\u{FF9E}'t\u{00FC}\u{1D40B}\u{304C}\0", pp: 119, accuracy: 205, power: 6, type: 0x01 },
+        254: { name: "&\u{FE55}POKE\u{1D40C}\n", pp: 234, accuracy: 61, power: 104, type: 0xd2 },
+        255: { name: "\u{1D40B}POKE\u{00B7}.\u{FE55}\u{30DC}\u{00B7}e\u{1D412}", pp: 215, accuracy: 33, power: 197, type: 0xd5 },
 	};
   
 	private static keyValuePairs = Object.entries(this.moveLookupKV);
