@@ -1936,6 +1936,82 @@ else
 	}
 }
 
+# add the event moves.
+my $eventPokemon = $eventPokemonByGen{int($gen)};
+for(my $i = 0; $i < 256; $i++)
+{
+	my @eventMoves = ();
+	my $pokemons = (defined $$eventPokemon{$i} && exists $$eventPokemon{$i}) ? $$eventPokemon{$i} : undef;
+	
+	my $pokemonMoveset = $pokemonMoves{$i};
+	if($pokemons)
+	{
+		my @moves = ();
+		for my $tm (@{$$pokemonMoveset{"tms"}})
+		{
+			push(@moves, $tmToMoveConstMap{$tm});
+		}
+		for my $hm (@{$$pokemonMoveset{"hms"}})
+		{
+			push(@moves, $hmToMoveConstMap{$hm});
+		}
+		for my $mt (@{$$pokemonMoveset{"mts"}})
+		{
+			push(@moves, $mtToMoveConstMap{$mt});
+		}
+		for my $initial (@{$$pokemonMoveset{"initial"}})
+		{
+			push(@moves, $moveConstantsLookup{$initial});
+		}
+		
+		for my $level (sort { $a <=> $b } (keys %{$$pokemonMoveset{"levelup"}}))
+		{
+			my $move = $moveConstantsLookup{${$$pokemonMoveset{"levelup"}}{$level}};
+			push(@moves, $move);
+		}
+			
+		for my $pokemon (@{$pokemons})
+		{
+			for my $move (@{$$pokemon{"moves"}})
+			{
+				my $found = (1 == 0);
+				for my $m (@moves)
+				{
+					if($m eq $move)
+					{
+						$found = (1 == 1);
+						last;
+					}
+				}
+				if(!$found)
+				{
+					my $alreadyInList = (1 == 0);
+					for my $eventMove (@eventMoves)
+					{
+						if($move eq $eventMove)
+						{
+							$alreadyInList = (1 == 1);
+							last;
+						}
+					}
+					if(!$alreadyInList)
+					{
+						push(@eventMoves, $move);
+					}
+				}
+			}
+		}
+		
+		my @eventMoveIds = ();
+		for my $moveConstant (@eventMoves)
+		{
+			push(@eventMoveIds, $movesLookup{$moveConstant});
+		}
+		@eventMoves = @eventMoveIds;
+	}
+	$$pokemonMoveset{"event_moves"} = \@eventMoves;
+}
+
 # Parse the charmap
 open(my $pokemonnamesfh, "<:encoding(utf8)", "$disassembyDir/data/pokemon/names.asm") or die "Could not open $disassembyDir/data/pokemon/names.asm: $!";
 
@@ -1982,7 +2058,7 @@ while(<$pokemonnamesfh>) {
 #print(Dumper($numMTs));
 #print(Dumper(\%pokemonStats));
 #print(Dumper(\%pokemonMoves));
-print(Dumper(\%pokemonNames));
+#print(Dumper(\%pokemonNames));
 
 #print(Dumper(\%pokedexToIndexLookup));
 #print(Dumper(\%indexToPokedexLookup));
@@ -2056,6 +2132,7 @@ var pokemon_tms_lookup = {
 				hms: [ ], 
 				mts: [ ],
 				egg_moves: [ ],
+				event_moves: [ ],
 		}, // undefined / default value. 
 END
 for(my $i = 0; $i < 256; $i++)
@@ -2072,11 +2149,13 @@ for(my $i = 0; $i < 256; $i++)
 	my @hmsUnsorted = @{$curPokemonMoves{"hms"}};
 	my @mtsUnsorted = @{$curPokemonMoves{"mts"}};
 	my @eggMovesUnsorted = @{$curPokemonMoves{"egg_moves"}};
+	my @eventMovesUnsorted = @{$curPokemonMoves{"event_moves"}};
 	my @tms = sort {$a <=> $b} @tmsUnsorted;
 	my @hms = sort {$a <=> $b} @hmsUnsorted;
 	my @mts = sort {$a <=> $b} @mtsUnsorted;
 	my @eggMoves = sort {$a <=> $b} @eggMovesUnsorted;
-	printf("\t\t%d: { initial: [ %s ],\n\t\t\t\tlevelup: { \n%s\t\t\t\t},\n\t\t\t\ttms: [ %s ],\n\t\t\t\thms: [ %s ],\n\t\t\t\tmts: [ %s ],\n\t\t\t\tegg_moves: [ %s ],\n\t\t}, // %s\n",
+	my @eventMoves = sort { $a <=> $b } @eventMovesUnsorted;
+	printf("\t\t%d: { initial: [ %s ],\n\t\t\t\tlevelup: { \n%s\t\t\t\t},\n\t\t\t\ttms: [ %s ],\n\t\t\t\thms: [ %s ],\n\t\t\t\tmts: [ %s ],\n\t\t\t\tegg_moves: [ %s ],\n\t\t\t\tevent_moves: [ %s ],\n\n\t\t}, // %s\n",
 		$i, 
 		join(", ", map { sprintf ("%d", $_) } @initialUnsorted),
 		join("", map { (ref($levelupHash{$_}) ? sprintf ("\t\t\t\t\t%d: [ %s ],\n", $_, join(", ", @{$levelupHash{$_}})) : sprintf ("\t\t\t\t\t%d: %d,\n", $_, $levelupHash{$_})) } @levelupKeys),
@@ -2084,6 +2163,7 @@ for(my $i = 0; $i < 256; $i++)
 		join(", ", map { sprintf ("%d", $_) } @hms),
 		join(", ", map { sprintf ("%d", $_) } @mts),
 		join(", ", map { sprintf ("%d", $_) } @eggMoves),
+		join(", ", map { sprintf ("%s", $_) } @eventMoves),
 		$pokemonNames{$i}
 		);
 }
