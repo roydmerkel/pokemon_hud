@@ -2142,25 +2142,68 @@ for(my $index = 1; $index <= $NUM_POKEMON_INDEXES; $index++)
 		my @moves = ();
 		for my $tm (@{$$pokemonMoveset{"tms"}})
 		{
+			if(!(defined $tmToMoveConstMap{$tm}))
+			{
+				die();
+			}
 			push(@moves, $tmToMoveConstMap{$tm});
 		}
 		for my $hm (@{$$pokemonMoveset{"hms"}})
 		{
+			if(!(defined $hmToMoveConstMap{$hm}))
+			{
+				die();
+			}
 			push(@moves, $hmToMoveConstMap{$hm});
 		}
 		for my $mt (@{$$pokemonMoveset{"mts"}})
 		{
+			if(!(defined $mtToMoveConstMap{$mt}))
+			{
+				die();
+			}
 			push(@moves, $mtToMoveConstMap{$mt});
 		}
 		for my $initial (@{$$pokemonMoveset{"initial"}})
 		{
+			if(!(defined $moveConstantsLookup{$initial}))
+			{
+				die();
+			}
 			push(@moves, $moveConstantsLookup{$initial});
 		}
 		
 		for my $level (sort { $a <=> $b } (keys %{$$pokemonMoveset{"levelup"}}))
 		{
-			my $move = $moveConstantsLookup{${$$pokemonMoveset{"levelup"}}{$level}};
-			push(@moves, $move);
+			my $levelUpMoveset = $$pokemonMoveset{"levelup"};
+			if(!(defined $levelUpMoveset))
+			{
+				die();
+			}
+			my $mv = $$levelUpMoveset{$level};
+			if(!(defined $mv))
+			{
+				die();
+			}
+			if(ref $mv eq "ARRAY")
+			{
+				foreach my $mv2 (@{$mv})
+				{
+					my $move = $moveConstantsLookup{$mv2};
+					if(defined $move)
+					{
+						push(@moves, $move);
+					}
+				}
+			}
+			else
+			{
+				my $move = $moveConstantsLookup{$mv};
+				if(defined $move)
+				{
+					push(@moves, $move);
+				}
+			}
 		}
 			
 		for my $pokemon (@{$pokemons})
