@@ -3,7 +3,7 @@ use utf8;
 use warnings;
 use strict;
 use Data::Dumper qw(Dumper);
-use List::Util qw(uniq min);
+use List::Util qw(uniq min max);
 use Fcntl qw(SEEK_SET SEEK_CUR SEEK_END);
 
 my %eventPokemonByGen = (
@@ -829,6 +829,10 @@ my $POKEMON_BASE_STATS_CRYSTAL_START = 0x51424;
 my $POKEMON_BASE_STATS_GOLD_START = 0x51B0B;
 my $POKEMON_BASE_STATS_GEN1_ENTRY_OFFSET = 0x383FA - 0x383DE;
 my $POKEMON_BASE_STATS_GEN2_ENTRY_OFFSET = 0x51444 - 0x51424;
+my $POKEMON_BASE_STATS_RED_MEMORY_OFFSET = 0x43de;
+my $POKEMON_BASE_STATS_YELLOW_MEMORY_OFFSET = 0x43de;
+my $POKEMON_BASE_STATS_GOLD_MEMORY_OFFSET = 0x5b0b;
+my $POKEMON_BASE_STATS_CRYSTAL_MEMORY_OFFSET = 0x5424;
 
 my $POKEMON_BONUS_POKEMON_BASE_STATS_RED_START = 0x425B;
 my $POKEMON_BONUS_POKEMON_BASE_STATS_YELLOW_START = 0x39446;
@@ -880,6 +884,11 @@ my $POKEMON_DEX_ORDER_TABLE_YELLOW_START = 0x410B1;
 my $POKEMON_DEX_ORDER_TABLE_GOLD_START = 0x00;
 my $POKEMON_DEX_ORDER_TABLE_CRYSTAL_START = 0x00;
 
+my $NUM_POKEMON_INDEXES_RED = 190;
+my $NUM_POKEMON_INDEXES_YELLOW = 190;
+my $NUM_POKEMON_INDEXES_GOLD = 256;
+my $NUM_POKEMON_INDEXES_CRYSTAL = 256;
+
 my $POKEMON_BASE_STATS_START;
 my $POKEMON_EVOS_ATTACKS_START;
 my $POKEMON_EVOS_ATTACKS_MEMORY_START;
@@ -889,12 +898,131 @@ my $POKEMON_EGG_MOVES_START;
 my $POKEMON_EGG_MOVES_POINTERS_START;
 my $POKEMON_EGG_MOVES_POINTERS_MEMORY_START;
 my $POKEMON_BASE_STATS_ENTRY_OFFSET;
+my $POKEMON_BASE_STATS_MEMORY_OFFSET;
+
+my $POKEMON_NAMES_RED_MEMORY_START = 0x421e;
+my $POKEMON_NAMES_YELLOW_MEMORY_START = 0x4000;
+my $POKEMON_NAMES_GOLD_MEMORY_START = 0x4b74;
+my $POKEMON_NAMES_CRYSTAL_MEMORY_START = 0x7384;
+my $POKEMON_RED_NAME_LENGTH = 10;
+my $POKEMON_YELLOW_NAME_LENGTH = 10;
+my $POKEMON_GOLD_NAME_LENGTH = 10;
+my $POKEMON_CRYSTAL_NAME_LENGTH = 10;
 
 my $POKEDEX_ORDER_TABLE_START;
 
 my $POKEMON_BONUS_POKEMON_BASE_STATS_START;
 my $POKEMON_BONUS_POKEMON_POKEDEX;
 my $POKEMON_BONUS_POKEMON_INDEX;
+my $NUM_POKEMON_INDEXES;
+
+my @POKEMON_RED_MOVES_MEMORY_MAP = ( 
+	{ "start" => 0x0000, "end" => 0x3FFF, "rom_start" => 0x0000, "rom_end" => 0x3FFF },
+	{ "start" => 0x4000, "end" => 0x7FFF, "rom_start" => 0x38000, "rom_end" => 0x3BFFF },
+	{ "start" => 0x8000, "end" => 0xBFFF }
+);
+
+my @POKEMON_RED_STATS_MEMORY_MAP = ( 
+	{ "start" => 0x0000, "end" => 0x3FFF, "rom_start" => 0x0000, "rom_end" => 0x3FFF },
+	{ "start" => 0x4000, "end" => 0x7FFF, "rom_start" => 0x38000, "rom_end" => 0x3BFFF },
+	{ "start" => 0x8000, "end" => 0xBFFF }
+);
+
+my @POKEMON_RED_NAMES_MEMORY_MAP = ( 
+	{ "start" => 0x0000, "end" => 0x3FFF, "rom_start" => 0x0000, "rom_end" => 0x3FFF },
+	{ "start" => 0x4000, "end" => 0x7FFF, "rom_start" => 0x1C000, "rom_end" => 0x1FFFF },
+	{ "start" => 0x8000, "end" => 0xBFFF },
+);
+
+my @POKEMON_YELLOW_MOVES_MEMORY_MAP = ( 
+	{ "start" => 0x0000, "end" => 0x3FFF, "rom_start" => 0x0000, "rom_end" => 0x3FFF },
+	{ "start" => 0x4000, "end" => 0x7FFF, "rom_start" => 0x38000, "rom_end" => 0x3BFFF },
+	{ "start" => 0x8000, "end" => 0xBFFF },
+);
+
+my @POKEMON_YELLOW_STATS_MEMORY_MAP = ( 
+	{ "start" => 0x0000, "end" => 0x3FFF, "rom_start" => 0x0000, "rom_end" => 0x3FFF },
+	{ "start" => 0x4000, "end" => 0x7FFF, "rom_start" => 0x38000, "rom_end" => 0x3BFFF },
+	{ "start" => 0x8000, "end" => 0xBFFF },
+);
+
+my @POKEMON_YELLOW_NAMES_MEMORY_MAP = ( 
+	{ "start" => 0x0000, "end" => 0x3FFF, "rom_start" => 0x0000, "rom_end" => 0x3FFF },
+	{ "start" => 0x4000, "end" => 0x7FFF, "rom_start" => 0xE8000, "rom_end" => 0xEBFFF },
+	{ "start" => 0x8000, "end" => 0xBFFF },
+);
+
+my @POKEMON_CRYSTAL_STATS_MEMORY_MAP = ( 
+	{ "start" => 0x0000, "end" => 0x3FFF, "rom_start" => 0x0000, "rom_end" => 0x3FFF },
+	{ "start" => 0x4000, "end" => 0x7FFF, "rom_start" => 0x50000, "rom_end" => 0x53FFF },
+	{ "start" => 0x9000, "end" => 0x9FFF },
+	{ "start" => 0xA000, "end" => 0xBFFF },
+	{ "start" => 0xC000, "end" => 0xCFFF },
+	{ "start" => 0xD000, "end" => 0xFF7F },
+	{ "start" => 0xFF80, "end" => 0xFFFF },
+);
+
+my @POKEMON_CRYSTAL_MOVES_MEMORY_MAP = ( 
+	{ "start" => 0x0000, "end" => 0x3FFF, "rom_start" => 0x0000, "rom_end" => 0x3FFF },
+	{ "start" => 0x4000, "end" => 0x7FFF, "rom_start" => 0x40000, "rom_end" => 0x43FFF },
+	{ "start" => 0x8000, "end" => 0x9FFF },
+	{ "start" => 0xA000, "end" => 0xBFFF },
+	{ "start" => 0xC000, "end" => 0xCFFF },
+	{ "start" => 0xD000, "end" => 0xFF7F },
+	{ "start" => 0xFF80, "end" => 0xFFFF },
+);
+
+my @POKEMON_CRYSTAL_NAMES_MEMORY_MAP = ( 
+	{ "start" => 0x0000, "end" => 0x3FFF, "rom_start" => 0x0000, "rom_end" => 0x3FFF },
+	{ "start" => 0x4000, "end" => 0x7FFF, "rom_start" => 0x50000, "rom_end" => 0x53FFF },
+	{ "start" => 0x8000, "end" => 0x9FFF },
+	{ "start" => 0xA000, "end" => 0xBFFF },
+	{ "start" => 0xC000, "end" => 0xCFFF },
+	{ "start" => 0xD000, "end" => 0xFF7F },
+	{ "start" => 0xFF80, "end" => 0xFFFF },
+);
+
+my @POKEMON_GOLD_STATS_MEMORY_MAP = ( 
+	{ "start" => 0x0000, "end" => 0x3FFF, "rom_start" => 0x0000, "rom_end" => 0x3FFF },
+	{ "start" => 0x4000, "end" => 0x7FFF, "rom_start" => 0x50000, "rom_end" => 0x53FFF },
+	{ "start" => 0x8000, "end" => 0x9FFF },
+	{ "start" => 0xA000, "end" => 0xBFFF },
+	{ "start" => 0xC000, "end" => 0xCFFF },
+	{ "start" => 0xD000, "end" => 0xFF7F },
+	{ "start" => 0xFF80, "end" => 0xFFFF },
+);
+
+my @POKEMON_GOLD_MOVES_MEMORY_MAP = ( 
+	{ "start" => 0x0000, "end" => 0x3FFF, "rom_start" => 0x0000, "rom_end" => 0x3FFF },
+	{ "start" => 0x4000, "end" => 0x7FFF, "rom_start" => 0x40000, "rom_end" => 0x43FFF },
+	{ "start" => 0x8000, "end" => 0x9FFF },
+	{ "start" => 0xA000, "end" => 0xBFFF },
+	{ "start" => 0xC000, "end" => 0xCFFF },
+	{ "start" => 0xD000, "end" => 0xFF7F },
+	{ "start" => 0xFF80, "end" => 0xFFFF },
+);
+
+my @POKEMON_GOLD_NAMES_MEMORY_MAP = ( 
+	{ "start" => 0x0000, "end" => 0x3FFF, "rom_start" => 0x0000, "rom_end" => 0x3FFF },
+	{ "start" => 0x4000, "end" => 0x7FFF, "rom_start" => 0x1B0000, "rom_end" => 0x1B3FFF },
+	{ "start" => 0x8000, "end" => 0x9FFF },
+	{ "start" => 0xA000, "end" => 0xBFFF },
+	{ "start" => 0xC000, "end" => 0xCFFF },
+	{ "start" => 0xD000, "end" => 0xFF7F },
+	{ "start" => 0xFF80, "end" => 0xFFFF },
+);
+
+my $POKEMON_MOVES_MEMORY_MAP;
+my $POKEMON_STATS_MEMORY_MAP;
+my $POKEMON_NAMES_MEMORY_MAP;
+my $POKEMON_MOVES_MEMORY_START;
+my $POKEMON_MOVES_MEMORY_END;
+my $POKEMON_STATS_MEMORY_START;
+my $POKEMON_STATS_MEMORY_END;
+my $POKEMON_NAMES_MEMORY_START;
+my $POKEMON_NAMES_MEMORY_END;
+my $POKEMON_NAME_LENGTH;
+my $POKEMON_NAMES_MEMORY_OFFSET;
 
 # parse the index order and constant names.
 binmode(STDOUT, ":utf8") or die "Cannot set STDOUT to binary mode: $!";
@@ -1030,6 +1158,13 @@ if($romfile =~ /(^.*?[\\\/])?[^\\\/]*[Rr][Ee][Dd][^\\\/]*$/)
 	$POKEMON_BONUS_POKEMON_BASE_STATS_START = $POKEMON_BONUS_POKEMON_BASE_STATS_RED_START;
 	$POKEMON_BONUS_POKEMON_POKEDEX = $POKEMON_BONUS_POKEMON_POKEDEX_RED;
 	$POKEMON_BONUS_POKEMON_INDEX = $POKEMON_BONUS_POKEMON_INDEX_RED;
+	$NUM_POKEMON_INDEXES = $NUM_POKEMON_INDEXES_RED;
+	$POKEMON_MOVES_MEMORY_MAP = \@POKEMON_RED_MOVES_MEMORY_MAP;
+	$POKEMON_STATS_MEMORY_MAP = \@POKEMON_RED_STATS_MEMORY_MAP;
+	$POKEMON_NAMES_MEMORY_MAP = \@POKEMON_RED_NAMES_MEMORY_MAP;
+	$POKEMON_BASE_STATS_MEMORY_OFFSET = $POKEMON_BASE_STATS_RED_MEMORY_OFFSET;
+	$POKEMON_NAME_LENGTH = $POKEMON_RED_NAME_LENGTH;
+	$POKEMON_NAMES_MEMORY_OFFSET = $POKEMON_NAMES_RED_MEMORY_START;
 	$gen = 1;
 	print("red\n");
 }
@@ -1048,6 +1183,13 @@ elsif($romfile =~ /(^.*?[\\\/])?[^\\\/]*[Yy][Ee][Ll][Ll][Oo][Ww][^\\\/]*$/)
 	$POKEMON_BONUS_POKEMON_BASE_STATS_START = $POKEMON_BONUS_POKEMON_BASE_STATS_YELLOW_START;
 	$POKEMON_BONUS_POKEMON_POKEDEX = $POKEMON_BONUS_POKEMON_POKEDEX_YELLOW;
 	$POKEMON_BONUS_POKEMON_INDEX = $POKEMON_BONUS_POKEMON_INDEX_YELLOW;
+	$NUM_POKEMON_INDEXES = $NUM_POKEMON_INDEXES_YELLOW;
+	$POKEMON_MOVES_MEMORY_MAP = \@POKEMON_YELLOW_MOVES_MEMORY_MAP;
+	$POKEMON_STATS_MEMORY_MAP = \@POKEMON_YELLOW_STATS_MEMORY_MAP;
+	$POKEMON_NAMES_MEMORY_MAP = \@POKEMON_YELLOW_NAMES_MEMORY_MAP;
+	$POKEMON_BASE_STATS_MEMORY_OFFSET = $POKEMON_BASE_STATS_YELLOW_MEMORY_OFFSET;
+	$POKEMON_NAME_LENGTH = $POKEMON_YELLOW_NAME_LENGTH;
+	$POKEMON_NAMES_MEMORY_OFFSET = $POKEMON_NAMES_YELLOW_MEMORY_START;
 	$gen = 1;
 	print("yellow\n");
 }
@@ -1066,6 +1208,13 @@ elsif($romfile =~ /(^.*?[\\\/])?[^\\\/]*[Gg][Oo][Ll][Dd][^\\\/]*$/)
 	$POKEMON_BONUS_POKEMON_BASE_STATS_START = $POKEMON_BONUS_POKEMON_BASE_STATS_GOLD_START;
 	$POKEMON_BONUS_POKEMON_POKEDEX = $POKEMON_BONUS_POKEMON_POKEDEX_GOLD;
 	$POKEMON_BONUS_POKEMON_INDEX = $POKEMON_BONUS_POKEMON_INDEX_GOLD;
+	$NUM_POKEMON_INDEXES = $NUM_POKEMON_INDEXES_GOLD;
+	$POKEMON_MOVES_MEMORY_MAP = \@POKEMON_GOLD_MOVES_MEMORY_MAP;
+	$POKEMON_STATS_MEMORY_MAP = \@POKEMON_GOLD_STATS_MEMORY_MAP;
+	$POKEMON_NAMES_MEMORY_MAP = \@POKEMON_GOLD_NAMES_MEMORY_MAP;
+	$POKEMON_BASE_STATS_MEMORY_OFFSET = $POKEMON_BASE_STATS_GOLD_MEMORY_OFFSET;
+	$POKEMON_NAME_LENGTH = $POKEMON_GOLD_NAME_LENGTH;
+	$POKEMON_NAMES_MEMORY_OFFSET = $POKEMON_NAMES_GOLD_MEMORY_START;
 	$gen = 2;
 	print("gold\n");
 }
@@ -1084,6 +1233,13 @@ elsif($romfile =~ /^(.*?[\\\/])?[^\\\/]*[Cc][Rr][Yy][Ss][Tt][Aa][Ll][^\\\/]*$/)
 	$POKEMON_BONUS_POKEMON_BASE_STATS_START = $POKEMON_BONUS_POKEMON_BASE_STATS_CRYSTAL_START;
 	$POKEMON_BONUS_POKEMON_POKEDEX = $POKEMON_BONUS_POKEMON_POKEDEX_CRYSTAL;
 	$POKEMON_BONUS_POKEMON_INDEX = $POKEMON_BONUS_POKEMON_INDEX_CRYSTAL;
+	$NUM_POKEMON_INDEXES = $NUM_POKEMON_INDEXES_CRYSTAL;
+	$POKEMON_MOVES_MEMORY_MAP = \@POKEMON_CRYSTAL_MOVES_MEMORY_MAP;
+	$POKEMON_STATS_MEMORY_MAP = \@POKEMON_CRYSTAL_STATS_MEMORY_MAP;
+	$POKEMON_NAMES_MEMORY_MAP = \@POKEMON_CRYSTAL_NAMES_MEMORY_MAP;
+	$POKEMON_BASE_STATS_MEMORY_OFFSET = $POKEMON_BASE_STATS_CRYSTAL_MEMORY_OFFSET;
+	$POKEMON_NAME_LENGTH = $POKEMON_CRYSTAL_NAME_LENGTH;
+	$POKEMON_NAMES_MEMORY_OFFSET = $POKEMON_NAMES_CRYSTAL_MEMORY_START;
 	$gen = 2;
 	print("crystal\n");
 }
@@ -1092,6 +1248,12 @@ else
 	print("unknown rom file: $romfile\n");
 	die();
 }
+$POKEMON_MOVES_MEMORY_START = min(map { $$_{"start"}; } @{$POKEMON_MOVES_MEMORY_MAP});
+$POKEMON_MOVES_MEMORY_END = max(map { $$_{"end"}; } @{$POKEMON_MOVES_MEMORY_MAP});
+$POKEMON_STATS_MEMORY_START = min(map { $$_{"start"}; } @{$POKEMON_STATS_MEMORY_MAP});
+$POKEMON_STATS_MEMORY_END = max(map { $$_{"end"}; } @{$POKEMON_STATS_MEMORY_MAP});
+$POKEMON_NAMES_MEMORY_START = min(map { $$_{"start"}; } @{$POKEMON_NAMES_MEMORY_MAP});
+$POKEMON_NAMES_MEMORY_END = max(map { $$_{"end"}; } @{$POKEMON_NAMES_MEMORY_MAP});
 
 # parse the rom file.
 open(my $pokemonconstantsfh, "<:encoding(utf8)", "$disassembyDir/constants/pokemon_constants.asm") or die "Could not open $disassembyDir/constants/pokemon_constants.asm: $!";
@@ -1171,22 +1333,19 @@ if($POKEDEX_ORDER_TABLE_START)
 	close($pokemonindexlookupfh);
 	$pokemonindexlookupfh = undef;
 
-	for(my $i = 0; $i <= 255; $i++)
+	# define pokedex <-> index as the cart defines them.
+	for(my $index = 1; $index <= 256; $index++)
 	{
-		if(!(defined $pokedexToIndexLookup{$i}) || !(exists $pokedexToIndexLookup{$i}))
+		my $offset = $index - 1;
+		if($offset < 0)
 		{
-			my @arr = ();
-			$pokedexToIndexLookup{$i} = \@arr;
+			$offset += 256;
 		}
-		if(!(defined $indexToPokedexLookup{$i}) || !(exists $indexToPokedexLookup{$i}))
-		{
-			my @arr = ();
-			$indexToPokedexLookup{$i} = \@arr;
-		}
-		
+		my $romoffset = $POKEDEX_ORDER_TABLE_START + $offset;
+		my $byte = $pokemonIndexDataLookupBytes[$romoffset];
+		$indexToPokedexLookup{$index % 256} = $byte;
 	}
-	# find all the bytes referencing each pokedex byte, this is our index.
-	for(my $i = 0; $i <= 255; $i++)
+	for(my $pokedex = 1; $pokedex <= 256; $pokedex++)
 	{
 		my $offset = 0;
 		my $romoffset = $POKEDEX_ORDER_TABLE_START + $offset;
@@ -1195,61 +1354,33 @@ if($POKEDEX_ORDER_TABLE_START)
 		while(!$found)
 		{
 			my $byte = $pokemonIndexDataLookupBytes[$romoffset];
-			if($byte == ($i))
+			$offset++;
+			$romoffset++;
+			if($byte == ($pokedex % 256))
 			{
-				push(@{$pokedexToIndexLookup{$byte}}, ($offset + 1) % 256);
-				push(@{$indexToPokedexLookup{($offset + 1) % 256}}, $byte);
 				$found = (1 == 1);
 			}
-			else
-			{
-				$offset++;
-				$romoffset++;
-			}
 		}
-	}
-	# use the reverse, but only for first 190 instances, and only whre a mapping doesn't exist.
-	for(my $i = 0; $i <= 255; $i++)
-	{
-		my $offset = $i;
-		my $romoffset = $POKEDEX_ORDER_TABLE_START + $offset;
-		my $byte = $pokemonIndexDataLookupBytes[$romoffset];
-		push(@{$pokedexToIndexLookup{$byte}}, ($offset + 1) % 256);
-		push(@{$indexToPokedexLookup{($offset + 1) % 256}}, $byte);
-		
-		my @t = uniq(@{$pokedexToIndexLookup{$byte}});
-		$pokedexToIndexLookup{$byte} = \@t;
-		
-		my @t2 = uniq(@{$indexToPokedexLookup{$offset % 256}});
-		$indexToPokedexLookup{$offset % 256} = \@t2;
+		$pokedexToIndexLookup{$pokedex % 256} = $offset % 256;
 	}
 }
 else
 {
 	for(my $i = 0; $i <= 255; $i++)
 	{
-		my $index = $i;
-		if($i == 0)
-		{
-			$index = 1;
-		}
-		else
-		{
-			$index = ($i + 1) % 256;
-		}
-		$pokedexToIndexLookup{$index} = [ ($i + 1) % 256 ];
-		$indexToPokedexLookup{($i + 1) % 256} = [ $index ];
+		$pokedexToIndexLookup{$i} = $i;
+		$indexToPokedexLookup{$i} = $i;
 	}
 }
 
 # read the base stats directly from ROM
 open(my $pokemonbasestatsfh, '<:raw', $romfile) or die "Could not open $romfile: $!";
 binmode($pokemonbasestatsfh) or (close($pokemonbasestatsfh), die "Cannot set $pokemonbasestatsfh to binary mode: $!");
-seek($pokemonbasestatsfh, $POKEMON_BASE_STATS_START, SEEK_SET) or (close($pokemonbasestatsfh), die "Cannot seek $pokemonbasestatsfh to move names: $!");
+seek($pokemonbasestatsfh, 0, SEEK_SET) or (close($pokemonbasestatsfh), die "Cannot seek $pokemonbasestatsfh to move names: $!");
 my @baseStatBytes = ();
 my $baseDataLength = 0;
-$bytesread = read($pokemonbasestatsfh, $buffer, $POKEMON_BASE_STATS_ENTRY_OFFSET * 16);
-while($bytesread && ($baseDataLength < $POKEMON_BASE_STATS_ENTRY_OFFSET * 256))
+$bytesread = read($pokemonbasestatsfh, $buffer, 10240);
+while($bytesread)
 {
 	$baseDataLength += $bytesread;
 	for(my $i = 0; $i < $bytesread; $i++)
@@ -1257,7 +1388,7 @@ while($bytesread && ($baseDataLength < $POKEMON_BASE_STATS_ENTRY_OFFSET * 256))
 			push(@baseStatBytes, ord(substr($buffer, $i, 1)));
 	}
 	
-	$bytesread = read($pokemonbasestatsfh, $buffer, $POKEMON_BASE_STATS_ENTRY_OFFSET * 16);
+	$bytesread = read($pokemonbasestatsfh, $buffer, 10240);
 }
 if(!defined $bytesread)
 {
@@ -1267,177 +1398,201 @@ if(!defined $bytesread)
 close($pokemonbasestatsfh);
 $pokemonbasestatsfh = undef;
 
+# use the memory map for the cart to read the rom into the memory state.
+# initialize the memory image with zeros.
+my @pokemonStatsMemoryData = ();
+for(my $i = 0; $i <= $POKEMON_STATS_MEMORY_END; $i++)
+{
+	push(@pokemonStatsMemoryData, 0);
+}
+
+# copy the data from the segments.
+for my $segment (@{$POKEMON_STATS_MEMORY_MAP})
+{
+	if(exists $$segment{"rom_start"} && defined $$segment{"rom_start"} && exists $$segment{"rom_end"} && defined $$segment{"rom_end"})
+	{
+		my $i = $$segment{"start"};
+		my $j = $$segment{"rom_start"};
+		for(; $j <= $$segment{"rom_end"}; $i++, $j++)
+		{
+			$pokemonStatsMemoryData[$i] = $baseStatBytes[$j];
+		}
+	}
+}
+
 # parse the stats into an array;
 my %pokemonStats = ();
 my %pokemonMoves = ();
-for(my $index = 0; $index <= 255; $index++)
+for(my $index = 1; $index <= 256; $index++)
 {
-	my @pokedexes = @{$indexToPokedexLookup{$index}};
-	for my $pokedex (@pokedexes)
+	my $pokedex = $indexToPokedexLookup{$index % 256};
+	my %curPokemonStats = ();
+	my %curPokemonMoves = ();
+	my %baseStats = ();
+	my $offset = $pokedex;
+	if($offset == 0)
 	{
-		my %curPokemonStats = ();
-		my %curPokemonMoves = ();
-		my %baseStats = ();
-		my $curOffset = $pokedex;
-		if($curOffset == 0)
-		{
-			$curOffset = 255;
-		}
-		else
-		{
-			$curOffset = $curOffset - 1;
-		}
-		$curOffset = $curOffset * $POKEMON_BASE_STATS_ENTRY_OFFSET;
-		my $idx = $baseStatBytes[$curOffset + 0];
-		my $hp = $baseStatBytes[$curOffset + 1];
-		my $atk = $baseStatBytes[$curOffset + 2];
-		my $def = $baseStatBytes[$curOffset + 3];
-		my $spd = $baseStatBytes[$curOffset + 4];
-		my $spc;
-		my $spcA;
-		my $spcD;
-		my @typs;
-		my @types = ();
-		my @tms = ();
-		my @hms = ();
-		my @mts = ();
-		if($gen == 1)
-		{
-			$spc = $baseStatBytes[$curOffset + 5];
-			@typs = ($baseStatBytes[$curOffset + 6], $baseStatBytes[$curOffset + 7]);
-			
-			# 8 = cath_rate
-			# 9 - base exp
-		}
-		else
-		{
-			$spcA = $baseStatBytes[$curOffset + 5];
-			$spcD = $baseStatBytes[$curOffset + 6];
-			@typs = ($baseStatBytes[$curOffset + 7], $baseStatBytes[$curOffset + 8]);
-			# 9 = cath_rate
-			# 10 - base exp
-			# 11 12 - items
-			# 13 - sex ratio
-			# 14 - unknown
-			# 15 - steps to hatch
-			# 16 - unknown 2'
-		}
-
-		# 10/17 - front dimensions
-		
-		# 11-14/18-21 front and back pic pointers/unused
-		
-		if($gen == 1)
-		{
-			my @initial;
-			if($baseStatBytes[$curOffset + 15])
-			{
-				push(@initial, $baseStatBytes[$curOffset + 15]);
-			}
-			if($baseStatBytes[$curOffset + 16])
-			{
-				push(@initial, $baseStatBytes[$curOffset + 16]);
-			}
-			if($baseStatBytes[$curOffset + 17])
-			{
-				push(@initial, $baseStatBytes[$curOffset + 17]);
-			}
-			if($baseStatBytes[$curOffset + 18])
-			{
-				push(@initial, $baseStatBytes[$curOffset + 18]);
-			}
-
-			$curPokemonMoves{"initial"} = \@initial;
-		}
-		
-		my $growthRate;
-
-		if($gen == 1)
-		{		
-			$growthRate = $baseStatBytes[$curOffset + 19];
-		}
-		else
-		{
-			$growthRate = $baseStatBytes[$curOffset + 22];
-		}
-		
-		# N.A./23 - egg groups
-		# 20-26/24-31 - tms/hms/tutor moves
-		
-		my @tmHmMTs;
-		if($gen == 1)
-		{
-			@tmHmMTs = ($baseStatBytes[$curOffset + 20], $baseStatBytes[$curOffset + 21], 
-						$baseStatBytes[$curOffset + 22], $baseStatBytes[$curOffset + 23], 
-						$baseStatBytes[$curOffset + 24], $baseStatBytes[$curOffset + 25],
-						$baseStatBytes[$curOffset + 26]);
-		}
-		else
-		{
-			@tmHmMTs = ($baseStatBytes[$curOffset + 24], $baseStatBytes[$curOffset + 25], 
-						$baseStatBytes[$curOffset + 26], $baseStatBytes[$curOffset + 27], 
-						$baseStatBytes[$curOffset + 28], $baseStatBytes[$curOffset + 29],
-						$baseStatBytes[$curOffset + 30], $baseStatBytes[$curOffset + 31]);
-		}
-		if($typs[0] == $typs[1])
-		{
-			push(@types, $typs[0]);
-		}
-		else
-		{
-			push(@types, $typs[0]);
-			push(@types, $typs[1]);
-		}
-
-		for(my $j = 1; $j <= $numTMsHMsMTs; $j++)
-		{
-			my $n = int(($j - 1) / 8);
-			my $b = ($j - 1) % 8;
-			my $m = 1 << $b;
-			if(($tmHmMTs[$n] & $m) != 0)
-			{
-				if($j <= $numTMs)
-				{
-					#push(@tms, $tmToMoveConstMap{$j});
-					push(@tms, $j);
-				}
-				elsif($j <= $numTMs + $numHMs)
-				{
-					#push(@hms, $hmToMoveConstMap{$j - $numTMs});
-					push(@hms, $j - $numTMs);
-				}
-				elsif($j <= $numTMs + $numHMs + $numMTs)
-				{
-					#push(@mts, $mtToMoveConstMap{$j - $numTMs - $numHMs});
-					push(@mts, $j - $numTMs - $numHMs);
-				}
-			}
-		}
-		
-		$baseStats{"hp"} = $hp;
-		$baseStats{"atk"} = $atk;
-		$baseStats{"def"} = $def;
-		$baseStats{"spd"} = $spd;
-		if($gen == 1)
-		{
-			$baseStats{"spc"} = $spc;
-		}
-		else
-		{
-			$baseStats{"sp_atk"} = $spcA;
-			$baseStats{"sp_def"} = $spcD;
-		}
-		
-		$curPokemonStats{"growth_rate"} = $growthRate;
-		$curPokemonStats{"base_stats"} = \%baseStats;
-		$curPokemonStats{"types"} = \@types;
-		$curPokemonMoves{"tms"} = \@tms;
-		$curPokemonMoves{"hms"} = \@hms;
-		$curPokemonMoves{"mts"} = \@mts;
-		
-		$pokemonStats{$pokedex} = \%curPokemonStats;
-		$pokemonMoves{$pokedex} = \%curPokemonMoves;
+		$offset = 255;
 	}
+	else
+	{
+		$offset = $offset - 1;
+	}
+	my $curOffset = $POKEMON_BASE_STATS_MEMORY_OFFSET + $offset * $POKEMON_BASE_STATS_ENTRY_OFFSET;
+	my $idx = $pokemonStatsMemoryData[$curOffset + 0];
+	my $hp = $pokemonStatsMemoryData[$curOffset + 1];
+	my $atk = $pokemonStatsMemoryData[$curOffset + 2];
+	my $def = $pokemonStatsMemoryData[$curOffset + 3];
+	my $spd = $pokemonStatsMemoryData[$curOffset + 4];
+	my $spc;
+	my $spcA;
+	my $spcD;
+	my @typs;
+	my @types = ();
+	my @tms = ();
+	my @hms = ();
+	my @mts = ();
+	my @eggMoves = ();
+	my @eventMoves = ();
+	if($gen == 1)
+	{
+		$spc = $pokemonStatsMemoryData[$curOffset + 5];
+		@typs = ($pokemonStatsMemoryData[$curOffset + 6], $pokemonStatsMemoryData[$curOffset + 7]);
+		
+		# 8 = cath_rate
+		# 9 - base exp
+	}
+	else
+	{
+		$spcA = $pokemonStatsMemoryData[$curOffset + 5];
+		$spcD = $pokemonStatsMemoryData[$curOffset + 6];
+		@typs = ($pokemonStatsMemoryData[$curOffset + 7], $pokemonStatsMemoryData[$curOffset + 8]);
+		# 9 = cath_rate
+		# 10 - base exp
+		# 11 12 - items
+		# 13 - sex ratio
+		# 14 - unknown
+		# 15 - steps to hatch
+		# 16 - unknown 2'
+	}
+
+	# 10/17 - front dimensions
+	
+	# 11-14/18-21 front and back pic pointers/unused
+	
+	if($gen == 1)
+	{
+		my @initial;
+		if($pokemonStatsMemoryData[$curOffset + 15])
+		{
+			push(@initial, $pokemonStatsMemoryData[$curOffset + 15]);
+		}
+		if($pokemonStatsMemoryData[$curOffset + 16])
+		{
+			push(@initial, $pokemonStatsMemoryData[$curOffset + 16]);
+		}
+		if($pokemonStatsMemoryData[$curOffset + 17])
+		{
+			push(@initial, $pokemonStatsMemoryData[$curOffset + 17]);
+		}
+		if($pokemonStatsMemoryData[$curOffset + 18])
+		{
+			push(@initial, $pokemonStatsMemoryData[$curOffset + 18]);
+		}
+
+		$curPokemonMoves{"initial"} = \@initial;
+	}
+	
+	my $growthRate;
+
+	if($gen == 1)
+	{		
+		$growthRate = $pokemonStatsMemoryData[$curOffset + 19];
+	}
+	else
+	{
+		$growthRate = $pokemonStatsMemoryData[$curOffset + 22];
+	}
+	
+	# N.A./23 - egg groups
+	# 20-26/24-31 - tms/hms/tutor moves
+	
+	my @tmHmMTs;
+	if($gen == 1)
+	{
+		@tmHmMTs = ($pokemonStatsMemoryData[$curOffset + 20], $pokemonStatsMemoryData[$curOffset + 21], 
+					$pokemonStatsMemoryData[$curOffset + 22], $pokemonStatsMemoryData[$curOffset + 23], 
+					$pokemonStatsMemoryData[$curOffset + 24], $pokemonStatsMemoryData[$curOffset + 25],
+					$pokemonStatsMemoryData[$curOffset + 26]);
+	}
+	else
+	{
+		@tmHmMTs = ($pokemonStatsMemoryData[$curOffset + 24], $pokemonStatsMemoryData[$curOffset + 25], 
+					$pokemonStatsMemoryData[$curOffset + 26], $pokemonStatsMemoryData[$curOffset + 27], 
+					$pokemonStatsMemoryData[$curOffset + 28], $pokemonStatsMemoryData[$curOffset + 29],
+					$pokemonStatsMemoryData[$curOffset + 30], $pokemonStatsMemoryData[$curOffset + 31]);
+	}
+	if($typs[0] == $typs[1])
+	{
+		push(@types, $typs[0]);
+	}
+	else
+	{
+		push(@types, $typs[0]);
+		push(@types, $typs[1]);
+	}
+
+	for(my $j = 1; $j <= $numTMsHMsMTs; $j++)
+	{
+		my $n = int(($j - 1) / 8);
+		my $b = ($j - 1) % 8;
+		my $m = 1 << $b;
+		if(($tmHmMTs[$n] & $m) != 0)
+		{
+			if($j <= $numTMs)
+			{
+				#push(@tms, $tmToMoveConstMap{$j});
+				push(@tms, $j);
+			}
+			elsif($j <= $numTMs + $numHMs)
+			{
+				#push(@hms, $hmToMoveConstMap{$j - $numTMs});
+				push(@hms, $j - $numTMs);
+			}
+			elsif($j <= $numTMs + $numHMs + $numMTs)
+			{
+				#push(@mts, $mtToMoveConstMap{$j - $numTMs - $numHMs});
+				push(@mts, $j - $numTMs - $numHMs);
+			}
+		}
+	}
+	
+	$baseStats{"hp"} = $hp;
+	$baseStats{"atk"} = $atk;
+	$baseStats{"def"} = $def;
+	$baseStats{"spd"} = $spd;
+	if($gen == 1)
+	{
+		$baseStats{"spc"} = $spc;
+	}
+	else
+	{
+		$baseStats{"sp_atk"} = $spcA;
+		$baseStats{"sp_def"} = $spcD;
+	}
+	
+	$curPokemonStats{"growth_rate"} = $growthRate;
+	$curPokemonStats{"base_stats"} = \%baseStats;
+	$curPokemonStats{"types"} = \@types;
+	$curPokemonMoves{"tms"} = \@tms;
+	$curPokemonMoves{"hms"} = \@hms;
+	$curPokemonMoves{"mts"} = \@mts;
+	$curPokemonMoves{"mts"} = \@mts;
+	$curPokemonMoves{"egg_moves"} = \@eggMoves;
+	$curPokemonMoves{"event_moves"} = \@eventMoves;
+	
+	$pokemonStats{$index % 256} = \%curPokemonStats;
+	$pokemonMoves{$index % 256} = \%curPokemonMoves;
 }
 
 if($POKEMON_BONUS_POKEMON_BASE_STATS_START)
@@ -1620,15 +1775,15 @@ if($POKEMON_BONUS_POKEMON_BASE_STATS_START)
 	$curPokemonMoves{"hms"} = \@hms;
 	$curPokemonMoves{"mts"} = \@mts;
 	
-	$pokemonStats{$pokedex} = \%curPokemonStats;
-	$pokemonMoves{$pokedex} = \%curPokemonMoves;
+	$pokemonStats{$index % 256} = \%curPokemonStats;
+	$pokemonMoves{$index % 256} = \%curPokemonMoves;
 }
 	
 # read the base stats directly from ROM
 open(my $pokemonevosattacksfh, '<:raw', $romfile) or die "Could not open $romfile: $!";
 binmode($pokemonevosattacksfh) or (close($pokemonevosattacksfh), die "Cannot set $pokemonevosattacksfh to binary mode: $!");
 seek($pokemonevosattacksfh, 0, SEEK_SET) or (close($pokemonevosattacksfh), die "Cannot seek $pokemonevosattacksfh to move names: $!");
-my @evosAttacksBytes = ();
+my @evosAttacksRomBytes = ();
 my $evosAttacksDataLength = 0;
 $bytesread = read($pokemonevosattacksfh, $buffer, 10240);
 while($bytesread)
@@ -1636,7 +1791,7 @@ while($bytesread)
 	$evosAttacksDataLength += $bytesread;
 	for(my $i = 0; $i < $bytesread; $i++)
 	{
-			push(@evosAttacksBytes, ord(substr($buffer, $i, 1)));
+			push(@evosAttacksRomBytes, ord(substr($buffer, $i, 1)));
 	}
 	
 	$bytesread = read($pokemonevosattacksfh, $buffer, 10240);
@@ -1649,22 +1804,37 @@ if(!defined $bytesread)
 close($pokemonevosattacksfh);
 $pokemonevosattacksfh = undef;
 
-my %evosAttacksSet = ();
-for(my $i = 0; $i < 255; $i++)
+# use the memory map for the cart to read the rom into the memory state.
+# initialize the memory image with zeros.
+my @evosAttacksBytes = ();
+for(my $i = 0; $i <= $POKEMON_MOVES_MEMORY_END; $i++)
 {
-	$evosAttacksSet{$i} = (1 == 0);
+	push(@evosAttacksBytes, 0);
 }
 
-my $pokemonEvosAttacksPointersOffset = $POKEMON_EVOS_ATTACKS_POINTERS_START;
+# copy the data from the segments.
+for my $segment (@{$POKEMON_MOVES_MEMORY_MAP})
+{
+	if(exists $$segment{"rom_start"} && defined $$segment{"rom_start"} && exists $$segment{"rom_end"} && defined $$segment{"rom_end"})
+	{
+		my $i = $$segment{"start"};
+		my $j = $$segment{"rom_start"};
+		for(; $j <= $$segment{"rom_end"}; $i++, $j++)
+		{
+			$evosAttacksBytes[$i] = $evosAttacksRomBytes[$j];
+		}
+	}
+}
+
+my $pokemonEvosAttacksPointersOffset = $POKEMON_EVOS_ATTACKS_POINTERS_MEMORY_START;
 for(my $index = 1; $index <= 256; $index++)
 {
 	my @evolutions = ();
 	my %levelup = ();
 	my @initial;
-	my @pokedexes = @{$indexToPokedexLookup{$index % 256}};
 	if($gen == 1)
 	{
-		@initial = @{$pokemonMoves{$pokedexes[0]}{"initial"}};
+		@initial = @{$pokemonMoves{$index % 256}{"initial"}};
 	}
 	else
 	{
@@ -1673,9 +1843,7 @@ for(my $index = 1; $index <= 256; $index++)
 
 	my $lowerByte = $evosAttacksBytes[$pokemonEvosAttacksPointersOffset];
 	my $higherByte = $evosAttacksBytes[$pokemonEvosAttacksPointersOffset + 1];
-	my $memoryOffset = ($higherByte << 8) | $lowerByte;
-	my $romOffset = $memoryOffset - $POKEMON_EVOS_ATTACKS_MEMORY_START;
-	my $romAddr = $POKEMON_EVOS_ATTACKS_START + $romOffset;
+	my $romAddr = ($higherByte << 8) | $lowerByte;
 	my $pokemonEvosAttacksOffset = $romAddr;
 	$pokemonEvosAttacksPointersOffset+=2;
 	
@@ -1758,7 +1926,7 @@ for(my $index = 1; $index <= 256; $index++)
 			
 			push(@evolutions, \%evolution);
 		}
-		elsif($evosAttacksBytes[$pokemonEvosAttacksOffset] == 4) # EVOLVE_HAPPINESS
+		elsif($gen != 1 && $evosAttacksBytes[$pokemonEvosAttacksOffset] == 4) # EVOLVE_HAPPINESS
 		{
 			$pokemonEvosAttacksOffset++;
 			my $happynessTrigger = $evosAttacksBytes[$pokemonEvosAttacksOffset];
@@ -1773,7 +1941,7 @@ for(my $index = 1; $index <= 256; $index++)
 			
 			push(@evolutions, \%evolution);
 		}
-		elsif($evosAttacksBytes[$pokemonEvosAttacksOffset] == 5) # EVOLVE_STAT
+		elsif($gen != 1 && $evosAttacksBytes[$pokemonEvosAttacksOffset] == 5) # EVOLVE_STAT
 		{
 			$pokemonEvosAttacksOffset++;
 			my $level = $evosAttacksBytes[$pokemonEvosAttacksOffset];
@@ -1793,12 +1961,58 @@ for(my $index = 1; $index <= 256; $index++)
 		}
 		else
 		{
-			$pokemonEvosAttacksOffset++;
+			# gen 1 treats glitch evolutions the same as trade evolutions.
+			if($gen == 1)
+			{
+				$pokemonEvosAttacksOffset++;
+				my $heldItem = 0;
+				if($gen == 2)
+				{
+					$heldItem = $evosAttacksBytes[$pokemonEvosAttacksOffset];
+					$pokemonEvosAttacksOffset++;
+				}
+				my $level = 0;
+				if($gen == 1)
+				{
+					$level = $evosAttacksBytes[$pokemonEvosAttacksOffset];
+					$pokemonEvosAttacksOffset++;
+				}
+				my $species = $evosAttacksBytes[$pokemonEvosAttacksOffset];
+				$pokemonEvosAttacksOffset++;
+							
+				my %evolution = ();
+				$evolution{"evolution"} = "EVOLVE_TRADE";
+				if($gen == 2)
+				{
+					$evolution{"heldItem"} = $heldItem;
+				}
+				if($gen == 1)
+				{
+					$evolution{"level"} = $level;
+				}
+				$evolution{"species"} = $species;
+				
+				push(@evolutions, \%evolution);
+			}
+			else
+			{
+				$pokemonEvosAttacksOffset++;
+			}
 			#print("unexpected evolution trigger: " . $index . "," . $pokedex . ", " . $evosAttacksBytes[$pokemonEvosAttacksOffset] . "\n");
 			#die();
 		}
 	}
 	
+	# gen 1 looks for 0 in evolutions table before moves table, so go back to beginnning and find the 0 for glitchmons.
+	if($gen == 1)
+	{
+		$pokemonEvosAttacksOffset = $romAddr;
+		while($evosAttacksBytes[$pokemonEvosAttacksOffset])
+		{
+			$pokemonEvosAttacksOffset++;
+		}
+		$pokemonEvosAttacksOffset++;
+	}
 	while(1)
 	{
 		if($evosAttacksBytes[$pokemonEvosAttacksOffset] == 0)
@@ -1840,26 +2054,13 @@ for(my $index = 1; $index <= 256; $index++)
 	#$pokemonEvosAttackData{"evolutions"} = \@evolutions;
 	#$pokemonEvosAttackData{"attacks"} = \@attacks;
 		
-	for my $pokedex (@pokedexes)
-	{
-		if(!$evosAttacksSet{$pokedex})
-		{
-			$evosAttacksSet{$pokedex} = (1 == 1);
-			#$pokemonEvosAttacksData{$pokedex} = \%pokemonEvosAttackData;
-			$pokemonMoves{$pokedex}{"initial"} = \@initial;
-			$pokemonMoves{$pokedex}{"levelup"} = \%levelup;
-		}
-	}
+	#$pokemonEvosAttacksData{$index % 256} = \%pokemonEvosAttackData;
+	$pokemonMoves{$index % 256}{"initial"} = \@initial;
+	$pokemonMoves{$index % 256}{"levelup"} = \%levelup;
 }
 
 if($POKEMON_EGG_MOVES_START)
 {
-	my %eggMovesSet = ();
-	for(my $i = 0; $i < 255; $i++)
-	{
-		$eggMovesSet{$i} = (1 == 0);
-	}
-
 	# read the egg moves directly from ROM
 	open(my $pokemoneggmovesfh, '<:raw', $romfile) or die "Could not open $romfile: $!";
 	binmode($pokemoneggmovesfh) or (close($pokemoneggmovesfh), die "Cannot set $pokemoneggmovesfh to binary mode: $!");
@@ -1898,8 +2099,6 @@ if($POKEMON_EGG_MOVES_START)
 		my $eggMovesOffset = $romAddr;
 		$eggMovesPointersOffset+=2;
 		
-		my @pokedexes = @{$indexToPokedexLookup{$index % 256}};
-		
 		while(1)
 		{
 			if($eggMovesBytes[$eggMovesOffset] != 0xFF)
@@ -1916,15 +2115,8 @@ if($POKEMON_EGG_MOVES_START)
 			}
 		}
 		
-		for my $pokedex (@pokedexes)
-		{
-			if(!$eggMovesSet{$pokedex})
-			{
-				my @eggMoves = uniq(@egMoves);
-				$pokemonMoves{$pokedex}{"egg_moves"} = \@eggMoves;
-				$eggMovesSet{$pokedex} = (1 == 1);
-			}
-		}
+		my @eggMoves = uniq(@egMoves);
+		$pokemonMoves{$index % 256}{"egg_moves"} = \@eggMoves;
 	}
 }
 else
@@ -1938,12 +2130,13 @@ else
 
 # add the event moves.
 my $eventPokemon = $eventPokemonByGen{int($gen)};
-for(my $i = 0; $i < 256; $i++)
+for(my $index = 1; $index <= $NUM_POKEMON_INDEXES; $index++)
 {
+	my $pokedex = $indexToPokedexLookup{$index};
 	my @eventMoves = ();
-	my $pokemons = (defined $$eventPokemon{$i} && exists $$eventPokemon{$i}) ? $$eventPokemon{$i} : undef;
+	my $pokemons = (defined $$eventPokemon{$pokedex} && exists $$eventPokemon{$pokedex}) ? $$eventPokemon{$pokedex} : undef;
 	
-	my $pokemonMoveset = $pokemonMoves{$i};
+	my $pokemonMoveset = $pokemonMoves{$index % 256};
 	if($pokemons)
 	{
 		my @moves = ();
@@ -2013,28 +2206,387 @@ for(my $i = 0; $i < 256; $i++)
 }
 
 # Parse the charmap
-open(my $pokemonnamesfh, "<:encoding(utf8)", "$disassembyDir/data/pokemon/names.asm") or die "Could not open $disassembyDir/data/pokemon/names.asm: $!";
+my %charMap = ();
+open(my $charmapfh, "<:encoding(utf8)", "$disassembyDir/constants/charmap.asm") or die "Could not open $disassembyDir/constants/charmap.asm: $!";
+
+my $readChar = (1 == 0);
+while(<$charmapfh>) {
+	my $line = $_;
+	if($line =~ /^\s*; Control characters/)
+	{
+		$readChar = (1 == 1);
+	}
+	elsif($line =~ /^\s*; Actual characters (from gfx\/font\/font_extra.png)/)
+	{
+		$readChar = (1 == 1);
+	}
+	elsif($line =~ /^\s*; Actual characters (from gfx\/font\/font_battle_extra.png)/)
+	{
+		$readChar = (1 == 0);
+	}
+	elsif($line =~ /^\s*; Actual characters (from other graphics files)/)
+	{
+		$readChar = (1 == 1);
+	}
+	elsif($line =~ /^\s*; Actual characters (from gfx\/font\/font.png)/)
+	{
+		$readChar = (1 == 1);
+	}
+	elsif($line =~ /^\s*; Japanese kana, for those bits of text that were not translated to English/)
+	{
+		$readChar = (1 == 0);
+	}
+	elsif($line =~ /^\s+charmap\s+"([^\"]*)"\s*,\s+\$([0-9A-Fa-f]{2,2})\s*/)
+	{
+		if(!$readChar)
+		{
+			next;
+		}
+		
+		my $char = $1;
+		my $key = hex($2);
+		
+		if($char eq "<NULL>")
+		{
+			$char = "<NULL>";
+		}
+		if($char eq "<PLAY_G>")
+		{
+			$char = "<PLAYER>";
+		}
+		elsif($char eq "<CR>")
+		{
+			$char = "<CR>";
+		}
+		elsif($char eq "<BSP>")
+		{
+			$char = " ";
+		}
+		elsif($char eq "<LF>")
+		{
+			$char = "<LF>";
+		}
+		elsif($char eq "<POKE>")
+		{
+			$char = "POK\x{00E9}";
+		}
+		elsif($char eq "<WBR>")
+		{
+			$char = "\n";
+		}
+		elsif($char eq "<RED>")
+		{
+			$char = "<PLAYER>";
+		}
+		elsif($char eq "<GREEN>")
+		{
+			$char = "<RIVAL>";
+		}
+		elsif($char eq "<ENEMY>")
+		{
+			$char = "<ENEMY>";
+		}
+		elsif($char eq "<PKMN>")
+		{
+			$char = "PkMn";
+		}
+		elsif($char eq "<_CONT>")
+		{
+			$char = "\n";
+		}
+		elsif($char eq "<SCROLL>")
+		{
+			$char = "\n\n";
+		}
+		elsif($char eq "<NEXT>")
+		{
+			$char = "\n";
+		}
+		elsif($char eq "<LINE>")
+		{
+			$char = "\n";
+		}
+		elsif($char eq "@")
+		{
+			$char = "@";
+		}
+		elsif($char eq "<PARA>")
+		{
+			$char = "\n";
+		}
+		elsif($char eq "#")
+		{
+			$char = "POK\x{00E9}";
+		}
+		elsif($char eq "<CONT>")
+		{
+			$char = "\n";
+		}
+		elsif($char eq "<\x{2026}\x{2026}>")
+		{
+			$char = "\x{2026}\x{2026}";
+		}
+		elsif($char eq "\x{00A5}")
+		{
+			$char = "\x{20BD}";
+		}
+		elsif($char eq "<DONE>")
+		{
+			$char = "@";
+		}
+		elsif($char eq "<PROMPT>")
+		{
+			$char = "\n@";
+		}
+		elsif($char eq "<PC>")
+		{
+			$char = "PC";
+		}
+		elsif($char eq "<TM>")
+		{
+			$char = "TM";
+		}
+		elsif($char eq "<TRAINER>")
+		{
+			$char = "TRAINER";
+		}
+		elsif($char eq "<ROCKET>")
+		{
+			$char = "ROCKET";
+		}
+		elsif($char eq "<DEXEND>")
+		{
+			$char = ".@";
+		}
+		elsif($char eq "<BOLD_A>")
+		{
+			$char = "\x{1D400}";
+		}
+		elsif($char eq "<BOLD_B>")
+		{
+			$char = "\x{1D401}";
+		}
+		elsif($char eq "<BOLD_C>")
+		{
+			$char = "\x{1D402}";
+		}
+		elsif($char eq "<BOLD_D>")
+		{
+			$char = "\x{1D403}";
+		}
+		elsif($char eq "<BOLD_E>")
+		{
+			$char = "\x{1D404}";
+		}
+		elsif($char eq "<BOLD_F>")
+		{
+			$char = "\x{1D405}";
+		}
+		elsif($char eq "<BOLD_G>")
+		{
+			$char = "\x{1D406}";
+		}
+		elsif($char eq "<BOLD_H>")
+		{
+			$char = "\x{1D407}";
+		}
+		elsif($char eq "<BOLD_I>")
+		{
+			$char = "\x{1D408}";
+		}
+		elsif($char eq "<BOLD_V>")
+		{
+			$char = "\x{1D415}";
+		}
+		elsif($char eq "<BOLD_S>")
+		{
+			$char = "\x{1D412}";
+		}
+		elsif($char eq "<BOLD_L>")
+		{
+			$char = "\x{1D40B}";
+		}
+		elsif($char eq "<BOLD_M>")
+		{
+			$char = "\x{1D40C}";
+		}
+		elsif($char eq "<COLON>")
+		{
+			$char = "\x{FE55}";
+		}
+		elsif($char eq "<PO>")
+		{
+			$char = "PO";
+		}
+		elsif($char eq "<KE>")
+		{
+			$char = "K\x{00E9}";
+		}
+		elsif($char eq "<LV>")
+		{
+			$char = ":L";
+		}
+		elsif($char eq "<DO>")
+		{
+			$char = "\x{3069}";
+		}
+		elsif($char eq "<ID>")
+		{
+			$char = "ID";
+		}
+		elsif($char eq "<PK>")
+		{
+			$char = "Pk";
+		}
+		elsif($char eq "<MN>")
+		{
+			$char = "Mn";
+		}
+		elsif($char eq "<DOT>")
+		{
+			$char = ".";
+		}
+		elsif($char eq "<JP_14>")
+		{
+			$char = "\x{30CA}\x{FF9E}";
+		}
+		elsif($char eq "<JP_18>")
+		{
+			$char = "\x{30CE}\x{309B}";
+		}
+		elsif($char eq "<NI>")
+		{
+			$char = "\x{306B}\x{3000}";
+		}
+		elsif($char eq "<TTE>")
+		{
+			$char = "\x{3063}\x{3066}";
+		}
+		elsif($char eq "<WO>")
+		{
+			$char = "\x{3092}\x{3000}";
+		}
+		elsif($char eq "<TA!>")
+		{
+			$char = "\x{305F}\x{FF01}";
+		}
+		elsif($char eq "<KOUGEKI>")
+		{
+			$char = "\x{3053}\x{3046}\x{3052}\x{304D}";
+		}
+		elsif($char eq "<WA>")
+		{
+			$char = "\x{306F}\x{3000}";
+		}
+		elsif($char eq "<NO>")
+		{
+			$char = "\x{306E}\x{3000}";
+		}
+		elsif($char eq "<ROUTE>")
+		{
+			$char = "\x{3070}\x{3093}\x{3000}\x{3069}\x{3046}\x{308D}";
+		}
+		elsif($char eq "<WATASHI>")
+		{
+			$char = "\x{308F}\x{305F}\x{3057}";
+		}
+		elsif($char eq "<KOKO_WA>")
+		{
+			$char = "\x{3053}\x{3053}\x{306F}";
+		}
+		elsif($char eq "<GA>")
+		{
+			$char = "\x{304C}\x{3000}";
+		}
+		
+		if(!(exists $charMap{$key}) && !(defined $charMap{$key}))
+		{
+			$charMap{$key} = $char;
+		}
+	}
+}
+
+close($charmapfh);
+$charmapfh=undef;
+
+#read the names from rom.
+#$POKEMON_NAMES_MEMORY_MAP
+#$POKEMON_NAMES_MEMORY_START
+#$POKEMON_NAMES_MEMORY_END
+#$POKEMON_NAME_LENGTH
+#$POKEMON_NAMES_MEMORY_OFFSET
+open(my $pokemonnamesfh, '<:raw', $romfile) or die "Could not open $romfile: $!";
+binmode($pokemonnamesfh) or (close($pokemonnamesfh), die "Cannot set $pokemonnamesfh to binary mode: $!");
+seek($pokemonnamesfh, 0, SEEK_SET) or (close($pokemonnamesfh), die "Cannot seek $pokemonnamesfh to move names: $!");
+my @namesBytes = ();
+$namesLength = 0;
+$bytesread = read($pokemonnamesfh, $buffer, 10240);
+while($bytesread)
+{
+	$namesLength += $bytesread;
+	for(my $i = 0; $i < $bytesread; $i++)
+	{
+			push(@namesBytes, ord(substr($buffer, $i, 1)));
+	}
+	
+	$bytesread = read($pokemonnamesfh, $buffer, 10240);
+}
+if(!defined $bytesread)
+{
+	die("Read failed for $pokemonnamesfh: $!");
+}
+
+close($pokemonnamesfh);
+$pokemonnamesfh = undef;
+
+# use the memory map for the cart to read the rom into the memory state.
+# initialize the memory image with zeros.
+my @pokemonNamesMemoryData = ();
+for(my $i = 0; $i <= $POKEMON_NAMES_MEMORY_END; $i++)
+{
+	push(@pokemonNamesMemoryData, 0);
+}
+
+# copy the data from the segments.
+for my $segment (@{$POKEMON_NAMES_MEMORY_MAP})
+{
+	if(exists $$segment{"rom_start"} && defined $$segment{"rom_start"} && exists $$segment{"rom_end"} && defined $$segment{"rom_end"})
+	{
+		my $i = $$segment{"start"};
+		my $j = $$segment{"rom_start"};
+		for(; $j <= $$segment{"rom_end"}; $i++, $j++)
+		{
+			$pokemonNamesMemoryData[$i] = $namesBytes[$j];
+		}
+	}
+}
 
 my %pokemonNames = ();
-my $curPokemonIdx = 1;
-for(my $i = 0; $i < 256; $i++)
+my $romOffset = $POKEMON_NAMES_MEMORY_OFFSET;
+for(my $index = 1; $index <= 256; $index++)
 {
-	$pokemonNames{$i} = "";
-}
-while(<$pokemonnamesfh>) {
-	my $line = $_;
-	if($line =~ /^\s+db\s+"([^\"]*)"\s*/g)
+	$pokemonNames{$index % 256} = "";
+	for(my $ch = 0; $ch  < $POKEMON_NAME_LENGTH; $ch++)
 	{
-		my $name = $1;
-		$name =~ s/@//g;
-		$name =~ s/([^\x00-\x7F])/sprintf "\\x{%04x}",ord($1)/eg;
-		my @pokedexes = @{$indexToPokedexLookup{$curPokemonIdx}};
-		for my $pokedex (@pokedexes)
+		my $byte = $pokemonNamesMemoryData[$romOffset + $ch];
+		if(defined $charMap{$byte} && exists $charMap{$byte})
 		{
-			$pokemonNames{$pokedex} = $name;
+			my $terminated = (1 == 0);
+			for my $c (split //, $charMap{$byte})
+			{
+				if($c eq '@')
+				{
+					$terminated = (1 == 1);
+					last;
+				}
+				else
+				{
+					$pokemonNames{$index % 256} = $pokemonNames{$index % 256} . $c;
+				}
+			}
 		}
-		$curPokemonIdx = ($curPokemonIdx + 1) % 256;
 	}
+	$romOffset += $POKEMON_NAME_LENGTH;
 }
 
 #print(Dumper($pokemonConstantsData));
@@ -2074,36 +2626,35 @@ var stats_lookup = {
 			types: [ 0 ],
 	},
 END
-for(my $i = 0; $i < 256; $i++)
+for(my $index = 0; $index < 256; $index++)
 {
-	print("i: $i\n");
 	if($gen == 1)
 	{
-		my $growthRate = $pokemonStats{$i}{"growth_rate"};
-		my $hp = $pokemonStats{$i}{"base_stats"}{"hp"};
-		my $atk = $pokemonStats{$i}{"base_stats"}{"atk"};
-		my $def = $pokemonStats{$i}{"base_stats"}{"def"};
-		my $spd = $pokemonStats{$i}{"base_stats"}{"spd"};
-		my $spc = $pokemonStats{$i}{"base_stats"}{"spc"};
-		my @types = @{$pokemonStats{$i}{"types"}};
-		my $name = $pokemonNames{$i};
+		my $growthRate = $pokemonStats{$index}{"growth_rate"};
+		my $hp = $pokemonStats{$index}{"base_stats"}{"hp"};
+		my $atk = $pokemonStats{$index}{"base_stats"}{"atk"};
+		my $def = $pokemonStats{$index}{"base_stats"}{"def"};
+		my $spd = $pokemonStats{$index}{"base_stats"}{"spd"};
+		my $spc = $pokemonStats{$index}{"base_stats"}{"spc"};
+		my @types = @{$pokemonStats{$index}{"types"}};
+		my $name = $pokemonNames{$index};
 		printf("\t%d: { growth_rate: 0x%02x,\n\t\t\tbase_stats: { \"hp\": %d, \"atk\": %d, \"def\": %d, \"spd\": %d, \"spc\": %d },\n\t\t\ttypes: [ %s ],\n\t}, // %s\n", 
-			$i, $growthRate, $hp, $atk, $def, $spd, $spc, 
+			$index, $growthRate, $hp, $atk, $def, $spd, $spc, 
 			join(", ", map { sprintf "%d", $_ } @types), $name);
 	}
 	else
 	{
-		my $growthRate = $pokemonStats{$i}{"growth_rate"};
-		my $hp = $pokemonStats{$i}{"base_stats"}{"hp"};
-		my $atk = $pokemonStats{$i}{"base_stats"}{"atk"};
-		my $def = $pokemonStats{$i}{"base_stats"}{"def"};
-		my $spd = $pokemonStats{$i}{"base_stats"}{"spd"};
-		my $spAtk = $pokemonStats{$i}{"base_stats"}{"sp_atk"};
-		my $spDef = $pokemonStats{$i}{"base_stats"}{"sp_def"};
-		my @types = @{$pokemonStats{$i}{"types"}};
-		my $name = $pokemonNames{$i};
+		my $growthRate = $pokemonStats{$index}{"growth_rate"};
+		my $hp = $pokemonStats{$index}{"base_stats"}{"hp"};
+		my $atk = $pokemonStats{$index}{"base_stats"}{"atk"};
+		my $def = $pokemonStats{$index}{"base_stats"}{"def"};
+		my $spd = $pokemonStats{$index}{"base_stats"}{"spd"};
+		my $spAtk = $pokemonStats{$index}{"base_stats"}{"sp_atk"};
+		my $spDef = $pokemonStats{$index}{"base_stats"}{"sp_def"};
+		my @types = @{$pokemonStats{$index}{"types"}};
+		my $name = $pokemonNames{$index};
 		printf("\t%d: { growth_rate: 0x%02x,\n\t\t\tbase_stats: { \"hp\": %d, \"atk\": %d, \"def\": %d, \"spd\": %d, \"sp_atk\": %d, \"sp_def\": %d },\n\t\t\ttypes: [ %s ],\n\t}, // %s\n", 
-			$i, $growthRate, $hp, $atk, $def, $spd, $spAtk, $spDef, 
+			$index, $growthRate, $hp, $atk, $def, $spd, $spAtk, $spDef, 
 			join(", ", map { sprintf "%d", $_ } @types), $name);
 	}
 }
@@ -2135,15 +2686,15 @@ var pokemon_tms_lookup = {
 				event_moves: [ ],
 		}, // undefined / default value. 
 END
-for(my $i = 0; $i < 256; $i++)
+for(my $index = 0; $index < 256; $index++)
 {
-	my $levelup = $pokemonMoves{$i}{"levelup"};
+	my $levelup = $pokemonMoves{$index}{"levelup"};
 	my %levelupHash = %{ $levelup};
 	my @levelupKeysUnsorted = keys %levelupHash;
 	my @levelupKeys = sort {$a <=> $b} @levelupKeysUnsorted;
-	my @initialUnsorted = @{$pokemonMoves{$i}{"initial"}};
+	my @initialUnsorted = @{$pokemonMoves{$index}{"initial"}};
 	my @initial = sort {$a <=> $b} @initialUnsorted;
-	my $curPokemonMovesRef = $pokemonMoves{$i};
+	my $curPokemonMovesRef = $pokemonMoves{$index};
 	my %curPokemonMoves = %{ $curPokemonMovesRef};
 	my @tmsUnsorted = @{$curPokemonMoves{"tms"}};
 	my @hmsUnsorted = @{$curPokemonMoves{"hms"}};
@@ -2156,7 +2707,7 @@ for(my $i = 0; $i < 256; $i++)
 	my @eggMoves = sort {$a <=> $b} @eggMovesUnsorted;
 	my @eventMoves = sort { $a <=> $b } @eventMovesUnsorted;
 	printf("\t\t%d: { initial: [ %s ],\n\t\t\t\tlevelup: { \n%s\t\t\t\t},\n\t\t\t\ttms: [ %s ],\n\t\t\t\thms: [ %s ],\n\t\t\t\tmts: [ %s ],\n\t\t\t\tegg_moves: [ %s ],\n\t\t\t\tevent_moves: [ %s ],\n\n\t\t}, // %s\n",
-		$i, 
+		$index, 
 		join(", ", map { sprintf ("%d", $_) } @initialUnsorted),
 		join("", map { (ref($levelupHash{$_}) ? sprintf ("\t\t\t\t\t%d: [ %s ],\n", $_, join(", ", @{$levelupHash{$_}})) : sprintf ("\t\t\t\t\t%d: %d,\n", $_, $levelupHash{$_})) } @levelupKeys),
 		join(", ", map { sprintf ("%d", $_) } @tms),
@@ -2164,7 +2715,7 @@ for(my $i = 0; $i < 256; $i++)
 		join(", ", map { sprintf ("%d", $_) } @mts),
 		join(", ", map { sprintf ("%d", $_) } @eggMoves),
 		join(", ", map { sprintf ("%s", $_) } @eventMoves),
-		$pokemonNames{$i}
+		$pokemonNames{$index}
 		);
 }
 print <<END;
@@ -2187,9 +2738,9 @@ function SpeciesNameLookup() {
 
 var pokemon_species_lookup = { 
 END
-for(my $i = 0; $i < 256; $i++)
+for(my $index = 0; $index < 256; $index++)
 {
-	printf("\t\"%d\": \"%s\",\n", $i, $pokemonNames{$i});
+	printf("\t\"%d\": \"%s\",\n", $index, $pokemonNames{$index});
 }
 print <<END;
 };
@@ -2214,7 +2765,7 @@ END
 for(my $i = 0; $i < 256; $i++)
 {
 	my $index = $i;
-	printf("\t0x%02x: %d,\n", $i, min(@{$indexToPokedexLookup{$index}}));
+	printf("\t0x%02x: %d,\n", $i, $indexToPokedexLookup{$index});
 }
 print <<END;
 };
@@ -2239,7 +2790,7 @@ END
 for(my $i = 0; $i < 256; $i++)
 {
 	my $index = $i;
-	printf("\t%d: %d,\n", $i, min(@{$pokedexToIndexLookup{$index}}));
+	printf("\t%d: %d,\n", $i, $pokedexToIndexLookup{$index});
 }
 print <<END;
 };
