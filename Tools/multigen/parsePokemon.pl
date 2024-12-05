@@ -2307,7 +2307,15 @@ if($POKEMON_EGG_MOVES_START)
 			if($eggMovesBytes[$eggMovesOffset] != 0xFF)
 			{
 				my $eggMove = $eggMovesBytes[$eggMovesOffset];
-				push(@egMoveConstants, $moveConstantsLookup{$eggMove});
+				
+				if(defined $moveConstantsLookup{$eggMove})
+				{
+					push(@egMoveConstants, $moveConstantsLookup{$eggMove});
+				}
+				else
+				{
+					push(@egMoveConstants, sprintf("GLITCH%02x", $eggMove));
+				}
 				push(@egMoves, $eggMove);
 				$eggMovesOffset++;
 			}
@@ -2865,7 +2873,9 @@ for(my $index = 1; $index <= 256; $index++)
 #print(Dumper(\%pokedexToIndexLookup));
 #print(Dumper(\%indexToPokedexLookup));
 
-print <<END;
+if($gen == 1)
+{
+	print <<END;
 function PokemonStatsLookup() {
   // Constructor body
 }
@@ -2876,6 +2886,21 @@ var stats_lookup = {
 			types: [ 0 ],
 	},
 END
+}
+else
+{
+	print <<END;
+function PokemonStatsLookup() {
+  // Constructor body
+}
+
+var stats_lookup = {
+	"": { growth_rate: "",
+			base_stats: { "hp": 0, "atk": 0, "def": 0, "spd": 0, "sp_atk": 0, "sp_def": 0 },
+			types: [ 0 ],
+	},
+END
+}
 for(my $index = 0; $index < 256; $index++)
 {
 	if($gen == 1)
