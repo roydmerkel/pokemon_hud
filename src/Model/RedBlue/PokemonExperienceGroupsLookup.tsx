@@ -58,6 +58,7 @@ export class PokemonExperienceGroupsLookup {
 		0x80: { name: "GROWTH_MEDIUM_FAST_COPY", exp_to_level: function(level) { return PokemonExperienceGroupsLookup.growthRate(level, 1, 1, 0, 0, 0); } },
 		0x81: { name: "GROWTH_SLIGHTLY_FAST_COPY", exp_to_level: function(level) { return PokemonExperienceGroupsLookup.growthRate(level, 3, 4, 10, 0, -30); } },
 		0x88: { name: "GLITCH", exp_to_level: function(level) { return PokemonExperienceGroupsLookup.growthRate(level, 3, 5, -122, 38, -204); } },
+		0x8b: { name: "GLITCH", exp_to_level: function(level) { return PokemonExperienceGroupsLookup.growthRate(level, 2, 12, 83, 39, 83); } },
 		0xa5: { name: "GLITCH", exp_to_level: function(level) { return PokemonExperienceGroupsLookup.growthRate(level, 1, 4, 60, 33, -215); } },
 		0xd1: { name: "GLITCH", exp_to_level: function(level) { return PokemonExperienceGroupsLookup.growthRate(level, 4, 7, 14, 1, -205); } },
 	};

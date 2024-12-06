@@ -123,7 +123,7 @@ export class PokemonStatsLookup {
 		29: { growth_rate: 0x03,
 				base_stats: { "hp": 55, "atk": 47, "def": 52, "spd": 41, "sp_atk": 40, "sp_def": 40 },
 				types: [ 3 ],
-		}, // NIDORAN\x{2640}
+		}, // NIDORAN♀
 		30: { growth_rate: 0x03,
 				base_stats: { "hp": 70, "atk": 62, "def": 67, "spd": 56, "sp_atk": 55, "sp_def": 55 },
 				types: [ 3 ],
@@ -135,7 +135,7 @@ export class PokemonStatsLookup {
 		32: { growth_rate: 0x03,
 				base_stats: { "hp": 46, "atk": 57, "def": 40, "spd": 50, "sp_atk": 40, "sp_def": 40 },
 				types: [ 3 ],
-		}, // NIDORAN\x{2642}
+		}, // NIDORAN♂
 		33: { growth_rate: 0x03,
 				base_stats: { "hp": 61, "atk": 72, "def": 57, "spd": 65, "sp_atk": 55, "sp_def": 55 },
 				types: [ 3 ],

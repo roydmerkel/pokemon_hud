@@ -1,5 +1,6 @@
 export class MtsLookup {
 	private static mtsLookupKV = {
+		1: 57,  // pokemon stadium surfing pikachu event...
 	};
   
 	private static keyValuePairs = Object.entries(this.mtsLookupKV);
