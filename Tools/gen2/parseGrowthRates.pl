@@ -7,6 +7,8 @@ use List::Util qw(uniq);
 use Array::Compare;
 use Fcntl qw(SEEK_SET SEEK_CUR SEEK_END);
 
+my $POKEMON_GROWTH_RATES_RED_START = 0x5901D;
+my $POKEMON_GROWTH_RATES_YELLOW_START = 0x58E73;
 my $POKEMON_GROWTH_RATES_CRYSTAL_START = 0x50EFA;
 my $POKEMON_GROWTH_RATES_GOLD_START = 0x51603;
 
@@ -25,7 +27,17 @@ if ($#ARGV != 1)
 my $romfile = $ARGV[0];
 
 #deterine which rom file we are using and the offsets of the base stats data in the pokemon rom file.
-if($romfile =~ /(^.*?[\\\/])?[^\\\/]*[Gg][Oo][Ll][Dd][^\\\/]*$/)
+if($romfile =~ /(^.*?[\\\/])?[^\\\/]*[Rr][Ee][Dd][^\\\/]*$/)
+{
+	$POKEMON_GROWTH_RATES_START = $POKEMON_GROWTH_RATES_RED_START;
+	print("red\n");
+}
+elsif($romfile =~ /(^.*?[\\\/])?[^\\\/]*[Yy][Ee][Ll][Ll][Oo][wW][^\\\/]*$/)
+{
+	$POKEMON_GROWTH_RATES_START = $POKEMON_GROWTH_RATES_YELLOW_START;
+	print("yellow\n");
+}
+elsif($romfile =~ /(^.*?[\\\/])?[^\\\/]*[Gg][Oo][Ll][Dd][^\\\/]*$/)
 {
 	$POKEMON_GROWTH_RATES_START = $POKEMON_GROWTH_RATES_GOLD_START;
 	print("gold\n");
