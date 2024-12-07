@@ -15,6 +15,8 @@ export class PokemonMovesLookup {
 				mts: [ ],
 				egg_moves: [ ],
 				event_moves: [ ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // undefined / default value. 
 		0: { initial: [  ],
 				levelup: { 
@@ -24,6 +26,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 2 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ?????
 		1: { initial: [ 33 ],
 				levelup: { 
@@ -42,6 +46,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 13, 80, 113, 130, 219 ],
 				event_moves: [ 246 ],
+				trade_moves: [ 204 ],
+				cross_gen_trade_moves: [ ],
 		}, // BULBASAUR
 		2: { initial: [ 33, 45, 73 ],
 				levelup: { 
@@ -60,6 +66,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ 204 ],
+				cross_gen_trade_moves: [ ],
 		}, // IVYSAUR
 		3: { initial: [ 33, 45, 73, 22 ],
 				levelup: { 
@@ -78,6 +86,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ 204 ],
+				cross_gen_trade_moves: [ ],
 		}, // VENUSAUR
 		4: { initial: [ 10, 45 ],
 				levelup: { 
@@ -95,6 +105,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 44, 157, 187, 200, 246, 251 ],
 				event_moves: [ 242 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CHARMANDER
 		5: { initial: [ 10, 45, 52 ],
 				levelup: { 
@@ -112,6 +124,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CHARMELEON
 		6: { initial: [ 10, 45, 52, 108 ],
 				levelup: { 
@@ -130,6 +144,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CHARIZARD
 		7: { initial: [ 33 ],
 				levelup: { 
@@ -149,6 +165,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 54, 93, 114, 175, 193, 243 ],
 				event_moves: [ 192 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SQUIRTLE
 		8: { initial: [ 33, 39, 145 ],
 				levelup: { 
@@ -168,6 +186,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // WARTORTLE
 		9: { initial: [ 33, 39, 145, 110 ],
 				levelup: { 
@@ -187,6 +207,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // BLASTOISE
 		10: { initial: [ 33, 81 ],
 				levelup: { 
@@ -196,6 +218,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CATERPIE
 		11: { initial: [ 106 ],
 				levelup: { 
@@ -206,6 +230,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // METAPOD
 		12: { initial: [ 93 ],
 				levelup: { 
@@ -224,6 +250,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // BUTTERFREE
 		13: { initial: [ 40, 81 ],
 				levelup: { 
@@ -233,6 +261,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // WEEDLE
 		14: { initial: [ 106 ],
 				levelup: { 
@@ -243,6 +273,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // KAKUNA
 		15: { initial: [ 31 ],
 				levelup: { 
@@ -259,6 +291,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // BEEDRILL
 		16: { initial: [ 33 ],
 				levelup: { 
@@ -275,6 +309,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 185, 193, 228 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PIDGEY
 		17: { initial: [ 33, 28, 16 ],
 				levelup: { 
@@ -291,6 +327,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PIDGEOTTO
 		18: { initial: [ 33, 28, 16, 98 ],
 				levelup: { 
@@ -307,6 +345,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PIDGEOT
 		19: { initial: [ 33, 39 ],
 				levelup: { 
@@ -321,6 +361,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 44, 68, 103, 154, 172, 179 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // RATTATA
 		20: { initial: [ 33, 39, 98 ],
 				levelup: { 
@@ -335,6 +377,8 @@ export class PokemonMovesLookup {
 				mts: [ 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // RATICATE
 		21: { initial: [ 64, 45 ],
 				levelup: { 
@@ -350,6 +394,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 98, 161, 184, 185, 206 ],
 				event_moves: [ 49 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SPEAROW
 		22: { initial: [ 64, 45, 43, 31 ],
 				levelup: { 
@@ -365,6 +411,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // FEAROW
 		23: { initial: [ 35, 43 ],
 				levelup: { 
@@ -380,6 +428,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 21, 180, 228, 242, 251 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // EKANS
 		24: { initial: [ 35, 43, 40, 44 ],
 				levelup: { 
@@ -395,6 +445,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ARBOK
 		25: { initial: [ 84, 45 ],
 				levelup: { 
@@ -413,6 +465,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PIKACHU
 		26: { initial: [ 84, 39, 98, 85 ],
 				levelup: { 
@@ -422,6 +476,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // RAICHU
 		27: { initial: [ 10 ],
 				levelup: { 
@@ -438,6 +494,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 68, 175, 219, 229, 232 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SANDSHREW
 		28: { initial: [ 10, 111, 28 ],
 				levelup: { 
@@ -454,6 +512,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SANDSLASH
 		29: { initial: [ 45, 33 ],
 				levelup: { 
@@ -469,6 +529,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [ 36, 48, 50, 68, 116, 204, 251 ],
 				event_moves: [ 142, 186, 236 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // NIDORAN♀
 		30: { initial: [ 45, 33 ],
 				levelup: { 
@@ -484,6 +546,8 @@ export class PokemonMovesLookup {
 				mts: [ 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // NIDORINA
 		31: { initial: [ 33, 10, 24, 39 ],
 				levelup: { 
@@ -494,6 +558,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // NIDOQUEEN
 		32: { initial: [ 43, 33 ],
 				levelup: { 
@@ -509,6 +575,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [ 36, 48, 50, 68, 93, 133, 251 ],
 				event_moves: [ 142, 186, 234 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // NIDORAN♂
 		33: { initial: [ 43, 33 ],
 				levelup: { 
@@ -524,6 +592,8 @@ export class PokemonMovesLookup {
 				mts: [ 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // NIDORINO
 		34: { initial: [ 33, 30, 24, 40 ],
 				levelup: { 
@@ -534,6 +604,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // NIDOKING
 		35: { initial: [ 1, 45 ],
 				levelup: { 
@@ -551,6 +623,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CLEFAIRY
 		36: { initial: [ 47, 3, 118, 236 ],
 				levelup: { 
@@ -560,6 +634,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CLEFABLE
 		37: { initial: [ 52, 39 ],
 				levelup: { 
@@ -575,6 +651,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 50, 95, 175, 180, 185 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // VULPIX
 		38: { initial: [ 52, 98, 109, 219 ],
 				levelup: { 
@@ -585,6 +663,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // NINETALES
 		39: { initial: [ 47 ],
 				levelup: { 
@@ -602,6 +682,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // JIGGLYPUFF
 		40: { initial: [ 47, 50, 111, 3 ],
 				levelup: { 
@@ -611,6 +693,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // WIGGLYTUFF
 		41: { initial: [ 141 ],
 				levelup: { 
@@ -626,6 +710,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 16, 18, 98, 185, 228 ],
 				event_moves: [ 175 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ZUBAT
 		42: { initial: [ 103, 141, 48 ],
 				levelup: { 
@@ -641,6 +727,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GOLBAT
 		43: { initial: [ 71 ],
 				levelup: { 
@@ -657,6 +745,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 14, 75, 175, 235 ],
 				event_moves: [ 73 ],
+				trade_moves: [ 204 ],
+				cross_gen_trade_moves: [ ],
 		}, // ODDISH
 		44: { initial: [ 71, 230, 77 ],
 				levelup: { 
@@ -673,6 +763,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ 204 ],
+				cross_gen_trade_moves: [ ],
 		}, // GLOOM
 		45: { initial: [ 71, 230, 78, 80 ],
 				levelup: { 
@@ -682,6 +774,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ 204 ],
+				cross_gen_trade_moves: [ ],
 		}, // VILEPLUME
 		46: { initial: [ 10 ],
 				levelup: { 
@@ -698,6 +792,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 60, 68, 103, 113, 175, 206, 228 ],
 				event_moves: [ 235 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PARAS
 		47: { initial: [ 10, 78, 77 ],
 				levelup: { 
@@ -714,6 +810,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PARASECT
 		48: { initial: [ 33, 50, 193 ],
 				levelup: { 
@@ -731,6 +829,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 103, 202, 226 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // VENONAT
 		49: { initial: [ 33, 50, 193, 48 ],
 				levelup: { 
@@ -749,6 +849,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // VENOMOTH
 		50: { initial: [ 10 ],
 				levelup: { 
@@ -765,6 +867,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 103, 185, 228, 246, 251 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // DIGLETT
 		51: { initial: [ 161, 10, 45, 222 ],
 				levelup: { 
@@ -781,6 +885,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // DUGTRIO
 		52: { initial: [ 10, 45 ],
 				levelup: { 
@@ -796,6 +902,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [ 95, 133, 180, 204 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MEOWTH
 		53: { initial: [ 10, 45, 44 ],
 				levelup: { 
@@ -811,6 +919,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PERSIAN
 		54: { initial: [ 10 ],
 				levelup: { 
@@ -827,6 +937,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 58, 60, 94, 95, 113, 193, 238, 248 ],
 				event_moves: [ 80, 161 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PSYDUCK
 		55: { initial: [ 10, 39, 50, 93 ],
 				levelup: { 
@@ -843,6 +955,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GOLDUCK
 		56: { initial: [ 10, 43 ],
 				levelup: { 
@@ -860,6 +974,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [ 68, 96, 157, 179, 193, 251 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MANKEY
 		57: { initial: [ 10, 43, 67, 99 ],
 				levelup: { 
@@ -878,6 +994,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PRIMEAPE
 		58: { initial: [ 44, 46 ],
 				levelup: { 
@@ -893,6 +1011,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 34, 37, 83, 219, 242 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GROWLITHE
 		59: { initial: [ 46, 43, 36, 172 ],
 				levelup: { 
@@ -903,6 +1023,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ARCANINE
 		60: { initial: [ 145 ],
 				levelup: { 
@@ -919,6 +1041,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 54, 61, 114, 150, 170 ],
 				event_moves: [ 74, 142, 186 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // POLIWAG
 		61: { initial: [ 145, 95, 55 ],
 				levelup: { 
@@ -935,6 +1059,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // POLIWHIRL
 		62: { initial: [ 55, 95, 3, 66 ],
 				levelup: { 
@@ -946,6 +1072,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // POLIWRATH
 		63: { initial: [ 100 ],
 				levelup: { 
@@ -955,6 +1083,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 112, 113, 227 ],
 				event_moves: [ 193 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ABRA
 		64: { initial: [ 100, 134, 93 ],
 				levelup: { 
@@ -971,6 +1101,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // KADABRA
 		65: { initial: [ 100, 134, 93 ],
 				levelup: { 
@@ -987,6 +1119,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ALAKAZAM
 		66: { initial: [ 67, 43 ],
 				levelup: { 
@@ -1004,6 +1138,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 27, 96, 113, 227 ],
 				event_moves: [ 37, 206 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MACHOP
 		67: { initial: [ 67, 43, 116 ],
 				levelup: { 
@@ -1021,6 +1157,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MACHOKE
 		68: { initial: [ 67, 43, 116 ],
 				levelup: { 
@@ -1038,6 +1176,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MACHAMP
 		69: { initial: [ 22 ],
 				levelup: { 
@@ -1056,6 +1196,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 14, 115, 141, 227, 235 ],
 				event_moves: [ 142, 186 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // BELLSPROUT
 		70: { initial: [ 22, 74, 35 ],
 				levelup: { 
@@ -1074,6 +1216,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // WEEPINBELL
 		71: { initial: [ 22, 79, 230, 75 ],
 				levelup: { 
@@ -1083,6 +1227,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // VICTREEBEL
 		72: { initial: [ 40 ],
 				levelup: { 
@@ -1100,6 +1246,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 62, 114, 219, 229, 243 ],
 				event_moves: [ 109 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // TENTACOOL
 		73: { initial: [ 40, 48, 132 ],
 				levelup: { 
@@ -1117,6 +1265,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // TENTACRUEL
 		74: { initial: [ 33 ],
 				levelup: { 
@@ -1134,6 +1284,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 5, 157 ],
 				event_moves: [ 229 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GEODUDE
 		75: { initial: [ 33, 111, 88 ],
 				levelup: { 
@@ -1151,6 +1303,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GRAVELER
 		76: { initial: [ 33, 111, 88, 222 ],
 				levelup: { 
@@ -1168,6 +1322,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GOLEM
 		77: { initial: [ 33 ],
 				levelup: { 
@@ -1185,6 +1341,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 24, 37, 95, 98, 172, 204 ],
 				event_moves: [ 67 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PONYTA
 		78: { initial: [ 33, 45, 39, 52 ],
 				levelup: { 
@@ -1203,6 +1361,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // RAPIDASH
 		79: { initial: [ 174, 33 ],
 				levelup: { 
@@ -1219,6 +1379,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 3 ],
 				egg_moves: [ 23, 187, 219, 248 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SLOWPOKE
 		80: { initial: [ 174, 33, 45, 55 ],
 				levelup: { 
@@ -1236,6 +1398,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SLOWBRO
 		81: { initial: [ 33 ],
 				levelup: { 
@@ -1253,6 +1417,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [ 97 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MAGNEMITE
 		82: { initial: [ 33, 84, 48, 49 ],
 				levelup: { 
@@ -1270,6 +1436,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MAGNETON
 		83: { initial: [ 64 ],
 				levelup: { 
@@ -1286,6 +1454,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 16, 98, 119, 175, 193 ],
 				event_moves: [ 210, 226 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // FARFETCH'D
 		84: { initial: [ 64, 45 ],
 				levelup: { 
@@ -1301,6 +1471,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 48, 98, 114, 175, 185 ],
 				event_moves: [ 67 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // DODUO
 		85: { initial: [ 64, 45, 228, 31 ],
 				levelup: { 
@@ -1316,6 +1488,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // DODRIO
 		86: { initial: [ 29 ],
 				levelup: { 
@@ -1331,6 +1505,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 21, 50, 64, 122, 195, 227 ],
 				event_moves: [ 175 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SEEL
 		87: { initial: [ 29, 45, 62 ],
 				levelup: { 
@@ -1346,6 +1522,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // DEWGONG
 		88: { initial: [ 139, 1 ],
 				levelup: { 
@@ -1362,6 +1540,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2 ],
 				egg_moves: [ 114, 122, 212 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GRIMER
 		89: { initial: [ 139, 1, 106 ],
 				levelup: { 
@@ -1377,6 +1557,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MUK
 		90: { initial: [ 33, 110 ],
 				levelup: { 
@@ -1392,6 +1574,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 36, 61, 103, 112, 229 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SHELLDER
 		91: { initial: [ 110, 48, 62, 182 ],
 				levelup: { 
@@ -1403,6 +1587,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CLOYSTER
 		92: { initial: [ 95, 122 ],
 				levelup: { 
@@ -1419,6 +1605,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [ 114, 149, 195 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GASTLY
 		93: { initial: [ 95, 122, 180 ],
 				levelup: { 
@@ -1435,6 +1623,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // HAUNTER
 		94: { initial: [ 95, 122, 180 ],
 				levelup: { 
@@ -1451,6 +1641,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GENGAR
 		95: { initial: [ 33, 103 ],
 				levelup: { 
@@ -1466,6 +1658,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 157, 175 ],
 				event_moves: [ 159 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ONIX
 		96: { initial: [ 1, 95 ],
 				levelup: { 
@@ -1483,6 +1677,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 112, 113 ],
 				event_moves: [ 133 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // DROWZEE
 		97: { initial: [ 1, 95, 50, 93 ],
 				levelup: { 
@@ -1500,6 +1696,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // HYPNO
 		98: { initial: [ 145 ],
 				levelup: { 
@@ -1516,6 +1714,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 21, 91, 114, 133, 175 ],
 				event_moves: [ 232 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // KRABBY
 		99: { initial: [ 145, 43, 11 ],
 				levelup: { 
@@ -1532,6 +1732,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // KINGLER
 		100: { initial: [ 33 ],
 				levelup: { 
@@ -1549,6 +1751,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [ 97 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // VOLTORB
 		101: { initial: [ 33, 103, 49, 120 ],
 				levelup: { 
@@ -1566,6 +1770,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ELECTRODE
 		102: { initial: [ 140, 95 ],
 				levelup: { 
@@ -1582,6 +1788,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 72, 115, 235, 236, 246 ],
 				event_moves: [ 230 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // EXEGGCUTE
 		103: { initial: [ 140, 95, 93 ],
 				levelup: { 
@@ -1593,6 +1801,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // EXEGGUTOR
 		104: { initial: [ 45 ],
 				levelup: { 
@@ -1612,6 +1822,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 3 ],
 				egg_moves: [ 14, 103, 130, 157, 187, 195, 246 ],
 				event_moves: [ 31 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CUBONE
 		105: { initial: [ 45, 39, 125, 29 ],
 				levelup: { 
@@ -1631,6 +1843,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MAROWAK
 		106: { initial: [ 24 ],
 				levelup: { 
@@ -1650,6 +1864,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // HITMONLEE
 		107: { initial: [ 4 ],
 				levelup: { 
@@ -1666,6 +1882,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // HITMONCHAN
 		108: { initial: [ 122 ],
 				levelup: { 
@@ -1682,6 +1900,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [ 34, 187, 222 ],
 				event_moves: [ 3 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // LICKITUNG
 		109: { initial: [ 139, 33 ],
 				levelup: { 
@@ -1698,6 +1918,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2 ],
 				egg_moves: [ 60, 103, 149, 194, 220 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // KOFFING
 		110: { initial: [ 139, 33, 123, 120 ],
 				levelup: { 
@@ -1714,6 +1936,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // WEEZING
 		111: { initial: [ 30, 39 ],
 				levelup: { 
@@ -1729,6 +1953,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [ 37, 68, 157, 179, 222, 228, 242 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // RHYHORN
 		112: { initial: [ 30, 39, 23, 31 ],
 				levelup: { 
@@ -1744,6 +1970,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // RHYDON
 		113: { initial: [ 1 ],
 				levelup: { 
@@ -1763,6 +1991,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [ 118, 215, 217 ],
 				event_moves: [ 230 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CHANSEY
 		114: { initial: [ 132 ],
 				levelup: { 
@@ -1781,6 +2011,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 72, 93, 115, 133, 175 ],
 				event_moves: [ 235 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // TANGELA
 		115: { initial: [ 4 ],
 				levelup: { 
@@ -1798,6 +2030,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [ 23, 50, 116, 193, 219 ],
 				event_moves: [ 185 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // KANGASKHAN
 		116: { initial: [ 145 ],
 				levelup: { 
@@ -1813,6 +2047,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 50, 62, 82, 150, 175, 190 ],
 				event_moves: [ 114 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // HORSEA
 		117: { initial: [ 145, 108, 43, 55 ],
 				levelup: { 
@@ -1828,6 +2064,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SEADRA
 		118: { initial: [ 64, 39 ],
 				levelup: { 
@@ -1844,6 +2082,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 56, 60, 114 ],
 				event_moves: [ 14 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GOLDEEN
 		119: { initial: [ 64, 39, 39 ],
 				levelup: { 
@@ -1860,6 +2100,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SEAKING
 		120: { initial: [ 33, 106 ],
 				levelup: { 
@@ -1877,6 +2119,8 @@ export class PokemonMovesLookup {
 				mts: [ 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [ 239 ],
+				trade_moves: [ 62, 112, 48 ],
+				cross_gen_trade_moves: [ ],
 		}, // STARYU
 		121: { initial: [ 33, 229, 105, 61 ],
 				levelup: { 
@@ -1887,6 +2131,8 @@ export class PokemonMovesLookup {
 				mts: [ 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ 62, 112, 48 ],
+				cross_gen_trade_moves: [ ],
 		}, // STARMIE
 		122: { initial: [ 112 ],
 				levelup: { 
@@ -1905,6 +2151,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [ 95, 102, 248 ],
 				event_moves: [ 170 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MR.MIME
 		123: { initial: [ 98, 43 ],
 				levelup: { 
@@ -1922,6 +2170,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 13, 68, 113, 179, 219, 226 ],
 				event_moves: [ 49 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SCYTHER
 		124: { initial: [ 1, 122, 142, 181 ],
 				levelup: { 
@@ -1939,6 +2189,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // JYNX
 		125: { initial: [ 98, 43, 9 ],
 				levelup: { 
@@ -1954,6 +2206,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ELECTABUZZ
 		126: { initial: [ 52, 43, 123, 7 ],
 				levelup: { 
@@ -1971,6 +2225,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MAGMAR
 		127: { initial: [ 11 ],
 				levelup: { 
@@ -1987,6 +2243,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 31, 175 ],
 				event_moves: [ 88 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PINSIR
 		128: { initial: [ 33 ],
 				levelup: { 
@@ -2004,6 +2262,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [ 98 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // TAUROS
 		129: { initial: [ 150 ],
 				levelup: { 
@@ -2015,6 +2275,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [ 145, 179 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MAGIKARP
 		130: { initial: [ 37 ],
 				levelup: { 
@@ -2031,6 +2293,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GYARADOS
 		131: { initial: [ 55, 45, 47 ],
 				levelup: { 
@@ -2048,6 +2312,8 @@ export class PokemonMovesLookup {
 				mts: [ 2, 3 ],
 				egg_moves: [ 62, 193 ],
 				event_moves: [ 44, 248 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // LAPRAS
 		132: { initial: [ 144 ],
 				levelup: { 
@@ -2057,6 +2323,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // DITTO
 		133: { initial: [ 33, 39 ],
 				levelup: { 
@@ -2072,6 +2340,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 175, 204 ],
 				event_moves: [ 74 ],
+				trade_moves: [ 116 ],
+				cross_gen_trade_moves: [ ],
 		}, // EEVEE
 		134: { initial: [ 33, 39 ],
 				levelup: { 
@@ -2089,6 +2359,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ 116 ],
+				cross_gen_trade_moves: [ ],
 		}, // VAPOREON
 		135: { initial: [ 33, 39 ],
 				levelup: { 
@@ -2106,6 +2378,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ 116 ],
+				cross_gen_trade_moves: [ ],
 		}, // JOLTEON
 		136: { initial: [ 33, 39 ],
 				levelup: { 
@@ -2123,6 +2397,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ 116 ],
+				cross_gen_trade_moves: [ ],
 		}, // FLAREON
 		137: { initial: [ 176, 33, 160 ],
 				levelup: { 
@@ -2139,6 +2415,8 @@ export class PokemonMovesLookup {
 				mts: [ 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [ 112 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PORYGON
 		138: { initial: [ 132, 110 ],
 				levelup: { 
@@ -2154,6 +2432,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 21, 48, 61, 62, 114 ],
 				event_moves: [ 88 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // OMANYTE
 		139: { initial: [ 132, 110, 44 ],
 				levelup: { 
@@ -2170,6 +2450,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // OMASTAR
 		140: { initial: [ 10, 106 ],
 				levelup: { 
@@ -2185,6 +2467,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 61, 62, 91, 175, 229 ],
 				event_moves: [ 88 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // KABUTO
 		141: { initial: [ 10, 106, 71 ],
 				levelup: { 
@@ -2201,6 +2485,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // KABUTOPS
 		142: { initial: [ 17 ],
 				levelup: { 
@@ -2217,6 +2503,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 18, 193, 228 ],
 				event_moves: [ 88 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // AERODACTYL
 		143: { initial: [ 33 ],
 				levelup: { 
@@ -2234,6 +2522,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [ 122 ],
 				event_moves: [ 142, 150, 186 ],
+				trade_moves: [ 204 ],
+				cross_gen_trade_moves: [ ],
 		}, // SNORLAX
 		144: { initial: [ 16, 181 ],
 				levelup: { 
@@ -2249,6 +2539,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ARTICUNO
 		145: { initial: [ 64, 84 ],
 				levelup: { 
@@ -2264,6 +2556,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ZAPDOS
 		146: { initial: [ 17, 52 ],
 				levelup: { 
@@ -2279,6 +2573,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MOLTRES
 		147: { initial: [ 35, 43 ],
 				levelup: { 
@@ -2296,6 +2592,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [ 48, 54, 113, 114 ],
 				event_moves: [ 56, 245 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // DRATINI
 		148: { initial: [ 35, 43, 86, 239 ],
 				levelup: { 
@@ -2313,6 +2611,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // DRAGONAIR
 		149: { initial: [ 35, 43, 86, 239 ],
 				levelup: { 
@@ -2331,6 +2631,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // DRAGONITE
 		150: { initial: [ 93, 50 ],
 				levelup: { 
@@ -2349,6 +2651,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MEWTWO
 		151: { initial: [ 1 ],
 				levelup: { 
@@ -2363,6 +2667,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MEW
 		152: { initial: [ 33, 45 ],
 				levelup: { 
@@ -2380,6 +2686,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 14, 22, 68, 73, 175, 246 ],
 				event_moves: [ 80 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CHIKORITA
 		153: { initial: [ 33, 45, 75, 115 ],
 				levelup: { 
@@ -2397,6 +2705,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // BAYLEEF
 		154: { initial: [ 33, 45, 75, 115 ],
 				levelup: { 
@@ -2414,6 +2724,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MEGANIUM
 		155: { initial: [ 33, 43 ],
 				levelup: { 
@@ -2429,6 +2741,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 37, 66, 98, 154, 179, 193 ],
 				event_moves: [ 38 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CYNDAQUIL
 		156: { initial: [ 33, 43, 108 ],
 				levelup: { 
@@ -2444,6 +2758,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // QUILAVA
 		157: { initial: [ 33, 43, 108, 52 ],
 				levelup: { 
@@ -2459,6 +2775,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // TYPHLOSION
 		158: { initial: [ 10, 43 ],
 				levelup: { 
@@ -2475,6 +2793,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 13, 37, 56, 157, 242, 246 ],
 				event_moves: [ 66 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // TOTODILE
 		159: { initial: [ 10, 43, 99 ],
 				levelup: { 
@@ -2491,6 +2811,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CROCONAW
 		160: { initial: [ 10, 43, 99, 55 ],
 				levelup: { 
@@ -2507,6 +2829,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // FERALIGATR
 		161: { initial: [ 33 ],
 				levelup: { 
@@ -2522,6 +2846,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 38, 116, 163, 179, 228 ],
 				event_moves: [ 146 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SENTRET
 		162: { initial: [ 10, 111, 98 ],
 				levelup: { 
@@ -2537,6 +2863,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // FURRET
 		163: { initial: [ 33, 45 ],
 				levelup: { 
@@ -2553,6 +2881,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 17, 18, 48, 119, 143, 185 ],
 				event_moves: [ 101 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // HOOTHOOT
 		164: { initial: [ 33, 45, 193, 64 ],
 				levelup: { 
@@ -2569,6 +2899,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // NOCTOWL
 		165: { initial: [ 33 ],
 				levelup: { 
@@ -2585,6 +2917,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 60, 113, 117 ],
 				event_moves: [ 112 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // LEDYBA
 		166: { initial: [ 33, 48 ],
 				levelup: { 
@@ -2601,6 +2935,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // LEDIAN
 		167: { initial: [ 40, 81 ],
 				levelup: { 
@@ -2618,6 +2954,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 49, 50, 60, 226, 228 ],
 				event_moves: [ 74 ],
+				trade_moves: [ 103 ],
+				cross_gen_trade_moves: [ ],
 		}, // SPINARAK
 		168: { initial: [ 40, 81, 184, 132 ],
 				levelup: { 
@@ -2635,6 +2973,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ 103 ],
+				cross_gen_trade_moves: [ ],
 		}, // ARIADOS
 		169: { initial: [ 103, 141, 48 ],
 				levelup: { 
@@ -2650,6 +2990,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CROBAT
 		170: { initial: [ 145, 86 ],
 				levelup: { 
@@ -2666,6 +3008,8 @@ export class PokemonMovesLookup {
 				mts: [ 2, 3 ],
 				egg_moves: [ 48, 103, 175 ],
 				event_moves: [ 113 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CHINCHOU
 		171: { initial: [ 145, 86, 48 ],
 				levelup: { 
@@ -2682,6 +3026,8 @@ export class PokemonMovesLookup {
 				mts: [ 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // LANTURN
 		172: { initial: [ 84, 204 ],
 				levelup: { 
@@ -2694,6 +3040,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [ 3, 117, 179, 217, 227 ],
 				event_moves: [ 47, 80, 146, 184 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PICHU
 		173: { initial: [ 1, 204 ],
 				levelup: { 
@@ -2706,6 +3054,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 102, 118, 133, 150, 187, 217 ],
 				event_moves: [ 80, 129, 146, 184 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CLEFFA
 		174: { initial: [ 47, 204 ],
 				levelup: { 
@@ -2718,6 +3068,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 185, 195, 217 ],
 				event_moves: [ 80, 102, 146, 184 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // IGGLYBUFF
 		175: { initial: [ 45, 204 ],
 				levelup: { 
@@ -2732,6 +3084,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 64, 119, 193, 217, 248 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // TOGEPI
 		176: { initial: [ 45, 204 ],
 				levelup: { 
@@ -2746,6 +3100,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // TOGETIC
 		177: { initial: [ 64, 43 ],
 				levelup: { 
@@ -2760,6 +3116,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 65, 98, 114, 185, 211 ],
 				event_moves: [ 219 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // NATU
 		178: { initial: [ 64, 43, 101 ],
 				levelup: { 
@@ -2774,6 +3132,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // XATU
 		179: { initial: [ 33, 45 ],
 				levelup: { 
@@ -2788,6 +3148,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [ 34, 36, 85, 103, 115, 219 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MAREEP
 		180: { initial: [ 33, 45, 84 ],
 				levelup: { 
@@ -2802,6 +3164,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // FLAAFFY
 		181: { initial: [ 33, 45, 84, 86 ],
 				levelup: { 
@@ -2817,6 +3181,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // AMPHAROS
 		182: { initial: [ 71, 230, 78, 80 ],
 				levelup: { 
@@ -2827,6 +3193,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ 204 ],
+				cross_gen_trade_moves: [ ],
 		}, // BELLOSSOM
 		183: { initial: [ 33 ],
 				levelup: { 
@@ -2843,6 +3211,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 48, 113, 133, 187, 193, 195, 217, 248 ],
 				event_moves: [ 56, 146, 184 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MARILL
 		184: { initial: [ 33, 111, 39, 55 ],
 				levelup: { 
@@ -2859,6 +3229,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // AZUMARILL
 		185: { initial: [ 88, 102 ],
 				levelup: { 
@@ -2873,6 +3245,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 120 ],
 				event_moves: [ 164 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SUDOWOODO
 		186: { initial: [ 55, 95, 3, 195 ],
 				levelup: { 
@@ -2884,6 +3258,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // POLITOED
 		187: { initial: [ 150 ],
 				levelup: { 
@@ -2901,6 +3277,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 6, 38, 45, 93, 115, 133, 227 ],
 				event_moves: [ 97 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // HOPPIP
 		188: { initial: [ 150, 235, 39, 33 ],
 				levelup: { 
@@ -2918,6 +3296,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SKIPLOOM
 		189: { initial: [ 150, 235, 39, 33 ],
 				levelup: { 
@@ -2935,6 +3315,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // JUMPLUFF
 		190: { initial: [ 10, 39 ],
 				levelup: { 
@@ -2950,6 +3332,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [ 3, 21, 68, 97, 103, 180, 228, 251 ],
 				event_moves: [ 102 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // AIPOM
 		191: { initial: [ 71 ],
 				levelup: { 
@@ -2964,6 +3348,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [ 150 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SUNKERN
 		192: { initial: [ 71, 1 ],
 				levelup: { 
@@ -2978,6 +3364,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SUNFLORA
 		193: { initial: [ 33, 193 ],
 				levelup: { 
@@ -2994,6 +3382,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 18, 141, 179 ],
 				event_moves: [ 186, 211 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // YANMA
 		194: { initial: [ 55, 39 ],
 				levelup: { 
@@ -3008,6 +3398,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 34, 219, 246 ],
 				event_moves: [ 184, 187 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // WOOPER
 		195: { initial: [ 55, 39 ],
 				levelup: { 
@@ -3022,6 +3414,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // QUAGSIRE
 		196: { initial: [ 33, 39 ],
 				levelup: { 
@@ -3039,6 +3433,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ 116 ],
+				cross_gen_trade_moves: [ ],
 		}, // ESPEON
 		197: { initial: [ 33, 39 ],
 				levelup: { 
@@ -3056,6 +3452,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ 116 ],
+				cross_gen_trade_moves: [ ],
 		}, // UMBREON
 		198: { initial: [ 64 ],
 				levelup: { 
@@ -3070,6 +3468,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 17, 18, 65, 98, 119, 143 ],
 				event_moves: [ 251 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MURKROW
 		199: { initial: [ 174, 33 ],
 				levelup: { 
@@ -3086,6 +3486,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SLOWKING
 		200: { initial: [ 45, 149 ],
 				levelup: { 
@@ -3101,6 +3503,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [ 103, 194 ],
 				event_moves: [ 95 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MISDREAVUS
 		201: { initial: [ 237 ],
 				levelup: { 
@@ -3110,6 +3514,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // UNOWN
 		202: { initial: [ 68, 243, 219, 194 ],
 				levelup: { 
@@ -3119,6 +3525,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [ 102 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // WOBBUFFET
 		203: { initial: [ 33, 45, 93, 23 ],
 				levelup: { 
@@ -3134,6 +3542,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [ 36, 133, 193, 248, 251 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GIRAFARIG
 		204: { initial: [ 33, 182 ],
 				levelup: { 
@@ -3150,6 +3560,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 42, 115, 129, 175 ],
 				event_moves: [ 164 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PINECO
 		205: { initial: [ 33, 182, 120 ],
 				levelup: { 
@@ -3166,6 +3578,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // FORRETRESS
 		206: { initial: [ 99 ],
 				levelup: { 
@@ -3181,6 +3595,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2 ],
 				egg_moves: [ 44, 99, 117, 157, 246 ],
 				event_moves: [ 31, 32 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // DUNSPARCE
 		207: { initial: [ 40 ],
 				levelup: { 
@@ -3197,6 +3613,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 13, 17, 68, 232 ],
 				event_moves: [ 17, 68, 89 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GLIGAR
 		208: { initial: [ 33, 103 ],
 				levelup: { 
@@ -3213,6 +3631,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // STEELIX
 		209: { initial: [ 33, 184 ],
 				levelup: { 
@@ -3229,6 +3649,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [ 43, 115, 118, 122, 185, 215, 217, 242 ],
 				event_moves: [ 142 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SNUBBULL
 		210: { initial: [ 33, 184 ],
 				levelup: { 
@@ -3245,6 +3667,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // GRANBULL
 		211: { initial: [ 191, 33, 40 ],
 				levelup: { 
@@ -3259,6 +3683,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 48, 61, 114, 175 ],
 				event_moves: [ 38 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // QWILFISH
 		212: { initial: [ 98, 43 ],
 				levelup: { 
@@ -3276,6 +3702,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SCIZOR
 		213: { initial: [ 132, 110 ],
 				levelup: { 
@@ -3290,6 +3718,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 230 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SHUCKLE
 		214: { initial: [ 33, 43 ],
 				levelup: { 
@@ -3306,6 +3736,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 106, 117, 175 ],
 				event_moves: [ 69 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // HERACROSS
 		215: { initial: [ 10, 43 ],
 				levelup: { 
@@ -3323,6 +3755,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 44, 68, 115, 180, 193 ],
 				event_moves: [ 236 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SNEASEL
 		216: { initial: [ 10, 43 ],
 				levelup: { 
@@ -3339,6 +3773,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 36, 68, 69, 116, 232, 242 ],
 				event_moves: [ 230 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // TEDDIURSA
 		217: { initial: [ 10, 43, 122, 154 ],
 				levelup: { 
@@ -3355,6 +3791,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // URSARING
 		218: { initial: [ 123 ],
 				levelup: { 
@@ -3371,6 +3809,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 151 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SLUGMA
 		219: { initial: [ 123, 52, 88 ],
 				levelup: { 
@@ -3387,6 +3827,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MAGCARGO
 		220: { initial: [ 33 ],
 				levelup: { 
@@ -3402,6 +3844,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 34, 36, 44, 157, 246 ],
 				event_moves: [ 18 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SWINUB
 		221: { initial: [ 30, 181, 203 ],
 				levelup: { 
@@ -3418,6 +3862,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PILOSWINE
 		222: { initial: [ 33 ],
 				levelup: { 
@@ -3434,6 +3880,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 54, 103, 133, 157, 219 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CORSOLA
 		223: { initial: [ 55 ],
 				levelup: { 
@@ -3448,6 +3896,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 3 ],
 				egg_moves: [ 48, 62, 103, 114, 190 ],
 				event_moves: [ 54, 133 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // REMORAID
 		224: { initial: [ 55 ],
 				levelup: { 
@@ -3463,6 +3913,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // OCTILLERY
 		225: { initial: [ 217 ],
 				levelup: { 
@@ -3472,6 +3924,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 62, 98, 150, 229, 248 ],
 				event_moves: [ 6, 191 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // DELIBIRD
 		226: { initial: [ 33, 145 ],
 				levelup: { 
@@ -3487,6 +3941,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 21, 56, 114, 239 ],
 				event_moves: [ 16 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MANTINE
 		227: { initial: [ 43, 64 ],
 				levelup: { 
@@ -3501,6 +3957,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 18, 65, 143, 228 ],
 				event_moves: [ 210 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SKARMORY
 		228: { initial: [ 43, 52 ],
 				levelup: { 
@@ -3516,6 +3974,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 68, 83, 99, 179, 180, 228, 251 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // HOUNDOUR
 		229: { initial: [ 43, 52 ],
 				levelup: { 
@@ -3531,6 +3991,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // HOUNDOOM
 		230: { initial: [ 145, 108, 43, 55 ],
 				levelup: { 
@@ -3546,6 +4008,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // KINGDRA
 		231: { initial: [ 33, 45 ],
 				levelup: { 
@@ -3561,6 +4025,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 34, 55, 116, 246 ],
 				event_moves: [ 71, 227 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PHANPY
 		232: { initial: [ 30, 45 ],
 				levelup: { 
@@ -3576,6 +4042,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // DONPHAN
 		233: { initial: [ 176, 33, 160 ],
 				levelup: { 
@@ -3592,6 +4060,8 @@ export class PokemonMovesLookup {
 				mts: [ 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PORYGON2
 		234: { initial: [ 33 ],
 				levelup: { 
@@ -3607,6 +4077,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 44, 50, 113, 115, 180 ],
 				event_moves: [ 219 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // STANTLER
 		235: { initial: [ 166 ],
 				levelup: { 
@@ -3625,6 +4097,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // SMEARGLE
 		236: { initial: [ 33 ],
 				levelup: { 
@@ -3634,6 +4108,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 136, 170, 183, 229 ],
 				event_moves: [ 99, 146 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // TYROGUE
 		237: { initial: [ 27 ],
 				levelup: { 
@@ -3651,6 +4127,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // HITMONTOP
 		238: { initial: [ 1, 122 ],
 				levelup: { 
@@ -3668,6 +4146,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 96 ],
 				event_moves: [ 80, 118, 146 ],
+				trade_moves: [ 142 ],
+				cross_gen_trade_moves: [ ],
 		}, // SMOOCHUM
 		239: { initial: [ 98, 43 ],
 				levelup: { 
@@ -3683,6 +4163,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [ 2, 27, 96, 112, 238 ],
 				event_moves: [ 146, 228 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ELEKID
 		240: { initial: [ 52 ],
 				levelup: { 
@@ -3700,6 +4182,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [ 2, 5, 103, 112, 238 ],
 				event_moves: [ 146, 185 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MAGBY
 		241: { initial: [ 33 ],
 				levelup: { 
@@ -3717,6 +4201,8 @@ export class PokemonMovesLookup {
 				mts: [ 2, 3 ],
 				egg_moves: [ 69, 179, 217 ],
 				event_moves: [ 25 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // MILTANK
 		242: { initial: [ 1 ],
 				levelup: { 
@@ -3736,6 +4222,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // BLISSEY
 		243: { initial: [ 44, 43 ],
 				levelup: { 
@@ -3752,6 +4240,8 @@ export class PokemonMovesLookup {
 				mts: [ 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // RAIKOU
 		244: { initial: [ 44, 43 ],
 				levelup: { 
@@ -3768,6 +4258,8 @@ export class PokemonMovesLookup {
 				mts: [ 1 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ENTEI
 		245: { initial: [ 44, 43 ],
 				levelup: { 
@@ -3784,6 +4276,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ 55 ],
+				cross_gen_trade_moves: [ ],
 		}, // SUICUNE
 		246: { initial: [ 44, 43 ],
 				levelup: { 
@@ -3801,6 +4295,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [ 23, 116, 200, 228, 246 ],
 				event_moves: [ 99 ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // LARVITAR
 		247: { initial: [ 44, 43, 201, 103 ],
 				levelup: { 
@@ -3818,6 +4314,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // PUPITAR
 		248: { initial: [ 44, 43, 201, 103 ],
 				levelup: { 
@@ -3835,6 +4333,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // TYRANITAR
 		249: { initial: [ 177 ],
 				levelup: { 
@@ -3853,6 +4353,8 @@ export class PokemonMovesLookup {
 				mts: [ 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // LUGIA
 		250: { initial: [ 221 ],
 				levelup: { 
@@ -3871,6 +4373,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // HO-OH
 		251: { initial: [ 73, 93, 105, 215 ],
 				levelup: { 
@@ -3885,6 +4389,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // CELEBI
 		252: { initial: [  ],
 				levelup: { 
@@ -3910,6 +4416,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ?????
 		253: { initial: [ 0 ],
 				levelup: { 
@@ -3919,6 +4427,8 @@ export class PokemonMovesLookup {
 				mts: [ 3 ],
 				egg_moves: [ 4, 8, 13, 14, 15, 28, 31, 56, 62, 64, 65, 66, 79, 81, 82, 83, 84, 90, 120, 121, 122, 123, 124, 125, 127, 139, 155, 157, 164, 175, 178, 198, 201, 202, 203, 205, 212, 214, 215, 224, 230, 232, 240, 241, 245, 254 ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // EGG
 		254: { initial: [  ],
 				levelup: { 
@@ -3961,6 +4471,8 @@ export class PokemonMovesLookup {
 				mts: [ 1, 2, 3 ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ?????
 		255: { initial: [  ],
 				levelup: { 
@@ -3976,6 +4488,8 @@ export class PokemonMovesLookup {
 				mts: [  ],
 				egg_moves: [  ],
 				event_moves: [  ],
+				trade_moves: [ ],
+				cross_gen_trade_moves: [ ],
 		}, // ?????
 	};
 
