@@ -2278,12 +2278,25 @@ for my $i (0..$#movesSpecificToVersion)
 	{
 		if((exists $indexes{$j}) && (defined $$indexOrder{$j}) && $$indexOrder{$j} && (scalar @{$movesSpecificToVersion[$i]{$j}} != 0))
 		{
-			printf("\t\t% 3d: [\n", $indexes{$j});
+			my $first = (1 == 1);
+			printf("\t\t% 3d: [ ", $indexes{$j});
 			for my $move (@{$movesSpecificToVersion[$i]{$j}})
 			{
-				print("\t\t\t" . $$movesLookup{$move} . ",\n");
+				if(!$first)
+				{
+					print(", ");
+				}
+				else
+				{
+					$first = (1 == 0);
+				}
+				print($$movesLookup{$move});
 			}
-			printf("\t\t     ], // %s\n", $$pokemonNames{$j});
+			if(!$first)
+			{
+				print(" ");
+			}
+			printf("], // %s\n", $$pokemonNames{$j});
 		}
 	}
 	print("\t},\n\n");
@@ -2313,12 +2326,25 @@ for my $i (0..$#movesSpecificToVersionGeneration)
 	{
 		if((exists $indexes{$j}) && (defined $indexes{$j}) && $indexes{$j} && (scalar @{$movesSpecificToVersionGeneration[$i]{$j}} != 0))
 		{
-			printf("\t\t% 3d: [\n", $indexes{$j});
+			my $first = (1 == 1);
+			printf("\t\t% 3d: [ ", $indexes{$j});
 			for my $move (@{$movesSpecificToVersionGeneration[$i]{$j}})
 			{
-				print("\t\t\t" . $$movesLookup{$move} . ",\n");
+				if(!$first)
+				{
+					print(", ");
+				}
+				else
+				{
+					$first = (1 == 0);
+				}
+				print($$movesLookup{$move});
 			}
-			printf("\t\t     ], // %s\n", $$pokemonNames{$j});
+			if(!$first)
+			{
+				print(" ");
+			}
+			printf("], // %s\n", $$pokemonNames{$j});
 		}
 	}
 	print("\t},\n\n");
