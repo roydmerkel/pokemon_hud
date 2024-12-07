@@ -1065,6 +1065,11 @@ my %yellowPokedexOrder = ();
 my %goldPokedexOrder = ();
 my %crystalPokedexOrder = ();
 
+my %redIndexOrder = ();
+my %yellowIndexOrder = ();
+my %goldIndexOrder = ();
+my %crystalIndexOrder = ();
+
 my %redPokemonInitialMoves = ();
 my %redPokemonLevelUpMoves = ();
 my %redPokemonEggMoves = ();
@@ -1126,6 +1131,7 @@ my @numTMss = ( 0, 0, 0, 0 );
 my @numHMss = ( 0, 0, 0, 0 );
 my @numMTss = ( 0, 0, 0, 0 );
 my @pokedexOrders = (\%redPokedexOrder, \%yellowPokedexOrder, \%goldPokedexOrder, \%crystalPokedexOrder);
+my @indexOrders = (\%redIndexOrder, \%yellowIndexOrder, \%goldIndexOrder, \%crystalIndexOrder);
 
 my @pokemonInitialMovess = ( \%redPokemonInitialMoves, \%yellowPokemonInitialMoves, \%goldPokemonInitialMoves, \%crystalPokemonInitialMoves );
 my @pokemonLevelUpMovess = ( \%redPokemonLevelUpMoves, \%yellowPokemonLevelUpMoves, \%goldPokemonLevelUpMoves, \%crystalPokemonLevelUpMoves );
@@ -1338,6 +1344,54 @@ for(my $i = 0; $i <= $#roms; $i++)
 		for(my $i = $maxPokemonIndex + 1; $i <= 255; $i++)
 		{
 			$$pokedexOrder{$i} = 0;
+		}
+	}
+	
+	my $indexOrder = $indexOrders[$i];
+	if($gen == 1)
+	{
+		my $offset = $dexOrderTableOffsets[$i];
+		for(my $i = $minPokedex; $i <= $maxPokedex; $i++)
+		{
+			my $curOffset = $offset;
+			my $found = (1 == 0);
+			
+			while(!$found)
+			{
+				my $byte = $romBytes[$curOffset];
+				if($byte == $i)
+				{
+					$found = (1 == 1);
+				}
+				else
+				{
+					$curOffset++;
+				}
+			}
+			$$indexOrder{$i} = $curOffset - $offset + 1;
+		}
+		for(my $i = 0; $i < $minPokedex; $i++)
+		{
+			$$indexOrder{$i} = 0;
+		}
+		for(my $i = $maxPokedex + 1; $i <= 255; $i++)
+		{
+			$$indexOrder{$i} = 0;
+		}
+	}
+	else
+	{
+		for(my $i = $minPokemonIndex; $i <= $maxPokemonIndex; $i++)
+		{
+			$$indexOrder{$i} = $i;
+		}
+		for(my $i = 0; $i < $minPokemonIndex; $i++)
+		{
+			$$indexOrder{$i} = 0;
+		}
+		for(my $i = $maxPokemonIndex + 1; $i <= 255; $i++)
+		{
+			$$indexOrder{$i} = 0;
 		}
 	}
 	
@@ -2107,7 +2161,7 @@ for(my $i = 0; $i <= $#pokemonMovess; $i++)
 					$$movesByVersion{$k} = \@moves;
 				}
 				
-				my @tradeMoves = grep { !arrayexists($_, $movesetJ) } @{$movesetI}; 
+				my @tradeMoves = grep { !arrayexists($_, $movesetI) } @{$movesetJ}; 
 				$$movesByVersion{$k} = \@tradeMoves;
 			}
 		}
@@ -2187,6 +2241,7 @@ for my $i (0..$#dissassemblydirs)
 #print(Dumper(\@movesLookups, \@moveConstantsLookups, \@tmsDatas, \@hmsDatas, \@mtsDatas, \@tmToMoveConstMaps, \@hmToMoveConstMaps, \@mtToMoveConstMaps, \@moveConstToTmMaps, \@moveConstToHmMaps, \@moveConstToMTMaps));
 #print(Dumper(\@numTMsHMsMTss, \@numTMss, \@numHMss, \@numMTss));
 #print(Dumper(\@pokedexOrders));
+#print(Dumper(\@indexOrders));
 #print(Dumper(\@pokemonInitialMovess, \@pokemonTMss, \@pokemonHMss, \@pokemonMTss));
 #print(Dumper(\@pokemonInitialMovess));
 #print(Dumper(\@pokemonLevelUpMovess));
@@ -2205,16 +2260,31 @@ for my $i (0..$#movesSpecificToVersion)
 	my $minPokedex = $minPokedexs[$i];
 	my $maxPokedex = $maxPokedexs[$i];
 	my $pokemonNames = $pokemonNamess[$i];
-	
-	print("\t{\n");
+	my $indexOrder = $indexOrders[$i];
+	my $movesLookup = $movesLookups[$i];
+	my %indexes = ();
+	for(my $j = 0; $j <= 255; $j++)
+	{
+		$indexes{$j} = 0;
+	}
 	for my $j ($minPokedex..$maxPokedex)
 	{
-		printf("\t\t% 3d: [\n", $j);
-		for my $move (@{$movesSpecificToVersion[$i]{$j}})
+		$indexes{$j} = $$indexOrder{$j};
+	}
+	my @indexeskeys = sort { $indexes{$a} <=> $indexes{$b} } (keys %indexes);
+	
+	print("\t{\n");
+	for my $j (@indexeskeys)
+	{
+		if((exists $indexes{$j}) && (defined $$indexOrder{$j}) && $$indexOrder{$j} && (scalar @{$movesSpecificToVersion[$i]{$j}} != 0))
 		{
-			print("\t\t\t$move,\n");
+			printf("\t\t% 3d: [\n", $indexes{$j});
+			for my $move (@{$movesSpecificToVersion[$i]{$j}})
+			{
+				print("\t\t\t" . $$movesLookup{$move} . ",\n");
+			}
+			printf("\t\t     ], // %s\n", $$pokemonNames{$j});
 		}
-		printf("\t\t     ], // %s\n", $$pokemonNames{$j});
 	}
 	print("\t},\n\n");
 }
@@ -2225,16 +2295,31 @@ for my $i (0..$#movesSpecificToVersionGeneration)
 	my $minPokedex = $minPokedexs[$i];
 	my $maxPokedex = $maxPokedexs[$i];
 	my $pokemonNames = $pokemonNamess[$i];
-	
-	print("\t{\n");
+	my $indexOrder = $indexOrders[$i];
+	my $movesLookup = $movesLookups[$i];
+	my %indexes = ();
+	for(my $j = 0; $j <= 255; $j++)
+	{
+		$indexes{$j} = 0;
+	}
 	for my $j ($minPokedex..$maxPokedex)
 	{
-		printf("\t\t% 3d: [\n", $j);
-		for my $move (@{$movesSpecificToVersionGeneration[$i]{$j}})
+		$indexes{$j} = $$indexOrder{$j};
+	}
+	my @indexeskeys = sort { $indexes{$a} <=> $indexes{$b} } (keys %indexes);
+	
+	print("\t{\n");
+	for my $j (@indexeskeys)
+	{
+		if((exists $indexes{$j}) && (defined $indexes{$j}) && $indexes{$j} && (scalar @{$movesSpecificToVersionGeneration[$i]{$j}} != 0))
 		{
-			print("\t\t\t$move,\n");
+			printf("\t\t% 3d: [\n", $indexes{$j});
+			for my $move (@{$movesSpecificToVersionGeneration[$i]{$j}})
+			{
+				print("\t\t\t" . $$movesLookup{$move} . ",\n");
+			}
+			printf("\t\t     ], // %s\n", $$pokemonNames{$j});
 		}
-		printf("\t\t     ], // %s\n", $$pokemonNames{$j});
 	}
 	print("\t},\n\n");
 }
