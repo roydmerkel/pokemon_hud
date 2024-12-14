@@ -5,7 +5,7 @@ export class PokemonMechanics {
 			switch(critStage)
 			{
 				case 0:
-					return Math.min((Math.round(8 * baseSpeed * 100 * 100 / (256 * 2)) / 100), 255);
+					return Math.min((Math.round(8 * baseSpeed * 100 * 100 / (256 * 2)) / 100), 255*100/255);
 				default:
 					return (Math.round(4 * baseSpeed * 100 * 100 / (256 * 4)) / 100);
 			}

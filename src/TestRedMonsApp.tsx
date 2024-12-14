@@ -3,6 +3,7 @@ import { useEffect, useState, useRef, FunctionComponent } from 'react';
 import SpeciesNameLookup from './Model/RedBlue/SpeciesNameLookup';
 import SpeciesImageLookup from './Model/RedBlue/SpeciesImageLookup';
 import PokemonMechanics from './Model/RedBlue/PokemonMechanics';
+import PokemonIndexToDexIndex from './Model/Yellow/PokemonIndexToDexIndex';
 import DexIndexToPokemonIndex from './Model/RedBlue/DexIndexToPokemonIndex';
 import PokemonStatsLookup from './Model/RedBlue/PokemonStatsLookup';
 import TypeLookup from './Model/RedBlue/TypeLookup';
@@ -17,9 +18,10 @@ const TestRedMonsApp: FunctionComponent = () => {
   function GetMons() {
 	var mons = [];
 	
-	for(var i = PokemonMechanics.getMinimumPokedexGlitchId(); i <= PokemonMechanics.getMaximumPokedexGlitchId(); i++)
+	for(var i = 0; i <= 255; i++)
 	{
 		var stats = PokemonStatsLookup.statsLookup.get(i.toString());
+		console.log("stats.growth_rate.toString():", stats.growth_rate.toString());
 		var initial = PokemonMovesLookup.pokemonTmsLookup.get(i.toString()).initial;
 		var levelup = PokemonMovesLookup.pokemonTmsLookup.get(i.toString()).levelup;
 		var levelupEntries = [];
@@ -92,18 +94,18 @@ const TestRedMonsApp: FunctionComponent = () => {
 			egg_moves = newegg_moves;
 		}
 		mons.push(<tr width="100%" height="100%">
-			<td>{i.toString()}</td>
+			<td>{PokemonIndexToDexIndex.pokemonIndexLookup.get(i.toString())}</td>
 			<td>{SpeciesNameLookup.pokemonSpeciesNameLookup.get(i.toString())}</td>
-			<td>{DexIndexToPokemonIndex.indexPokemonLookup.get(i.toString())}</td>
+			<td>{i.toString()}</td>
 			<td>{stats.base_stats.hp}</td>
 			<td>{stats.base_stats.atk}</td>
 			<td>{stats.base_stats.def}</td>
 			<td>{stats.base_stats.spd}</td>
 			<td>{stats.base_stats.spc}</td>
-			<td>{PokemonExperienceGroupsLookup.experienceGroups.get(stats.growth_rate.toString()).name}</td>
-			<td>{PokemonExperienceGroupsLookup.experienceGroups.get(stats.growth_rate.toString()).exp_to_level(100)}</td>
-			<td>{((stats.types && 0 in stats.types) ? TypeLookup.typeLookup.get(stats.types[0].toString()).name : "N/A")}</td>
-			<td>{((stats.types && 1 in stats.types) ? TypeLookup.typeLookup.get(stats.types[1].toString()).name : "N/A")}</td>
+			<td>{(stats.growth_rate.toString() != "last") ? PokemonExperienceGroupsLookup.experienceGroups.get(stats.growth_rate.toString()).name : "last"}</td>
+			<td>{(stats.growth_rate.toString() != "last") ? PokemonExperienceGroupsLookup.experienceGroups.get(stats.growth_rate.toString()).exp_to_level(100) : "last"}</td>
+			<td>{((stats.types && stats.types != "last" && 0 in stats.types) ? TypeLookup.typeLookup.get(stats.types[0].toString()).name : "N/A")}</td>
+			<td>{((stats.types && stats.types != "last" && 1 in stats.types) ? TypeLookup.typeLookup.get(stats.types[1].toString()).name : "N/A")}</td>
 			<td>{initial.join(", ")}</td>
 			<td>{levelupEntries.join(", ")}</td>
 			<td>{tms.join(", ")}</td>

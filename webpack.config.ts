@@ -73,6 +73,26 @@ const plugins: webpack.WebpackPluginInstance[] = [
 	filename: 'testcrystaltrainers.html',
 	chunks: ['testcrystaltrainers'],
   }),
+  new HTMLWebpackPlugin({
+    template: './public/testredtypes.html',
+	filename: 'testredtypes.html',
+	chunks: ['testredtypes'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testyellowtypes.html',
+	filename: 'testyellowtypes.html',
+	chunks: ['testyellowtypes'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testgoldtypes.html',
+	filename: 'testgoldtypes.html',
+	chunks: ['testgoldtypes'],
+  }),
+  new HTMLWebpackPlugin({
+    template: './public/testcrystaltypes.html',
+	filename: 'testcrystaltypes.html',
+	chunks: ['testcrystaltypes'],
+  }),
 ];
 isDevelopment
   ? plugins.push(new ReactRefreshWebpackPlugin())
@@ -98,6 +118,10 @@ const config: webpack.Configuration = {
     testyellowtrainers: './src/testyellowtrainers.tsx',
     testgoldtrainers: './src/testgoldtrainers.tsx',
     testcrystaltrainers: './src/testcrystaltrainers.tsx',
+    testredtypes: './src/testredtypes.tsx',
+    testyellowtypes: './src/testyellowtypes.tsx',
+    testgoldtypes: './src/testgoldtypes.tsx',
+    testcrystaltypes: './src/testcrystaltypes.tsx',
   },
   output: {
     path: path.resolve(__dirname, 'build'),

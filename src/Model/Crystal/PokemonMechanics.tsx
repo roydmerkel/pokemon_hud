@@ -8,16 +8,16 @@ export class PokemonMechanics {
 		switch(critStage)
 		{
 			case 0:
-				return Math.Round(17. * 100. * 100. / 256.) / 100.;
+				return Math.round(17. * 100. * 100. / 256.) / 100.;
 			case 1:
-				return Math.Round(1. * 100. * 100. / 8.) / 100.;
+				return Math.round(1. * 100. * 100. / 8.) / 100.;
 			case 2:
-				return Math.Round(1. * 100. * 100. / 4.) / 100.;
+				return Math.round(1. * 100. * 100. / 4.) / 100.;
 			case 3:
-				return Math.Round(85. * 100. * 100. / 256.) / 100.;
+				return Math.round(85. * 100. * 100. / 256.) / 100.;
 			case 4:
 			default:
-				return Math.Round(1. * 100. * 100. / 2.)/100.;
+				return Math.round(1. * 100. * 100. / 2.)/100.;
 		}
 	};
 

@@ -11,21 +11,21 @@ require('extensions');
 
 import { createRoot } from 'react-dom/client';
 
-//import App from './App';
-let App = null;
+//import TestRedTypesApp from './TestRedTypesApp';
+let TestRedTypesApp = null;
 if (window.fetch) {
   // Check whether ES6 is supported in Modern Browsers
-  const module = await import("./App");
-  App = module.default;
+  const module = await import("./TestRedTypesApp");
+  TestRedTypesApp = module.default;
 } else {
   // For legacy or old browsers
   await import("./polyfills");
-  const module = await import("./App");
-  App = module.default;
+  const module = await import("./TestRedTypesApp");
+  TestRedTypesApp = module.default;
 }
 
 const container = document.getElementById('root');
 //const root = createRoot(container!);
 const root = createRoot(container);
 
-root.render(<App />);
+root.render(<TestRedTypesApp />);

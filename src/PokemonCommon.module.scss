@@ -1,0 +1,198 @@
+// scss module
+.pokemon_moves {
+  /*table-layout: fixed;*/
+  border-collapse: collapse;
+  border: 1.5px solid black;
+  text-align: center;
+  vertical-align: center;
+  background: linear-gradient(to bottom right, rgba(224, 225, 222, 1), rgba(238, 232, 204, 1));
+  width: 100%;
+}
+.pokemon_moves thead {
+  border: 1.5px solid black;
+}
+.pokemon_moves tbody {
+  border: 1.5px solid black;
+}
+.pokemon_moves tr {
+	border: 1px solid black;
+}
+.pokemon_moves th {
+	font-family:"Courier New", Courier, monospace;
+	font-size: 11;
+	border: 1px solid black;
+}
+.pokemon_moves td {
+	font-family:"Courier New", Courier, monospace;
+	font-size: 14.5;
+	border: 1px solid black;
+}
+
+.pokemon_stats thead {
+}
+
+.pokemon_stats tbody {
+	/*border: 1.5px solid black;*/
+}
+
+.pokemon_stats p {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.pokemon_stats tr {
+	/*border: 1px solid black;*/
+}
+
+.pokemon_stats th {
+}
+
+.pokemon_stats td {
+	/*border: 1px solid black;*/
+}
+
+.pokemon_stats_common_button {
+	display:inline-block;
+	height: 100%;
+	width: 100%;
+	border: 0px solid;
+	margin: 0px;
+	border-spacing: 0px;
+	padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+	white-space: nowrap;
+	text-align: left;
+	font-size: 11px;
+}
+
+.pokemon_stats_hp_old {
+	background: linear-gradient(to bottom, #FF5959, #FF5959);
+}
+
+.pokemon_stats_att_old {
+	background: linear-gradient(to bottom, #F5AC78, #F5AC78);
+}
+
+.pokemon_stats_def_old {
+	background: linear-gradient(to bottom, #FAE078, #FAE078);
+}
+
+.pokemon_stats_spc_old {
+	background: linear-gradient(to bottom, #94EFE0, #94EFE0);
+}
+
+.pokemon_stats_spd_old {
+	background: linear-gradient(to bottom, #FA92B2, #FA92B2);
+}
+
+.pokemon_stats_spc_atk_old {
+	background: linear-gradient(to bottom, #9DB7F5, #9DB7F5);
+}
+
+.pokemon_stats_spc_def_old {
+	background: linear-gradient(to bottom, #A7DB8D, #A7DB8D);
+}
+
+.pokemon_stats_hp_old button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #FF0000, #FF0000);
+}
+
+.pokemon_stats_att_old button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #F08030, #F08030);
+}
+
+.pokemon_stats_def_old button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #F8D030, #F8D030);
+}
+
+.pokemon_stats_spc_old button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #5DECD4, #5DECD4);
+}
+
+.pokemon_stats_spd_old button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #F85888, #F85888);
+}
+
+.pokemon_stats_spc_atk_old button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #6890F0, #6890F0);
+}
+
+.pokemon_stats_spc_def_old button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #78C850, #78C850);
+}
+
+.pokemon_stats_hp_new {
+	background: linear-gradient(to bottom, #9EE865, #9EE865);
+}
+
+.pokemon_stats_att_new {
+	background: linear-gradient(to bottom, #F5DE69, #F5DE69);
+}
+
+.pokemon_stats_def_new {
+	background: linear-gradient(to bottom, #F09A65, #F09A65);
+}
+
+.pokemon_stats_spc_new {
+	background: linear-gradient(to bottom, #78BBF0, #78BBF0);
+}
+
+.pokemon_stats_spd_new {
+	background: linear-gradient(to bottom, #d568bd, #d568bd);
+}
+
+.pokemon_stats_spc_atk_new {
+	background: linear-gradient(to bottom, #66D8F6, #66D8F6);
+}
+
+.pokemon_stats_spc_def_new {
+	background: linear-gradient(to bottom, #899EEA, #899EEA);
+}
+
+.pokemon_stats_hp_new button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #69DC12, #69DC12);
+}
+
+.pokemon_stats_att_new button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #EFCC18, #EFCC18);
+}
+
+.pokemon_stats_def_new button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #E86412, #E86412);
+}
+
+.pokemon_stats_spc_new button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #2F97E8, #2F97E8);
+}
+
+.pokemon_stats_spd_new button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #D51DAD, #D51DAD);
+}
+
+.pokemon_stats_spc_atk_new button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #14C3F1, #14C3F1);
+}
+
+.pokemon_stats_spc_def_new button {
+	@apply pokemon_stats_common_button;
+	background: linear-gradient(to bottom, #4A6ADF, #4A6ADF);
+}
+
+.pokemon_stats_acc_eva_tr {
+	background: linear-gradient(to bottom, #8fee91, #8fee91);
+}

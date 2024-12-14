@@ -4,6 +4,7 @@ import SpeciesNameLookup from './Model/Yellow/SpeciesNameLookup';
 import SpeciesImageLookup from './Model/Yellow/SpeciesImageLookup';
 import PokemonMechanics from './Model/Yellow/PokemonMechanics';
 import PokemonIndexToDexIndex from './Model/Yellow/PokemonIndexToDexIndex';
+import DexIndexToPokemonIndex from './Model/Yellow/DexIndexToPokemonIndex';
 import PokemonStatsLookup from './Model/Yellow/PokemonStatsLookup';
 import TypeLookup from './Model/Yellow/TypeLookup';
 import PokemonExperienceGroupsLookup from './Model/Yellow/PokemonExperienceGroupsLookup';
@@ -17,14 +18,14 @@ const TestYellowIndexesApp: FunctionComponent = () => {
   function GetMons() {
 	var mons = [];
 	
-	for(var i = 0; i <= 255; i++)
+	for(var pokedex = PokemonMechanics.getMinimumPokedexGlitchId(); pokedex <= PokemonMechanics.getMaximumPokedexGlitchId(); pokedex++)
 	{
-		var pokedex = PokemonIndexToDexIndex.pokemonIndexLookup.get(i.toString());
-		if(pokedex || pokedex === 0)
+		var index = DexIndexToPokemonIndex.indexPokemonLookup.get(pokedex.toString());
+		if(index || index === 0)
 		{
-			var stats = PokemonStatsLookup.statsLookup.get(pokedex.toString());
-			var initial = PokemonMovesLookup.pokemonTmsLookup.get(pokedex.toString()).initial;
-			var levelup = PokemonMovesLookup.pokemonTmsLookup.get(pokedex.toString()).levelup;
+			var stats = PokemonStatsLookup.statsLookup.get(index.toString());
+			var initial = PokemonMovesLookup.pokemonTmsLookup.get(index.toString()).initial;
+			var levelup = PokemonMovesLookup.pokemonTmsLookup.get(index.toString()).levelup;
 			var levelupEntries = [];
 			initial = initial.map((x) => {return MoveLookup.moveLookup.get(x.toString()).name; });
 			if(levelup === Object(levelup))
@@ -50,7 +51,7 @@ const TestYellowIndexesApp: FunctionComponent = () => {
 			{
 				levelupEntries.push(levelup);
 			}
-			var tms = PokemonMovesLookup.pokemonTmsLookup.get(pokedex.toString()).tms;
+			var tms = PokemonMovesLookup.pokemonTmsLookup.get(index.toString()).tms;
 			if(tms !== Object(tms))
 			{
 				tms = [tms];
@@ -61,7 +62,7 @@ const TestYellowIndexesApp: FunctionComponent = () => {
 				tms.forEach((tm) => { newtms.push(MoveLookup.moveLookup.get(TmsLookup.tmsLookup.get(tm.toString()).toString()).name); });
 				tms = newtms;
 			}
-			var hms = PokemonMovesLookup.pokemonTmsLookup.get(pokedex.toString()).hms;
+			var hms = PokemonMovesLookup.pokemonTmsLookup.get(index.toString()).hms;
 			if(hms !== Object(hms))
 			{
 				hms = [hms];
@@ -72,7 +73,7 @@ const TestYellowIndexesApp: FunctionComponent = () => {
 				hms.forEach((hm) => { newhms.push(MoveLookup.moveLookup.get(HmsLookup.hmsLookup.get(hm.toString()).toString()).name); });
 				hms = newhms;
 			}
-			var mts = PokemonMovesLookup.pokemonTmsLookup.get(pokedex.toString()).mts;
+			var mts = PokemonMovesLookup.pokemonTmsLookup.get(index.toString()).mts;
 			if(mts !== Object(mts))
 			{
 				mts = [mts];
@@ -83,7 +84,7 @@ const TestYellowIndexesApp: FunctionComponent = () => {
 				mts.forEach((mt) => { newmts.push(MoveLookup.moveLookup.get(MtsLookup.mtsLookup.get(mt.toString()).toString()).name); });
 				mts = newmts;
 			}
-			var egg_moves = PokemonMovesLookup.pokemonTmsLookup.get(pokedex.toString()).egg_moves;
+			var egg_moves = PokemonMovesLookup.pokemonTmsLookup.get(index.toString()).egg_moves;
 			if(egg_moves !== Object(egg_moves))
 			{
 				egg_moves = [egg_moves];
@@ -96,25 +97,25 @@ const TestYellowIndexesApp: FunctionComponent = () => {
 			}
 			mons.push(<tr width="100%" height="100%">
 				<td>{pokedex.toString()}</td>
-				<td>{SpeciesNameLookup.pokemonSpeciesNameLookup.get(pokedex.toString())}</td>
-				<td>{i}</td>
+				<td>{SpeciesNameLookup.pokemonSpeciesNameLookup.get(index.toString())}</td>
+				<td>{index.toString()}</td>
 				<td>{stats.base_stats.hp}</td>
 				<td>{stats.base_stats.atk}</td>
 				<td>{stats.base_stats.def}</td>
 				<td>{stats.base_stats.spd}</td>
 				<td>{stats.base_stats.spc}</td>
-				<td>{PokemonExperienceGroupsLookup.experienceGroups.get(stats.growth_rate.toString()).name}</td>
-				<td>{PokemonExperienceGroupsLookup.experienceGroups.get(stats.growth_rate.toString()).exp_to_level(100)}</td>
-				<td>{((stats.types && 0 in stats.types) ? TypeLookup.typeLookup.get(stats.types[0].toString()).name : "N/A")}</td>
-				<td>{((stats.types && 1 in stats.types) ? TypeLookup.typeLookup.get(stats.types[1].toString()).name : "N/A")}</td>
+				<td>{(stats.growth_rate.toString() != "last") ? PokemonExperienceGroupsLookup.experienceGroups.get(stats.growth_rate.toString()).name : "last"}</td>
+				<td>{(stats.growth_rate.toString() != "last") ? PokemonExperienceGroupsLookup.experienceGroups.get(stats.growth_rate.toString()).exp_to_level(100) : "last"}</td>
+				<td>{((stats.types && stats.types != "last" && 0 in stats.types) ? TypeLookup.typeLookup.get(stats.types[0].toString()).name : "N/A")}</td>
+				<td>{((stats.types && stats.types != "last" && 1 in stats.types) ? TypeLookup.typeLookup.get(stats.types[1].toString()).name : "N/A")}</td>
 				<td>{initial.join(", ")}</td>
 				<td>{levelupEntries.join(", ")}</td>
 				<td>{tms.join(", ")}</td>
 				<td>{hms.join(", ")}</td>
 				<td>{mts.join(", ")}</td>
 				<td>{egg_moves.join(", ")}</td>
-				<td>{SpeciesImageLookup.pokemonImageSourceLookup.get(i.toString())}</td>
-				<td><img src={SpeciesImageLookup.pokemonImageLookup.get(pokedex.toString())}/></td>
+				<td>{SpeciesImageLookup.pokemonImageSourceLookup.get(index.toString())}</td>
+				<td><img src={SpeciesImageLookup.pokemonImageLookup.get(index.toString())}/></td>
 			</tr>);
 		}
 	}

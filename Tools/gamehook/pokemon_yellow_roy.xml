@@ -8,6 +8,7 @@
         <pokemon>
             <property name="species"    type="int" address="{address}" reference="species" />
             <property name="dex_number" type="int" address="{address}" reference="dex_numbers" />
+			<property name="index_number" type="int" address="{address}" />
         </pokemon>
     </macros>
 
@@ -56,14 +57,18 @@
         <player_active_pokemon>
             <property name="species"    type="string" />
             <property name="dex_number" type="int" />
+			<property name="index_number" type="int" />
             <property name="nickname"   type="string" />
             <property name="level"      type="int" />
             <property name="exp"        type="int" />
             <property name="type_1"     type="string" />
             <property name="type_2"     type="string" />
+            <property name="type_1_val" type="int" />
+            <property name="type_2_val" type="int" />
             <property name="ot_id"      type="int" />
             <property name="catch_rate" type="int" /> <!-- this gives a bad value. For Squirtle, it says 8, but the offical number is 45 -->
             <property name="status_condition" type="string" />
+			<property name="cur_move"       type="string"  />
             <moves>
                 <class name="0" type="active_pokemon_move" />
                 <class name="1" type="active_pokemon_move" />
@@ -176,8 +181,10 @@
 
         <active_pokemon_move>
             <property name="move"  type="int" />
+			<property name="move_int" type="int" />
             <property name="pp"    type="int" />
             <property name="pp_up" type="int" />
+			<property name="pp_int" type="int" />
         </active_pokemon_move>
 
         <party_move>
@@ -192,6 +199,7 @@
             <property name="move" type="int" address="{moveAddress}" reference="moves" />
             <property name="move_int" type="int" address="{moveAddress}" />
             <property name="pp"   type="int" address="{moveAddress} + 17" after-read-value-expression="x % 64" />
+			<property name="pp_up" type="int" address="{moveAddress} + 17" after-read-value-expression="Math.floor(x / 64)" />
             <property name="pp_int" type="int" address="{moveAddress} + 17" />
         </battle_move>
 
@@ -230,7 +238,7 @@
                 <class name="4" type="party_pokemon" var:address="0xD21A" var:nicknameAddress="0xD2E0" />
                 <class name="5" type="party_pokemon" var:address="0xD246" var:nicknameAddress="0xD2EB" />
             </team>
-            <expandedTeam>
+            <!--<expandedTeam>
                 <class name="6" type="party_pokemon" var:address="0xD272" var:nicknameAddress="0xD2F6" />
                 <class name="7" type="party_pokemon" var:address="0xD29E" var:nicknameAddress="0xD301" />
                 <class name="8" type="party_pokemon" var:address="0xD2CA" var:nicknameAddress="0xD30C" />
@@ -309,7 +317,7 @@
                 <class name="81" type="party_pokemon" var:address="0xDF56" var:nicknameAddress="0xD62F" />
                 <class name="82" type="party_pokemon" var:address="0xDF82" var:nicknameAddress="0xD63A" />
                 <class name="83" type="party_pokemon" var:address="0xDFAE" var:nicknameAddress="0xD645" />
-                <!--<class name="84" type="party_pokemon" var:address="0xDFDA" var:nicknameAddress="0xD650" />
+                <class name="84" type="party_pokemon" var:address="0xDFDA" var:nicknameAddress="0xD650" />
                 <class name="85" type="party_pokemon" var:address="0xE006" var:nicknameAddress="0xD65B" />
                 <class name="86" type="party_pokemon" var:address="0xE032" var:nicknameAddress="0xD666" />
                 <class name="87" type="party_pokemon" var:address="0xE05E" var:nicknameAddress="0xD671" />
@@ -480,8 +488,8 @@
                 <class name="252" type="party_pokemon" var:address="0xFCBA" var:nicknameAddress="0xDD88" />
                 <class name="253" type="party_pokemon" var:address="0xFCE6" var:nicknameAddress="0xDD93" />
                 <class name="254" type="party_pokemon" var:address="0xFD12" var:nicknameAddress="0xDD9E" />
-                <class name="255" type="party_pokemon" var:address="0xFD3E" var:nicknameAddress="0xDDA9" />-->
-            </expandedTeam>
+                <class name="255" type="party_pokemon" var:address="0xFD3E" var:nicknameAddress="0xDDA9" />
+            </expandedTeam>-->
             <badges>
                 <property name="0" type="bool" address="0xD355" bits="0" description="boulderbadge" />
                 <property name="1" type="bool" address="0xD355" bits="1" description="cascadebadge" />
@@ -525,7 +533,7 @@
                 <class name="18" type="player_item" var:address="0xD341" />
                 <class name="19" type="player_item" var:address="0xD343" />
             </items>
-            <extendedItems>
+            <!--<extendedItems>
                 <class name="20" type="player_item" var:address="0xD345" />
                 <class name="21" type="player_item" var:address="0xD347" />
                 <class name="22" type="player_item" var:address="0xD349" />
@@ -762,7 +770,7 @@
                 <class name="253" type="player_item" var:address="0xD517" />
                 <class name="254" type="player_item" var:address="0xD519" />
                 <class name="255" type="player_item" var:address="0xD51B" />
-            </extendedItems>
+            </extendedItems>-->
         </bag>
         <overworld>
             <property name="map_name"  type="int" address="0xD35D" reference="maps" />
@@ -1370,6 +1378,7 @@
                     <property name="species"    type="int" address="0xD013" reference="species" />
                     <property name="species_int" type="int" address="0xD013" />
                     <property name="dex_number" type="int" address="0xD013" reference="dex_numbers" />
+					<property name="index_number" type="int" address="0xD013" />
                     <property name="type_1"     type="int" address="0xD018" reference="pokemon_types" />
                     <property name="type_2"     type="int" address="0xD019" reference="pokemon_types" />
                     <property name="type_1_int" type="int" address="0xD018" />
@@ -1377,6 +1386,7 @@
                     <property name="level"      type="int" address="0xD021" />
                     <property name="catch_rate" type="int" address="0xD01A" />
                     <property name="status_condition" type="int" address="0xD017" reference="status_conditions" />
+					<property name="cur_move"       type="int" address="0xccdc" reference="moves"  />
                     <moves>
                         <class name="0" type="battle_move" var:moveAddress="0xD01B" />
                         <class name="1" type="battle_move" var:moveAddress="0xD01C" />
@@ -1449,6 +1459,7 @@
             <opponent>
                 <property name="name"       type="string" address="0xD049" length="11" />
                 <property name="trainer"    type="int" address="0xD030" reference="trainer_classes" />
+				<property name="trainer_int"    type="int" address="0xD030" />
                 <property name="cur_opponent" type="int" address="0xD058" />
                 <property name="id"         type="int" address="0xD05C" />
                 <property name="gym_leader" type="int" address="0xD05B" />
@@ -1458,6 +1469,7 @@
                     <property name="species"          type="int" address="0xCFD7" reference="species" />
                     <property name="species_int"      type="int" address="0xCFD7" />
                     <property name="dex_number"       type="int" address="0xCFD7" reference="dex_numbers" />
+					<property name="index_number" type="int" address="0xCFD7" />
                     <property name="level"            type="int" address="0xCFF2" />
                     <property name="type_1"           type="int" address="0xCFE9" reference="pokemon_types" />
                     <property name="type_2"           type="int" address="0xCFEA" reference="pokemon_types" />
@@ -1553,6 +1565,8 @@
                 <property name="low_health_alarm"   type="int" address="0xCCF6" reference="low_health_alarm" description="This is set to 0 at the start of battle and 1 when the opponent has lost" />
                 <property name="animation_turn"     type="int" address="0xFFF3" reference="battle_turn" description="This dictates which direction battle animations are played. (Enemy attacking player, or player attacking enemy.)" />
                 <property name="attack_damage"      type="int" address="0xD0D7" description="Amount of damage attack is about to do. Max possible damage may appear one frame before actual damage." />
+				<property name="first_mons_not_out_yet"      type="int" address="0xd11c" />
+				<property name="action_result_or_took_battle_turn"      type="int" address="0xcd6a" />
             </other>
         </battle>
 
