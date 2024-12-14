@@ -6,17 +6,17 @@ import * as pokemonCommonStyles from '../../../PokemonCommon.module';
 import { FunctionComponent } from 'react';
 
 const CurrentPokemonMoves: FunctionComponent = ({ gamehookLoaded, isConnected, pokemonModelSet, properties, playTime, gen, new_colors, modelClasses, in_battle }) => {
-  var active_pokemon = (in_battle) ? properties?.battle?.player?.active_pokemon : properties?.player?.active_pokemon;
+  var active_pokemon_key = (in_battle) ? "battle.player.active_pokemon" : "player.active_pokemon";
   var MoveLookup = modelClasses?.MoveLookup;
   var TypeLookup = modelClasses?.TypeLookup;
-  var move1struct = active_pokemon?.moves?.["0"];
-  var move2struct = active_pokemon?.moves?.["1"];
-  var move3struct = active_pokemon?.moves?.["2"];
-  var move4struct = active_pokemon?.moves?.["3"];
-  var move1 = MoveLookup?.moveLookup?.get(move1struct?.move_int?.value?.toString());
-  var move2 = MoveLookup?.moveLookup?.get(move2struct?.move_int?.value?.toString());
-  var move3 = MoveLookup?.moveLookup?.get(move3struct?.move_int?.value?.toString());
-  var move4 = MoveLookup?.moveLookup?.get(move4struct?.move_int?.value?.toString());
+  var move1struct_key = active_pokemon_key + ".moves.0";
+  var move2struct_key = active_pokemon_key + ".moves.1";
+  var move3struct_key = active_pokemon_key + ".moves.2";
+  var move4struct_key = active_pokemon_key + ".moves.3";
+  var move1 = MoveLookup?.moveLookup?.get(properties?.[move1struct_key + ".move_int"]?.value?.toString());
+  var move2 = MoveLookup?.moveLookup?.get(properties?.[move2struct_key + ".move_int"]?.value?.toString());
+  var move3 = MoveLookup?.moveLookup?.get(properties?.[move3struct_key + ".move_int"]?.value?.toString());
+  var move4 = MoveLookup?.moveLookup?.get(properties?.[move4struct_key + ".move_int"]?.value?.toString());
   var move1type = TypeLookup?.typeLookup?.get(move1?.type?.toString());
   var move2type = TypeLookup?.typeLookup?.get(move2?.type?.toString());
   var move3type = TypeLookup?.typeLookup?.get(move3?.type?.toString());
@@ -58,7 +58,7 @@ const CurrentPokemonMoves: FunctionComponent = ({ gamehookLoaded, isConnected, p
             {Math.round(100*move1?.accuracy/255, 0)}
           </td>
           <td>
-            {move1struct?.pp?.value}
+            {properties?.[move1struct_key + ".pp"]?.value}
           </td>
         </tr>
         <tr>
@@ -75,7 +75,7 @@ const CurrentPokemonMoves: FunctionComponent = ({ gamehookLoaded, isConnected, p
             {Math.round(100*move2?.accuracy/255, 0)}
           </td>
           <td>
-            {move2struct?.pp?.value}
+            {properties?.[move2struct_key + ".pp"]?.value}
           </td>
         </tr>
         <tr>
@@ -92,7 +92,7 @@ const CurrentPokemonMoves: FunctionComponent = ({ gamehookLoaded, isConnected, p
             {Math.round(100*move3?.accuracy/255, 0)}
           </td>
           <td>
-            {move3struct?.pp?.value}
+            {properties?.[move3struct_key + ".pp"]?.value}
           </td>
         </tr>
         <tr>
@@ -109,7 +109,7 @@ const CurrentPokemonMoves: FunctionComponent = ({ gamehookLoaded, isConnected, p
             {Math.round(100*move4?.accuracy/255, 0)}
           </td>
           <td>
-            {move4struct?.pp?.value}
+            {properties?.[move4struct_key + ".pp"]?.value}
           </td>
         </tr>
       </tbody>

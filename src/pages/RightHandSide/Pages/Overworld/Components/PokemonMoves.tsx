@@ -18,8 +18,8 @@ const PokemonMoves: FunctionComponent = ({ gamehookLoaded, isConnected, pokemonM
   var pokemonMoves = PokemonMovesLookup?.pokemonTmsLookup?.get(indexNumber?.toString());
   
   useEffect(
-    () => { if(properties?.player?.active_pokemon?.index_number?.value != indexNumber) { setIndexNumber(properties?.player?.active_pokemon?.index_number?.value); } },
-    [properties?.player?.active_pokemon?.index_number?.value]
+    () => { if(properties?.["player.active_pokemon.index_number"]?.value != indexNumber) { setIndexNumber(properties?.["player.active_pokemon.index_number"]?.value); } },
+    [properties?.["player.active_pokemon.index_number"]?.value]
   )
   
   useEffect(

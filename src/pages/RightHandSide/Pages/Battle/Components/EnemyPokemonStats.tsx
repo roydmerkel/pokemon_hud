@@ -7,19 +7,18 @@ import { FunctionComponent } from 'react';
 const EnemyPokemonStats: FunctionComponent = ({ gamehookLoaded, isConnected, pokemonModelSet, properties, playTime, gen, new_colors, modelClasses, in_battle }) => {
   var PokemonStatsLookup = modelClasses?.PokemonStatsLookup;
   var PokemonMechanics = modelClasses?.PokemonMechanics;
-  var active_pokemon = properties?.battle?.opponent?.active_pokemon;
-  var indexNumber = active_pokemon?.index_number?.value;
-  var dex_number = active_pokemon?.dex_number?.value;
+  var indexNumber = properties?.["battle.opponent.active_pokemon.index_number"]?.value;
+  var dex_number = properties?.["battle.opponent.active_pokemon.dex_number"]?.value;
   
-  var level = active_pokemon?.level?.value;
-  var hp = active_pokemon?.stats?.hp?.value;
-  var hp_max = active_pokemon?.stats?.hp_max?.value;
-  var attack = active_pokemon?.stats?.attack?.value;
-  var defense = active_pokemon?.stats?.defense?.value;
-  var special_attack = active_pokemon?.stats?.special_attack?.value;
-  var special_defense = active_pokemon?.stats?.special_defense?.value;
-  var special = active_pokemon?.stats?.special?.value;
-  var speed = active_pokemon?.stats?.speed?.value;
+  var level = properties?.["battle.opponent.active_pokemon.level"]?.value;
+  var hp = properties?.["battle.opponent.active_pokemon.stats.hp"]?.value;
+  var hp_max = properties?.["battle.opponent.active_pokemon.stats.hp_max"]?.value;
+  var attack = properties?.["battle.opponent.active_pokemon.stats.attack"]?.value;
+  var defense = properties?.["battle.opponent.active_pokemon.stats.defense"]?.value;
+  var special_attack = properties?.["battle.opponent.active_pokemon.stats.special_attack"]?.value;
+  var special_defense = properties?.["battle.opponent.active_pokemon.stats.special_defense"]?.value;
+  var special = properties?.["battle.opponent.active_pokemon.stats.special"]?.value;
+  var speed = properties?.["battle.opponent.active_pokemon.stats.speed"]?.value;
   var pokemon_stats = PokemonStatsLookup?.statsLookup?.get(((indexNumber != null) ? indexNumber : 0).toString());
   var base_hp = pokemon_stats?.base_stats?.hp;
   var base_atk = pokemon_stats?.base_stats?.atk;
@@ -29,19 +28,19 @@ const EnemyPokemonStats: FunctionComponent = ({ gamehookLoaded, isConnected, pok
   var base_sp_def = pokemon_stats?.base_stats?.sp_def;
   var base_spd = pokemon_stats?.base_stats?.spd;
   
-  var focus_energy = active_pokemon?.effects?.focus_energy?.value;
-  var held_item = active_pokemon?.effects?.held_item?.value;
-  var transformed = active_pokemon?.effects?.transformed?.value;
+  var focus_energy = properties?.["battle.opponent.active_pokemon.effects.focus_energy"]?.value;
+  var held_item = properties?.["battle.opponent.active_pokemon.effects.held_item"]?.value;
+  var transformed = properties?.["battle.opponent.active_pokemon.effects.transformed"]?.value;
   
-  var hp_modifier = active_pokemon?.modifiers?.hp?.value;
-  var attack_modifier = active_pokemon?.modifiers?.attack?.value;
-  var defense_modifier = active_pokemon?.modifiers?.defense?.value;
-  var speed_modifier = active_pokemon?.modifiers?.speed?.value;
-  var special_modifier = active_pokemon?.modifiers?.special?.value;
-  var special_attack_modifier = active_pokemon?.modifiers?.special_attack?.value;
-  var special_defense_modifier = active_pokemon?.modifiers?.special_defense?.value;
-  var accuracy_modifier = active_pokemon?.modifiers?.accuracy?.value;
-  var evasion_modifier = active_pokemon?.modifiers?.evasion?.value;
+  var hp_modifier = properties?.["battle.opponent.active_pokemon.modifiers.hp"]?.value;
+  var attack_modifier = properties?.["battle.opponent.active_pokemon.modifiers.attack"]?.value;
+  var defense_modifier = properties?.["battle.opponent.active_pokemon.modifiers.defense"]?.value;
+  var speed_modifier = properties?.["battle.opponent.active_pokemon.modifiers.speed"]?.value;
+  var special_modifier = properties?.["battle.opponent.active_pokemon.modifiers.special"]?.value;
+  var special_attack_modifier = properties?.["battle.opponent.active_pokemon.modifiers.special_attack"]?.value;
+  var special_defense_modifier = properties?.["battle.opponent.active_pokemon.modifiers.special_defense"]?.value;
+  var accuracy_modifier = properties?.["battle.opponent.active_pokemon.modifiers.accuracy"]?.value;
+  var evasion_modifier = properties?.["battle.opponent.active_pokemon.modifiers.evasion"]?.value;
   
   var crit_stage = 0;
   if(focus_energy)

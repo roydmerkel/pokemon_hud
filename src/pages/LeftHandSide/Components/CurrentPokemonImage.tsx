@@ -5,9 +5,9 @@ import * as typeStyles from '../../../Types.module';
 import { FunctionComponent } from 'react';
 
 const CurrentPokemonImage: FunctionComponent = ({ gamehookLoaded, isConnected, pokemonModelSet, properties, playTime, gen, new_colors, modelClasses, in_battle }) => {
-  var type1 = properties?.player?.active_pokemon?.type_1_val?.value;
-  var type2 = properties?.player?.active_pokemon?.type_2_val?.value;
-  var indexNumber = properties?.player?.active_pokemon?.index_number?.value;
+  var type1 = properties?.["player.active_pokemon.type_1_val"]?.value;
+  var type2 = properties?.["player.active_pokemon.type_2_val"]?.value;
+  var indexNumber = properties?.["player.active_pokemon.index_number"]?.value;
   var TypeLookup = modelClasses?.TypeLookup;
   var SpeciesImageLookup = modelClasses?.SpeciesImageLookup;
   

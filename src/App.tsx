@@ -83,7 +83,6 @@ const App: FunctionComponent = () => {
 	changeCallbacksSet: false,
     properties: null,
     new_colors: true,
-	in_battle: false,
 	modelClasses: {TypeLookup: null, PokemonStatsLookup: null, SpeciesImageLookup: null, PokemonMechanics: null, TrainersLookup: null, SpeciesNameLookup: null, MoveLookup: null, PokemonMovesLookup: null, TmsLookup: null, HmsLookup: null, MtsLookup: null}
   });
 
@@ -262,10 +261,22 @@ const App: FunctionComponent = () => {
     console.log("self:", self);
     console.log("hh:", state, state.gamehookLoaded, mapper.current);
     if(state.gamehookLoaded && state.isConnected && state.pokemonModelSet && !state.changeCallbacksSet) {
-      var properties = cloneDeep(mapper.current.properties);
-      //console.log("properties:", properties);
+      var properties = {};
 	  propertiesRef.current = properties;
       recursiveWalk(mapper.current.properties, (key: any, val: any, path: string[], parent: any) :any => {
+	    var kv = "";
+		if(path && path.length > 0)
+		{
+			kv += path.join(".");
+		}
+		if(key != "")
+		{
+			if(kv != "")
+			{
+				kv += ".";
+			}
+			kv += key;
+		}
         if(parent?.[key]?.change) {
           var doWatch = false;
           for(var watch of WatchPaths) {
@@ -301,20 +312,20 @@ const App: FunctionComponent = () => {
             }
           }
           if(doWatch) {
-            console.log("change:", path, "key:", key);
-            parent[key].change((function(path : string[], key : any) : Promise<void> {
+            //console.log("change:", path, "key:", key);
+			properties[kv] = getPropertyByPath(mapper.current.properties, path)[key];
+            parent[key].change((function(key : string) : Promise<void> {
               return async function (x) {
-                var change = { key: key, path: path, val: x };
+                var change = { key: key, val: x };
                 
-                var modelParent = getPropertyByPath(propertiesRef.current, path);
 				//console.log("change?:", modelParent[key], x);
-                if(modelParent[key]?.value != x?.value)
+                if(propertiesRef.current[key]?.value != x?.value)
 				{
                     //console.log("change':", x);
                     setChanges(changes => { var changes = [...changes]; changes.push(change); return changes; });
 				}
               }
-            })(path, key));
+            })(kv));
           }
         }
       });
@@ -329,43 +340,23 @@ const App: FunctionComponent = () => {
   
   useEffect(() => {
     if(state.pokemonModelSet && state.changeCallbacksSet && changes.length > 0) {
-      var properties = cloneDeep(state.properties);
+      var properties = {...state.properties};
       
       setChanges(changes => {
         for(var change of changes) {
-          var path = change.path;
           var key = change.key;
           var val = change.val;
           
           //console.log("change detected:", "key:", key, "path:", path);
 		  
-          var modelParent = getPropertyByPath(properties, path);
-          modelParent[key] = val;
+          properties[key] = val;
         }
         return [];
       });
-	  var cur_in_battle = false;
-	  
-	  var mode = properties?.battle?.mode?.value;
-	  var battle_start = properties?.battle?.other?.battle_start?.value;
-	  var battle_ended = properties?.battle?.other?.battle_ended?.value;
-	  var first_mons_not_out_yet = properties?.battle?.other?.first_mons_not_out_yet?.value;
-	  var action_result_or_took_battle_turn = properties?.battle?.other?.action_result_or_took_battle_turn?.value;
-	  var battle_result = properties?.battle?.other?.battle_result?.value;
-	  var outcome_flags =  properties?.battle?.other?.outcome_flags?.value;
-	  var cur_opponent = properties?.battle?.opponent?.cur_opponent?.value;
 
-      cur_in_battle = (mode != 0 && mode != "None")
-                        && (battle_start != 0)
-                        && (battle_ended == null || battle_ended == 0)
-						&& (first_mons_not_out_yet == null || first_mons_not_out_yet == 0)
-						&& (action_result_or_took_battle_turn == null || action_result_or_took_battle_turn == 0)
-						&& (battle_result == null || battle_result == 0)
-						&& (outcome_flags == null || outcome_flags == 0)
-						&& (cur_opponent == null || cur_opponent != 0);
-      console.log("cur_in_battle:", cur_in_battle);
       setState(state => {
-        return {...state, properties: properties, in_battle: cur_in_battle};
+		console.log("setState:", {...state, properties: properties});
+        return {...state, properties: properties};
       });
     }
   }, [changes]);
@@ -400,6 +391,35 @@ const App: FunctionComponent = () => {
     return () => clearInterval(interval);
   }, [state.gamehookLoaded, state.isConnected, state.pokemonModelSet, state.changeCallbacksSet]);
   
+  var in_battle = false;
+  
+  var mode = state.properties?.["battle.mode"]?.value;
+  var battle_start = state.properties?.["battle.other.battle_start"]?.value;
+  var battle_ended = state.properties?.["battle.other.battle_ended"]?.value;
+  var first_mons_not_out_yet = state.properties?.["battle.other.first_mons_not_out_yet"]?.value;
+  var action_result_or_took_battle_turn = state.properties?.["battle.other.action_result_or_took_battle_turn"]?.value;
+  var battle_result = state.properties?.["battle.other.battle_result"]?.value;
+  var outcome_flags =  state.properties?.["battle.other.outcome_flags"]?.value;
+  var cur_opponent = state.properties?.["battle.opponent.cur_opponent"]?.value;
+	//console.log("mode:", mode, 
+	//			"battle_start:", battle_start, 
+	//			"battle_ended:", battle_ended, 
+	//			"first_mons_not_out_yet:", first_mons_not_out_yet,
+	//			"action_result_or_took_battle_turn:", action_result_or_took_battle_turn,
+	//			"battle_result:", battle_result,
+	//			"outcome_flags:", outcome_flags,
+	//			"cur_opponent:", cur_opponent);
+
+  in_battle = (mode != 0 && mode != "None")
+					&& (battle_start != 0)
+					&& (battle_ended == null || battle_ended == 0)
+					&& (first_mons_not_out_yet == null || first_mons_not_out_yet == 0)
+					&& (action_result_or_took_battle_turn == null || action_result_or_took_battle_turn == 0)
+					&& (battle_result == null || battle_result == 0)
+					&& (outcome_flags == null || outcome_flags == 0)
+					&& (cur_opponent == null || cur_opponent != 0);
+  //console.log("in_battle:", in_battle);
+	  
   return (
     //<div>
     //  <div className={styles.title}>CSS module works!</div>
@@ -417,13 +437,13 @@ const App: FunctionComponent = () => {
         <tbody>
         <tr width="100%" height="100%">
           <td width="20%" height="100%">
-            <LeftHandSide gamehookLoaded={state.gamehookLoaded} isConnected={state.isConnected} pokemonModelSet={state.pokemonModelSet} properties={state.properties} playTime={playTimeState.playTime} gen={state?.properties?.meta?.generation} new_colors={state.new_colors} modelClasses={state.modelClasses} in_battle={state.in_battle} />
+            <LeftHandSide gamehookLoaded={state.gamehookLoaded} isConnected={state.isConnected} pokemonModelSet={state.pokemonModelSet} properties={state.properties} playTime={playTimeState.playTime} gen={state?.properties?.meta?.generation} new_colors={state.new_colors} modelClasses={state.modelClasses} in_battle={in_battle} />
           </td>
           <td width="60%" height="100%">
-            <MiddlePanel gamehookLoaded={state.gamehookLoaded} isConnected={state.isConnected} pokemonModelSet={state.pokemonModelSet} properties={state.properties} playTime={playTimeState.playTime} gen={state?.properties?.meta?.generation} new_colors={state.new_colors} modelClasses={state.modelClasses} in_battle={state.in_battle} />
+            <MiddlePanel gamehookLoaded={state.gamehookLoaded} isConnected={state.isConnected} pokemonModelSet={state.pokemonModelSet} properties={state.properties} playTime={playTimeState.playTime} gen={state?.properties?.meta?.generation} new_colors={state.new_colors} modelClasses={state.modelClasses} in_battle={in_battle} />
           </td>
           <td width="20%" height="100%">
-            <RightHandSide gamehookLoaded={state.gamehookLoaded} isConnected={state.isConnected} pokemonModelSet={state.pokemonModelSet} properties={state.properties} playTime={playTimeState.playTime} gen={state?.properties?.meta?.generation} new_colors={state.new_colors} modelClasses={state.modelClasses} in_battle={state.in_battle} />
+            <RightHandSide gamehookLoaded={state.gamehookLoaded} isConnected={state.isConnected} pokemonModelSet={state.pokemonModelSet} properties={state.properties} playTime={playTimeState.playTime} gen={state?.properties?.meta?.generation} new_colors={state.new_colors} modelClasses={state.modelClasses} in_battle={in_battle} />
           </td>
         </tr>
         </tbody>
