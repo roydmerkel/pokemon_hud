@@ -1,25 +1,31 @@
 import * as baseStyles from '../../../Base.module';
 import * as typeStyles from '../../../Types.module';
 import * as pokemonCommonStyles from '../../../PokemonCommon.module';
+import { StateContext } from '../../../StateContext'
 
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useContext } from 'react';
 
-const CurrentPokemonStats: FunctionComponent = ({ gamehookLoaded, isConnected, pokemonModelSet, properties, playTime, gen, new_colors, modelClasses, in_battle }) => {
-  var PokemonStatsLookup = modelClasses?.PokemonStatsLookup;
-  var PokemonMechanics = modelClasses?.PokemonMechanics;
-  var active_pokemon_key = (in_battle) ? "battle.player.active_pokemon" : "player.active_pokemon";
-  var indexNumber = properties?.[active_pokemon_key + ".index_number"]?.value;
-  var dex_number = properties?.[active_pokemon_key + ".dex_number"]?.value;
+const CurrentPokemonStats: FunctionComponent = () => {
+  const { stateContext, playTimeStateContext, in_battleContext } = useContext(StateContext);
+  const { state, setState } = stateContext; 
+  const { playTimeState, setPlayTimeState } = playTimeStateContext; 
+  const { in_battle } = in_battleContext;
   
-  var level = properties?.[active_pokemon_key + ".level"]?.value;
-  var hp = properties?.[active_pokemon_key + ".stats.hp"]?.value;
-  var hp_max = properties?.[active_pokemon_key + ".stats.hp_max"]?.value;
-  var attack = properties?.[active_pokemon_key + ".stats.attack"]?.value;
-  var defense = properties?.[active_pokemon_key + ".stats.defense"]?.value;
-  var special_attack = properties?.[active_pokemon_key + ".stats.special_attack"]?.value;
-  var special_defense = properties?.[active_pokemon_key + ".stats.special_defense"]?.value;
-  var special = properties?.[active_pokemon_key + ".stats.special"]?.value;
-  var speed = properties?.[active_pokemon_key + ".stats.speed"]?.value;
+  var PokemonStatsLookup = state?.modelClasses?.PokemonStatsLookup;
+  var PokemonMechanics = state?.modelClasses?.PokemonMechanics;
+  var active_pokemon_key = (in_battle) ? "battle.player.active_pokemon" : "player.active_pokemon";
+  var indexNumber = state?.properties?.[active_pokemon_key + ".index_number"]?.value;
+  var dex_number = state?.properties?.[active_pokemon_key + ".dex_number"]?.value;
+  
+  var level = state?.properties?.[active_pokemon_key + ".level"]?.value;
+  var hp = state?.properties?.[active_pokemon_key + ".stats.hp"]?.value;
+  var hp_max = state?.properties?.[active_pokemon_key + ".stats.hp_max"]?.value;
+  var attack = state?.properties?.[active_pokemon_key + ".stats.attack"]?.value;
+  var defense = state?.properties?.[active_pokemon_key + ".stats.defense"]?.value;
+  var special_attack = state?.properties?.[active_pokemon_key + ".stats.special_attack"]?.value;
+  var special_defense = state?.properties?.[active_pokemon_key + ".stats.special_defense"]?.value;
+  var special = state?.properties?.[active_pokemon_key + ".stats.special"]?.value;
+  var speed = state?.properties?.[active_pokemon_key + ".stats.speed"]?.value;
   var pokemon_stats = PokemonStatsLookup?.statsLookup?.get(((indexNumber != null) ? indexNumber : 0).toString());
   var base_hp = pokemon_stats?.base_stats?.hp;
   var base_atk = pokemon_stats?.base_stats?.atk;
@@ -29,20 +35,20 @@ const CurrentPokemonStats: FunctionComponent = ({ gamehookLoaded, isConnected, p
   var base_sp_def = pokemon_stats?.base_stats?.sp_def;
   var base_spd = pokemon_stats?.base_stats?.spd;
   
-  var focus_energy = properties?.[active_pokemon_key + ".effects.focus_energy"]?.value;
-  var held_item = properties?.[active_pokemon_key + ".effects.held_item"]?.value;
-  var transformed = properties?.[active_pokemon_key + ".effects.transformed"]?.value;
-  var cur_move = properties?.[active_pokemon_key + ".cur_move"]?.value;
+  var focus_energy = state?.properties?.[active_pokemon_key + ".effects.focus_energy"]?.value;
+  var held_item = state?.properties?.[active_pokemon_key + ".effects.held_item"]?.value;
+  var transformed = state?.properties?.[active_pokemon_key + ".effects.transformed"]?.value;
+  var cur_move = state?.properties?.[active_pokemon_key + ".cur_move"]?.value;
   
-  var hp_modifier = properties?.[active_pokemon_key + ".modifiers.hp"]?.value;
-  var attack_modifier = properties?.[active_pokemon_key + ".modifiers.attack"]?.value;
-  var defense_modifier = properties?.[active_pokemon_key + ".modifiers.defense"]?.value;
-  var speed_modifier = properties?.[active_pokemon_key + ".modifiers.speed"]?.value;
-  var special_modifier = properties?.[active_pokemon_key + ".modifiers.special"]?.value;
-  var special_attack_modifier = properties?.[active_pokemon_key + ".modifiers.special_attack"]?.value;
-  var special_defense_modifier = properties?.[active_pokemon_key + ".modifiers.special_defense"]?.value;
-  var accuracy_modifier = properties?.[active_pokemon_key + ".modifiers.accuracy"]?.value;
-  var evasion_modifier = properties?.[active_pokemon_key + ".modifiers.evasion"]?.value;
+  var hp_modifier = state?.properties?.[active_pokemon_key + ".modifiers.hp"]?.value;
+  var attack_modifier = state?.properties?.[active_pokemon_key + ".modifiers.attack"]?.value;
+  var defense_modifier = state?.properties?.[active_pokemon_key + ".modifiers.defense"]?.value;
+  var speed_modifier = state?.properties?.[active_pokemon_key + ".modifiers.speed"]?.value;
+  var special_modifier = state?.properties?.[active_pokemon_key + ".modifiers.special"]?.value;
+  var special_attack_modifier = state?.properties?.[active_pokemon_key + ".modifiers.special_attack"]?.value;
+  var special_defense_modifier = state?.properties?.[active_pokemon_key + ".modifiers.special_defense"]?.value;
+  var accuracy_modifier = state?.properties?.[active_pokemon_key + ".modifiers.accuracy"]?.value;
+  var evasion_modifier = state?.properties?.[active_pokemon_key + ".modifiers.evasion"]?.value;
   
   var crit_stage = 0;
   if(focus_energy)
@@ -99,7 +105,7 @@ const CurrentPokemonStats: FunctionComponent = ({ gamehookLoaded, isConnected, p
                   <td width="100%">
                     <table width="100%" height="100%">
                       <tbody>
-                        <tr className={(new_colors) ? `${pokemonCommonStyles.pokemon_stats_hp_new}` : `${pokemonCommonStyles.pokemon_stats_hp_old}`} width="100%" height="100%">
+                        <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_hp_new}` : `${pokemonCommonStyles.pokemon_stats_hp_old}`} width="100%" height="100%">
                           <td width="40%">
                             <b><p>HP: {(hp != null) ? hp : 0}/{(hp_max != null) ? hp_max : 0}</p></b>
                           </td>
@@ -118,7 +124,7 @@ const CurrentPokemonStats: FunctionComponent = ({ gamehookLoaded, isConnected, p
                   <td width="100%">
                     <table width="100%" height="100%">
                       <tbody>
-                        <tr className={(new_colors) ? `${pokemonCommonStyles.pokemon_stats_att_new}` : `${pokemonCommonStyles.pokemon_stats_att_old}`} width="100%" height="100%">
+                        <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_att_new}` : `${pokemonCommonStyles.pokemon_stats_att_old}`} width="100%" height="100%">
                           <td width="40%">
                             <b><p>ATT: {(attack != null) ? attack : 0}</p></b>
                           </td>
@@ -137,7 +143,7 @@ const CurrentPokemonStats: FunctionComponent = ({ gamehookLoaded, isConnected, p
                   <td width="100%">
                     <table width="100%" height="100%">
                       <tbody>
-                        <tr className={(new_colors) ? `${pokemonCommonStyles.pokemon_stats_def_new}` : `${pokemonCommonStyles.pokemon_stats_def_old}`} width="100%" height="100%">
+                        <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_def_new}` : `${pokemonCommonStyles.pokemon_stats_def_old}`} width="100%" height="100%">
                           <td width="40%">
                             <b><p>DEF: {(defense != null) ? defense : 0}</p></b>
                           </td>
@@ -153,13 +159,13 @@ const CurrentPokemonStats: FunctionComponent = ({ gamehookLoaded, isConnected, p
                   </td>
                 </tr>
 				{
-				(gen != null && gen == "2") ?
+				(state?.properties?.meta?.generation != null && state?.properties?.meta?.generation == "2") ?
 				<>
                 <tr width="100%">
                   <td width="100%">
                     <table width="100%" height="100%">
                       <tbody>
-                        <tr className={(new_colors) ? `${pokemonCommonStyles.pokemon_stats_spc_atk_new}` : `${pokemonCommonStyles.pokemon_stats_spc_atk_old}`} width="100%" height="100%">
+                        <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_spc_atk_new}` : `${pokemonCommonStyles.pokemon_stats_spc_atk_old}`} width="100%" height="100%">
                           <td width="40%">
                             <b><p>SPAtk: {(special_attack != null) ? special_attack : 0}</p></b>
                           </td>
@@ -178,7 +184,7 @@ const CurrentPokemonStats: FunctionComponent = ({ gamehookLoaded, isConnected, p
                   <td width="100%">
                     <table width="100%" height="100%">
                       <tbody>
-                        <tr className={(new_colors) ? `${pokemonCommonStyles.pokemon_stats_spc_def_new}` : `${pokemonCommonStyles.pokemon_stats_spc_def_old}`} width="100%" height="100%">
+                        <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_spc_def_new}` : `${pokemonCommonStyles.pokemon_stats_spc_def_old}`} width="100%" height="100%">
                           <td width="40%">
                             <b><p>SPDef: {(special_defense != null) ? special_defense : 0}</p></b>
                           </td>
@@ -199,7 +205,7 @@ const CurrentPokemonStats: FunctionComponent = ({ gamehookLoaded, isConnected, p
                   <td width="100%">
                     <table width="100%" height="100%">
                       <tbody>
-                        <tr className={(new_colors) ? `${pokemonCommonStyles.pokemon_stats_spc_new}` : `${pokemonCommonStyles.pokemon_stats_spc_old}`} width="100%" height="100%">
+                        <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_spc_new}` : `${pokemonCommonStyles.pokemon_stats_spc_old}`} width="100%" height="100%">
                           <td width="40%">
                             <b><p>SPC: {(special != null) ? special : 0}</p></b>
                           </td>
@@ -219,7 +225,7 @@ const CurrentPokemonStats: FunctionComponent = ({ gamehookLoaded, isConnected, p
                   <td width="100%">
                     <table width="100%" height="100%">
                       <tbody>
-                        <tr className={(new_colors) ? `${pokemonCommonStyles.pokemon_stats_spd_new}` : `${pokemonCommonStyles.pokemon_stats_spd_old}`} width="100%" height="100%">
+                        <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_spd_new}` : `${pokemonCommonStyles.pokemon_stats_spd_old}`} width="100%" height="100%">
                           <td width="40%">
                             <b><p>SPD: {(speed != null) ? speed : 0}</p></b>
                           </td>

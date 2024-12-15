@@ -4,23 +4,29 @@ import * as typeStyles from '../../Types.module';
 import Title from './Pages/Title'
 import Overworld from './Pages/Overworld'
 import Battle from './Pages/Battle'
+import { StateContext } from '../../StateContext';
 
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useContext } from 'react';
 
-const RightHandSide: FunctionComponent = ({ gamehookLoaded, isConnected, pokemonModelSet, properties, playTime, gen, new_colors, modelClasses, in_battle }) => {
+const RightHandSide: FunctionComponent = () => {
+  const { stateContext, playTimeStateContext, in_battleContext } = useContext(StateContext);
+  const { state, setState } = stateContext; 
+  const { playTimeState, setPlayTimeState } = playTimeStateContext; 
+  const { in_battle } = in_battleContext;
+  
   if(in_battle) {
     return (
-      <Battle gamehookLoaded={gamehookLoaded} isConnected={isConnected} pokemonModelSet={pokemonModelSet} properties={properties} playTime={playTime} gen={gen} new_colors={new_colors} modelClasses={modelClasses} in_battle={in_battle} />
+      <Battle />
     );
   }
   else if (1 == 1) {
     return (
-      <Overworld gamehookLoaded={gamehookLoaded} isConnected={isConnected} pokemonModelSet={pokemonModelSet} properties={properties} playTime={playTime} gen={gen} new_colors={new_colors} modelClasses={modelClasses} in_battle={in_battle} />
+      <Overworld />
     );
   }
   else {
     return (
-      <Title gamehookLoaded={gamehookLoaded} isConnected={isConnected} pokemonModelSet={pokemonModelSet} properties={properties} playTime={playTime} gen={gen} new_colors={new_colors} modelClasses={modelClasses} in_battle={in_battle} />
+      <Title />
     );
   }
 };

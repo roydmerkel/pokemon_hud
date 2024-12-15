@@ -11,7 +11,9 @@ import * as signalR from '@microsoft/signalr';
 import LeftHandSide from '@pages/LeftHandSide';
 import MiddlePanel from '@pages/MiddlePanel';
 import RightHandSide from '@pages/RightHandSide';
-//import SamplePage from '@pages/Sample';
+
+import { StateContext } from './StateContext';
+
 import './main.css';
 
 import { default as TypeLookupCrystal } from './Model/Crystal/TypeLookup.tsx';
@@ -433,21 +435,23 @@ const App: FunctionComponent = () => {
     //  </div>
     //  <SamplePage />
     //</div>
-      <table width="100%" height="100%">
-        <tbody>
-        <tr width="100%" height="100%">
-          <td width="20%" height="100%">
-            <LeftHandSide gamehookLoaded={state.gamehookLoaded} isConnected={state.isConnected} pokemonModelSet={state.pokemonModelSet} properties={state.properties} playTime={playTimeState.playTime} gen={state?.properties?.meta?.generation} new_colors={state.new_colors} modelClasses={state.modelClasses} in_battle={in_battle} />
-          </td>
-          <td width="60%" height="100%">
-            <MiddlePanel gamehookLoaded={state.gamehookLoaded} isConnected={state.isConnected} pokemonModelSet={state.pokemonModelSet} properties={state.properties} playTime={playTimeState.playTime} gen={state?.properties?.meta?.generation} new_colors={state.new_colors} modelClasses={state.modelClasses} in_battle={in_battle} />
-          </td>
-          <td width="20%" height="100%">
-            <RightHandSide gamehookLoaded={state.gamehookLoaded} isConnected={state.isConnected} pokemonModelSet={state.pokemonModelSet} properties={state.properties} playTime={playTimeState.playTime} gen={state?.properties?.meta?.generation} new_colors={state.new_colors} modelClasses={state.modelClasses} in_battle={in_battle} />
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <StateContext.Provider value={{ stateContext: { state, setState }, playTimeStateContext: { playTimeState, setPlayTimeState }, in_battleContext: { in_battle } }}>
+        <table width="100%" height="100%">
+          <tbody>
+          <tr width="100%" height="100%">
+            <td width="20%" height="100%">
+              <LeftHandSide />
+            </td>
+            <td width="60%" height="100%">
+              <MiddlePanel />
+            </td>
+            <td width="20%" height="100%">
+              <RightHandSide />
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </StateContext.Provider>
   );
 };
 

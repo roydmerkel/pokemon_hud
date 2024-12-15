@@ -1,15 +1,21 @@
 import * as styles from './CurrentPokemonImage.module';
 import * as baseStyles from '../../../Base.module';
 import * as typeStyles from '../../../Types.module';
+import { StateContext } from '../../../StateContext'
 
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useContext } from 'react';
 
-const CurrentPokemonImage: FunctionComponent = ({ gamehookLoaded, isConnected, pokemonModelSet, properties, playTime, gen, new_colors, modelClasses, in_battle }) => {
-  var type1 = properties?.["player.active_pokemon.type_1_val"]?.value;
-  var type2 = properties?.["player.active_pokemon.type_2_val"]?.value;
-  var indexNumber = properties?.["player.active_pokemon.index_number"]?.value;
-  var TypeLookup = modelClasses?.TypeLookup;
-  var SpeciesImageLookup = modelClasses?.SpeciesImageLookup;
+const CurrentPokemonImage: FunctionComponent = () => {
+  const { stateContext, playTimeStateContext, in_battleContext } = useContext(StateContext);
+  const { state, setState } = stateContext; 
+  const { playTimeState, setPlayTimeState } = playTimeStateContext; 
+  const { in_battle } = in_battleContext;
+  
+  var type1 = state?.properties?.["player.active_pokemon.type_1_val"]?.value;
+  var type2 = state?.properties?.["player.active_pokemon.type_2_val"]?.value;
+  var indexNumber = state?.properties?.["player.active_pokemon.index_number"]?.value;
+  var TypeLookup = state?.modelClasses?.TypeLookup;
+  var SpeciesImageLookup = state?.modelClasses?.SpeciesImageLookup;
   
   if(type1 != null)
   {
@@ -57,8 +63,8 @@ const CurrentPokemonImage: FunctionComponent = ({ gamehookLoaded, isConnected, p
             <table>
               <tbody>
                 <tr>
-                  <td className={(type1 != null) ? ((new_colors) ? type1.new_css_class : type1.old_css_class) : `${typeStyles.no_type} ${baseStyles.hide_vertical}`}><span>{(type1 != null) ? type1.name : ""}</span></td>
-                  <td className={(type2 != null) ? ((new_colors) ? type2.new_css_class : type2.old_css_class) : `${typeStyles.no_type} ${baseStyles.hide_vertical}`}><span>{(type2 != null) ? type2.name : ""}</span></td>
+                  <td className={(type1 != null) ? ((state?.new_colors) ? type1.new_css_class : type1.old_css_class) : `${typeStyles.no_type} ${baseStyles.hide_vertical}`}><span>{(type1 != null) ? type1.name : ""}</span></td>
+                  <td className={(type2 != null) ? ((state?.new_colors) ? type2.new_css_class : type2.old_css_class) : `${typeStyles.no_type} ${baseStyles.hide_vertical}`}><span>{(type2 != null) ? type2.name : ""}</span></td>
                 </tr>
               </tbody>
             </table>

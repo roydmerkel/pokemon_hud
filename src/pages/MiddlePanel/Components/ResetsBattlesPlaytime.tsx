@@ -1,10 +1,15 @@
 import * as baseStyles from '../../../Base.module';
 import * as typeStyles from '../../../Types.module';
 
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useContext } from 'react';
+import { StateContext } from '../../../StateContext';
 
-const ResetsBattlesPlaytime: FunctionComponent = ({ gamehookLoaded, isConnected, pokemonModelSet, properties, playTime, gen, new_colors, modelClasses, in_battle }) => {
-  var hours = (properties?.["game_time.hours"]?.value) ? properties?.["game_time.hours"]?.value : 0;
+const ResetsBattlesPlaytime: FunctionComponent = () => {
+  const { stateContext, playTimeStateContext, in_battleContext } = useContext(StateContext);
+  const { state, setState } = stateContext; 
+  const { playTimeState, setPlayTimeState } = playTimeStateContext; 
+  const { in_battle } = in_battleContext;
+  var hours = (state?.properties?.["game_time.hours"]?.value) ? state?.properties?.["game_time.hours"]?.value : 0;
   if(hours < 10) {
     hours = "00" + hours.toString();
   } else if(hours < 100) {
@@ -12,19 +17,19 @@ const ResetsBattlesPlaytime: FunctionComponent = ({ gamehookLoaded, isConnected,
   } else {
     hours = hours.toString();
   }
-  var minutes = (properties?.["game_time.minutes"]?.value) ? properties?.["game_time.minutes"]?.value : 0;
+  var minutes = (state?.properties?.["game_time.minutes"]?.value) ? state?.properties?.["game_time.minutes"]?.value : 0;
   if(minutes < 10) {
     minutes = "0" + minutes.toString();
   } else {
     minutes = minutes.toString();
   }
-  var seconds = (properties?.["game_time.seconds"]?.value) ? properties?.["game_time.seconds"]?.value : 0;
+  var seconds = (state?.properties?.["game_time.seconds"]?.value) ? state?.properties?.["game_time.seconds"]?.value : 0;
   if(seconds < 10) {
     seconds = "0" + seconds.toString();
   } else {
     seconds = seconds.toString();
   }
-  var frames = (properties?.["game_time.frames"]?.value) ? properties?.["game_time.frames"]?.value : 0;
+  var frames = (state?.properties?.["game_time.frames"]?.value) ? state?.properties?.["game_time.frames"]?.value : 0;
   frames = Math.trunc(frames * 1000 / 60)
   if(frames < 10) {
     frames = "00" + frames.toString();
@@ -33,7 +38,7 @@ const ResetsBattlesPlaytime: FunctionComponent = ({ gamehookLoaded, isConnected,
   } else {
     frames = frames.toString();
   }
-  var playTimeVal = playTime ? playTime : 0;
+  var playTimeVal = playTimeState.playTime ? playTimeState.playTime : 0;
   var playTimeMS = (playTimeVal % 1000).toFixed(0);
   var playTimeSec = ((playTimeVal / 1000) % 60).toFixed(0);
   var playTimeMin = ((playTimeVal / (1000 * 60)) % 60).toFixed(0);

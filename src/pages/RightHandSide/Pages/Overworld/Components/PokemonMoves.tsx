@@ -1,25 +1,31 @@
 import * as pokemonCommonStyles from '../../../../../PokemonCommon.module';
+import { StateContext } from '../../../../../StateContext';
 
-import { FunctionComponent, ElementType, useEffect, useState } from 'react';
+import { FunctionComponent, ElementType, useEffect, useState, useContext } from 'react';
 
-const PokemonMoves: FunctionComponent = ({ gamehookLoaded, isConnected, pokemonModelSet, properties, playTime, gen, new_colors, modelClasses, in_battle }) => {
+const PokemonMoves: FunctionComponent = () => {
+  const { stateContext, playTimeStateContext, in_battleContext } = useContext(StateContext);
+  const { state, setState } = stateContext; 
+  const { playTimeState, setPlayTimeState } = playTimeStateContext; 
+  const { in_battle } = in_battleContext;
+  
   const [moves, setMoves] = useState([]);
   const [indexNumber, setIndexNumber] = useState(0);
   const [page, setPage] = useState(0);
-  var MoveLookup = modelClasses?.MoveLookup;
-  var TypeLookup = modelClasses?.TypeLookup;
-  var PokemonMovesLookup = modelClasses?.PokemonMovesLookup;
-  var TmsLookup = modelClasses?.TmsLookup;
-  var HmsLookup = modelClasses?.HmsLookup;
-  var MtsLookup = modelClasses?.MtsLookup;
+  var MoveLookup = state?.modelClasses?.MoveLookup;
+  var TypeLookup = state?.modelClasses?.TypeLookup;
+  var PokemonMovesLookup = state?.modelClasses?.PokemonMovesLookup;
+  var TmsLookup = state?.modelClasses?.TmsLookup;
+  var HmsLookup = state?.modelClasses?.HmsLookup;
+  var MtsLookup = state?.modelClasses?.MtsLookup;
   const ELEMENTS_PER_PAGE = 15;
   const UPDATE_INTERVAL = 10000;
 
   var pokemonMoves = PokemonMovesLookup?.pokemonTmsLookup?.get(indexNumber?.toString());
   
   useEffect(
-    () => { if(properties?.["player.active_pokemon.index_number"]?.value != indexNumber) { setIndexNumber(properties?.["player.active_pokemon.index_number"]?.value); } },
-    [properties?.["player.active_pokemon.index_number"]?.value]
+    () => { if(state?.properties?.["player.active_pokemon.index_number"]?.value != indexNumber) { setIndexNumber(state?.properties?.["player.active_pokemon.index_number"]?.value); } },
+    [state?.properties?.["player.active_pokemon.index_number"]?.value]
   )
   
   useEffect(
@@ -39,7 +45,7 @@ const PokemonMoves: FunctionComponent = ({ gamehookLoaded, isConnected, pokemonM
 			var move = pokemonMoves?.levelup?.get(level);
 			if(Array.isArray(move))
 			{
-				if(gen == 1)
+				if(state?.properties?.meta?.generation == 1)
 				{
 					if(move.length > 0)
 					{
@@ -149,7 +155,7 @@ const PokemonMoves: FunctionComponent = ({ gamehookLoaded, isConnected, pokemonM
 		  <td>
 			{move[1]}
 		  </td>
-		  <td className={(move[2] != null) ? ((new_colors) ? move[2]?.new_css_class : move[2]?.old_css_class) : `${typeStyles.no_type} ${baseStyles.hide_vertical}`}>
+		  <td className={(move[2] != null) ? ((state?.new_colors) ? move[2]?.new_css_class : move[2]?.old_css_class) : `${typeStyles.no_type} ${baseStyles.hide_vertical}`}>
 			{move[2]?.name}
 		  </td>
 		  <td>
