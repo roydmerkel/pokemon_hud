@@ -1258,7 +1258,17 @@
 			<!-- <property name="state_enemy" type="string" /> -->
 		</meta>
     </properties>
-
+	<events>
+		<event name="_hardreset"/>
+		<event name="_softreset"/>
+		<event name="_AddPartyMon.setDVs" bank="3" address="0x73B9" event-type="execute">
+			<!--uncomment and set to set DVs on gifted and caught pokemon-->
+			<!--<override register="a" value="255"/>
+			<override register="b" value="255"/>-->
+		</event>
+		<event name="softreset" bank="0" address="0x1F49" event-type="execute"/>
+		<event name="OakSpeech.doNewGame" bank="1" address="0x6250" event-type="execute"/>
+	</events>
     <references>
         <text_speeds>
             <entry key="0x00" value="Instant" />

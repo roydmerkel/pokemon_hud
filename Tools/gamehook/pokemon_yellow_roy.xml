@@ -1770,10 +1770,14 @@
     </properties>
 	<events>
 		<event name="_hardreset"/>
+		<event name="_softreset"/>
 		<event name="_AddPartyMon.setDVs" bank="3" address="0x7235" event-type="execute">
-			<override register="a" value="254"/>
-			<override register="b" value="254"/>
+			<!--uncomment and set to set DVs on gifted and caught pokemon-->
+			<!--<override register="a" value="255"/>
+			<override register="b" value="255"/>-->
 		</event>
+		<event name="softreset" bank="0" address="0x1D05" event-type="execute"/>
+		<event name="OakSpeech.doNewGame" bank="1" address="0x5fb5 " event-type="execute"/>
 	</events>
     <references>
         <text_speeds>

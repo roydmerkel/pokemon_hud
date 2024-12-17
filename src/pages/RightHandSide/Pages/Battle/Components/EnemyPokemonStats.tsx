@@ -6,10 +6,11 @@ import { StateContext } from '../../../../../StateContext';
 import { FunctionComponent, useContext } from 'react';
 
 const EnemyPokemonStats: FunctionComponent = () => {
-  const { stateContext, playTimeStateContext, in_battleContext } = useContext(StateContext);
+  const { stateContext, playTimeStateContext, in_battleContext, persistentStateContext } = useContext(StateContext);
   const { state, setState } = stateContext; 
   const { playTimeState, setPlayTimeState } = playTimeStateContext; 
   const { in_battle } = in_battleContext;
+  const { persistentState, setPersistentState } = persistentStateContext;
   
   var PokemonStatsLookup = state?.modelClasses?.PokemonStatsLookup;
   var PokemonMechanics = state?.modelClasses?.PokemonMechanics;

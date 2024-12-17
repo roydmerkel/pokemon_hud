@@ -4,10 +4,11 @@ import { StateContext } from '../../../../../StateContext';
 import { FunctionComponent, ElementType, useEffect, useState, useContext } from 'react';
 
 const PokemonMoves: FunctionComponent = () => {
-  const { stateContext, playTimeStateContext, in_battleContext } = useContext(StateContext);
+  const { stateContext, playTimeStateContext, in_battleContext, persistentStateContext } = useContext(StateContext);
   const { state, setState } = stateContext; 
   const { playTimeState, setPlayTimeState } = playTimeStateContext; 
   const { in_battle } = in_battleContext;
+  const { persistentState, setPersistentState } = persistentStateContext;
   
   const [moves, setMoves] = useState([]);
   const [indexNumber, setIndexNumber] = useState(0);

@@ -2043,7 +2043,17 @@
 			<!-- <property name="state_enemy"    type="string" /> -->
         </meta>
     </properties>
-
+	<events>
+		<event name="_hardreset"/>
+		<event name="_softreset"/>
+		<event name="GeneratePartyMonStats.initializeDVs" bank="3" address="0x59BB" event-type="execute">
+			<!--uncomment and set to set DVs on gifted and caught pokemon-->
+			<!--<override register="b" value="255"/>
+			<override register="c" value="255"/>-->
+		</event>
+		<event name="softreset" bank="0" address="0x05b0" event-type="execute"/>
+		<event name="InitializeWorld.doNewGame" bank="1" address="0x5da6" event-type="execute"/>
+	</events>
     <references>
         <text_speeds>
             <entry key="0x00" value="Instant" />
