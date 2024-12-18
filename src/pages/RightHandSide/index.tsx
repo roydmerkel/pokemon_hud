@@ -9,27 +9,29 @@ import { StateContext } from '../../StateContext';
 import { FunctionComponent, useContext } from 'react';
 
 const RightHandSide: FunctionComponent = () => {
-  const { stateContext, playTimeStateContext, in_battleContext, persistentStateContext } = useContext(StateContext);
-  const { state, setState } = stateContext; 
-  const { playTimeState, setPlayTimeState } = playTimeStateContext; 
-  const { in_battle } = in_battleContext;
-  const { persistentState, setPersistentState } = persistentStateContext;
-  
-  if(in_battle) {
-    return (
-      <Battle />
-    );
-  }
-  else if (1 == 1) {
-    return (
-      <Overworld />
-    );
-  }
-  else {
-    return (
-      <Title />
-    );
-  }
+    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext } = useContext(StateContext);
+    const { state, setState } = stateContext;
+    const { playTimeState, setPlayTimeState } = playTimeStateContext;
+    const { persistentState, setPersistentState } = persistentStateContext;
+    const { inBattle, setInBattle } = inBattleContext;
+
+    const in_battle = inBattle;
+
+    if (in_battle) {
+        return (
+            <Battle />
+        );
+    }
+    else if (1 == 1) {
+        return (
+            <Overworld />
+        );
+    }
+    else {
+        return (
+            <Title />
+        );
+    }
 };
 
 export default RightHandSide;

@@ -6,74 +6,73 @@ import { StateContext } from '../../../StateContext'
 import { FunctionComponent, useContext } from 'react';
 
 const CurrentPokemonImage: FunctionComponent = () => {
-  const { stateContext, playTimeStateContext, in_battleContext, persistentStateContext } = useContext(StateContext);
-  const { state, setState } = stateContext; 
-  const { playTimeState, setPlayTimeState } = playTimeStateContext; 
-  const { in_battle } = in_battleContext;
-  const { persistentState, setPersistentState } = persistentStateContext;
-  
-  var type1 = state?.properties?.["player.active_pokemon.type_1_val"]?.value;
-  var type2 = state?.properties?.["player.active_pokemon.type_2_val"]?.value;
-  var indexNumber = state?.properties?.["player.active_pokemon.index_number"]?.value;
-  var TypeLookup = state?.modelClasses?.TypeLookup;
-  var SpeciesImageLookup = state?.modelClasses?.SpeciesImageLookup;
-  
-  if(type1 != null)
-  {
-	type1 = TypeLookup?.typeLookup?.get(type1.toString());
-  }
+    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext } = useContext(StateContext);
+    const { state, setState } = stateContext;
+    const { playTimeState, setPlayTimeState } = playTimeStateContext;
+    const { persistentState, setPersistentState } = persistentStateContext;
+    const { inBattle, setInBattle } = inBattleContext;
 
-  if(type2 != null)
-  {
-	type2 = TypeLookup?.typeLookup?.get(type2.toString());
-  }
-  
-  if(type2 == type1)
-  {
-	type2 = null;
-  }
-  
-  var image = SpeciesImageLookup?.pokemonImageLookup?.get(indexNumber?.toString());
-  var source = SpeciesImageLookup?.pokemonImageSourceLookup?.get(indexNumber?.toString());
-  
-  return (
-    <table height="100%">
-      <tbody>
-        <tr width="100%" height="60%" align="center">
-          <td>
-            <img className={`${styles.pokemon_image} ${baseStyles.img_hor}`} src={image}/>
-          </td>
-        </tr>
-        <tr width="100%" align="center">
-          <td>
-            <a href={source}>{source}</a>
-          </td>
-        </tr>
-        <tr width="100%" align="center">
-          <td>
-            <p className={styles.pokemon_species_name}></p>
-          </td>
-        </tr>
-        <tr width="100%" align="center">
-          <td>
-            <p className={styles.pokemon_nickname}></p>
-          </td>
-        </tr>
-        <tr width="100%" align="center">
-          <td>
-            <table>
-              <tbody>
-                <tr>
-                  <td className={(type1 != null) ? ((state?.new_colors) ? type1.new_css_class : type1.old_css_class) : `${typeStyles.no_type} ${baseStyles.hide_vertical}`}><span>{(type1 != null) ? type1.name : ""}</span></td>
-                  <td className={(type2 != null) ? ((state?.new_colors) ? type2.new_css_class : type2.old_css_class) : `${typeStyles.no_type} ${baseStyles.hide_vertical}`}><span>{(type2 != null) ? type2.name : ""}</span></td>
+    const in_battle = inBattle;
+
+    var type1 = state?.properties?.["player.active_pokemon.type_1_val"]?.value;
+    var type2 = state?.properties?.["player.active_pokemon.type_2_val"]?.value;
+    var indexNumber = state?.properties?.["player.active_pokemon.index_number"]?.value;
+    var TypeLookup = state?.modelClasses?.TypeLookup;
+    var SpeciesImageLookup = state?.modelClasses?.SpeciesImageLookup;
+
+    if (type1 != null) {
+        type1 = TypeLookup?.typeLookup?.get(type1.toString());
+    }
+
+    if (type2 != null) {
+        type2 = TypeLookup?.typeLookup?.get(type2.toString());
+    }
+
+    if (type2 == type1) {
+        type2 = null;
+    }
+
+    var image = SpeciesImageLookup?.pokemonImageLookup?.get(indexNumber?.toString());
+    var source = SpeciesImageLookup?.pokemonImageSourceLookup?.get(indexNumber?.toString());
+
+    return (
+        <table height="100%">
+            <tbody>
+                <tr width="100%" height="60%" align="center">
+                    <td>
+                        <img className={`${styles.pokemon_image} ${baseStyles.img_hor}`} src={image} />
+                    </td>
                 </tr>
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  );
+                <tr width="100%" align="center">
+                    <td>
+                        <a href={source}>{source}</a>
+                    </td>
+                </tr>
+                <tr width="100%" align="center">
+                    <td>
+                        <p className={styles.pokemon_species_name}></p>
+                    </td>
+                </tr>
+                <tr width="100%" align="center">
+                    <td>
+                        <p className={styles.pokemon_nickname}></p>
+                    </td>
+                </tr>
+                <tr width="100%" align="center">
+                    <td>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td className={(type1 != null) ? ((state?.new_colors) ? type1.new_css_class : type1.old_css_class) : `${typeStyles.no_type} ${baseStyles.hide_vertical}`}><span>{(type1 != null) ? type1.name : ""}</span></td>
+                                    <td className={(type2 != null) ? ((state?.new_colors) ? type2.new_css_class : type2.old_css_class) : `${typeStyles.no_type} ${baseStyles.hide_vertical}`}><span>{(type2 != null) ? type2.name : ""}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    );
 };
 
 export default CurrentPokemonImage;

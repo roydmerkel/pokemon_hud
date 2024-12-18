@@ -1923,6 +1923,18 @@
                 <property name="battle_participants_not_fainted_slot_3" type="bool" address="0xCB42" bits="3"/>
                 <property name="battle_participants_not_fainted_slot_4" type="bool" address="0xCB42" bits="4"/>
                 <property name="battle_participants_not_fainted_slot_5" type="bool" address="0xCB42" bits="5"/>
+                <!--
+                    ; Bit array.  Bits 0 - 5 correspond to party members 1 - 6.
+                    ; Bit set if the mon appears in battle.
+                    ; Backed up if the enemy switches.
+                    ; All bits cleared if the enemy faints.
+                -->
+                <property name="battle_participants_including_fainted_slot_0" type="bool" address="0xcbda" bits="0"/>
+                <property name="battle_participants_including_fainted_slot_1" type="bool" address="0xcbda" bits="1"/>
+                <property name="battle_participants_including_fainted_slot_2" type="bool" address="0xcbda" bits="2"/>
+                <property name="battle_participants_including_fainted_slot_3" type="bool" address="0xcbda" bits="3"/>
+                <property name="battle_participants_including_fainted_slot_4" type="bool" address="0xcbda" bits="4"/>
+                <property name="battle_participants_including_fainted_slot_5" type="bool" address="0xcbda" bits="5"/>
                 <property name="outcome_flags" type="int" address="0xCFE9" />
                 <property name="text_buffer" type="string" address="0xcf6b" length="11" />
             </other>

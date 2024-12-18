@@ -5,11 +5,14 @@ import { FunctionComponent, useContext } from 'react';
 import { StateContext } from '../../../StateContext';
 
 const ResetsBattlesPlaytime: FunctionComponent = () => {
-    const { stateContext, playTimeStateContext, in_battleContext, persistentStateContext } = useContext(StateContext);
+    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext } = useContext(StateContext);
     const { state, setState } = stateContext;
     const { playTimeState, setPlayTimeState } = playTimeStateContext;
-    const { in_battle } = in_battleContext;
     const { persistentState, setPersistentState } = persistentStateContext;
+    const { inBattle, setInBattle } = inBattleContext;
+
+    const in_battle = inBattle;
+
     var hours = (state?.properties?.["game_time.hours"]?.value) ? state?.properties?.["game_time.hours"]?.value : 0;
     if (hours < 10) {
         hours = "00" + hours.toString();

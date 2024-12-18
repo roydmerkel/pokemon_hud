@@ -79,8 +79,7 @@ const App: FunctionComponent = () => {
     const propertiesRef = useRef(null);
     const persistentStateRef = useRef(null);
 
-    function getPersistentState()
-    {
+    function getPersistentState() {
         const curPersistentStateString = window?.localStorage?.getItem("persistentState");
         var curPersistentState;
 
@@ -147,6 +146,8 @@ const App: FunctionComponent = () => {
         modelClasses: { TypeLookup: null, PokemonStatsLookup: null, SpeciesImageLookup: null, PokemonMechanics: null, TrainersLookup: null, SpeciesNameLookup: null, MoveLookup: null, PokemonMovesLookup: null, TmsLookup: null, HmsLookup: null, MtsLookup: null }
     });
 
+    const [inBattle, setInBattle] = useState(false);
+
     const [changes, setChanges] = useState(new Array<{ path: string[], key: any, val: any }>());
 
     function getPlayTimeState() {
@@ -212,8 +213,8 @@ const App: FunctionComponent = () => {
     loadExternalJSScript("gamehook", "http://localhost:8085/dist/gameHookMapperClient.js", () => { var newMapper = new GameHookMapperClient(); mapper.current = newMapper; console.log("newMapper:", mapper.current); setState({ ...state, gamehookLoaded: true }); }, (x) => { });
 
     useEffect(() => {
-        console.log("self:", self);
-        console.log("hh:", state, state.gamehookLoaded, mapper.current);
+        //console.log("self:", self);
+        //console.log("hh:", state, state.gamehookLoaded, mapper.current);
         if (state.gamehookLoaded && !state.isConnected) {
             var isConnected = false;
             var pokemonModelSet = false;
@@ -297,7 +298,7 @@ const App: FunctionComponent = () => {
                                 newModelClasses.TrainersLookup = TrainersLookupCrystal;
                                 newModelClasses.SpeciesNameLookup = SpeciesNameLookupCrystal;
                                 newModelClasses.MoveLookup = MoveLookupCrystal;
-                                newModelClasses.PokemonMovesLookup = PokemonMovesLookupMoveLookupCrystal;
+                                newModelClasses.PokemonMovesLookup = PokemonMovesLookupCrystal;
                                 newModelClasses.TmsLookup = TmsLookupCrystal;
                                 newModelClasses.HmsLookup = HmsLookupCrystal;
                                 newModelClasses.MtsLookup = MtsLookupCrystal;
@@ -338,8 +339,8 @@ const App: FunctionComponent = () => {
     }, [state.gamehookLoaded]);
 
     useEffect(() => {
-        console.log("self:", self);
-        console.log("hh:", state, state.gamehookLoaded, mapper.current);
+        //console.log("self:", self);
+        //console.log("hh:", state, state.gamehookLoaded, mapper.current);
         if (state.gamehookLoaded && state.isConnected && state.pokemonModelSet && !state.changeCallbacksSet) {
             var properties = {};
             propertiesRef.current = properties;
@@ -428,8 +429,151 @@ const App: FunctionComponent = () => {
             }
             mapper.current.onImmediateReadValues = (property, immediateReadValues) => { console.log("onImmediateReadValues:", property, immediateReadValues); }
 
+            function getInBattle() {
+                var in_battle = false;
+
+                var mode = mapper?.current?.properties?.battle.mode?.value;
+                var battle_start = mapper?.current?.properties?.battle?.other.battle_start?.value;
+                var battle_ended = mapper?.current?.properties?.battle?.other.battle_ended?.value;
+                var first_mons_not_out_yet = mapper?.current?.properties?.battle.other?.first_mons_not_out_yet?.value;
+                var action_result_or_took_battle_turn = mapper?.current?.properties?.battle.other?.action_result_or_took_battle_turn?.value;
+                var battle_result = mapper?.current?.properties?.battle.other?.battle_result?.value;
+                var outcome_flags = mapper?.current?.properties?.battle.other?.outcome_flags?.value;
+                var cur_opponent = mapper?.current?.properties?.battle.opponent?.cur_opponent?.value;
+                var party_position = mapper?.current?.properties?.battle?.player?.party_position?.value;
+
+                var battle_participants_including_fainted_slot_0 = mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_0?.value;
+                var battle_participants_including_fainted_slot_1 = mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_1?.value;
+                var battle_participants_including_fainted_slot_2 = mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_2?.value;
+                var battle_participants_including_fainted_slot_3 = mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_3?.value;
+                var battle_participants_including_fainted_slot_4 = mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_4?.value;
+                var battle_participants_including_fainted_slot_5 = mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_5?.value;
+
+                console.log("mode:", mode, 
+                			"battle_start:", battle_start, 
+                			"battle_ended:", battle_ended, 
+                			"first_mons_not_out_yet:", first_mons_not_out_yet,
+                			"action_result_or_took_battle_turn:", action_result_or_took_battle_turn,
+                			"battle_result:", battle_result,
+                			"outcome_flags:", outcome_flags,
+                            "cur_opponent:", cur_opponent,
+                            "party_position:", party_position,
+                            "battle_participants_including_fainted_slot_0:", battle_participants_including_fainted_slot_0,
+                            "battle_participants_including_fainted_slot_1:", battle_participants_including_fainted_slot_1,
+                            "battle_participants_including_fainted_slot_2:", battle_participants_including_fainted_slot_2,
+                            "battle_participants_including_fainted_slot_3:", battle_participants_including_fainted_slot_3,
+                            "battle_participants_including_fainted_slot_4:", battle_participants_including_fainted_slot_4,
+                            "battle_participants_including_fainted_slot_5:", battle_participants_including_fainted_slot_5,
+                );
+
+                in_battle = (mode != null && mode != 0 && mode != "None")
+                    && (battle_start != 0 ||
+                        (first_mons_not_out_yet === undefined &&
+                            (battle_participants_including_fainted_slot_0 ||
+                                battle_participants_including_fainted_slot_1 ||
+                                battle_participants_including_fainted_slot_2 ||
+                                battle_participants_including_fainted_slot_3 ||
+                                battle_participants_including_fainted_slot_4 ||
+                                battle_participants_including_fainted_slot_5)) ||
+                        (first_mons_not_out_yet !== undefined && mode != "Trainer" && party_position))
+                    && (battle_ended == null || battle_ended == 0)
+                    && (first_mons_not_out_yet == null || first_mons_not_out_yet == 0 || party_position)
+                    && (action_result_or_took_battle_turn == null || action_result_or_took_battle_turn == 0)
+                    && (battle_result == null || battle_result == 0)
+                    && (outcome_flags == null || outcome_flags == 0)
+                    && (cur_opponent == null || cur_opponent != 0 || (mode != "Trainer" && mode != "None" && mode != 0 && mode != null));
+                //console.log("in_battle:", in_battle);
+
+                return in_battle;
+            }
+
+            mapper?.current?.properties?.battle.mode?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle.mode:", mapper?.current?.properties?.battle.mode?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle());
+            });
+            mapper?.current?.properties?.battle?.other.battle_start?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle?.other.battle_start:", mapper?.current?.properties?.battle?.other.battle_start?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle());
+            });
+            mapper?.current?.properties?.battle?.other.battle_ended?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle?.other.battle_ended:", mapper?.current?.properties?.battle?.other.battle_ended?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle());
+            });
+            mapper?.current?.properties?.battle.other?.first_mons_not_out_yet?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle.other?.first_mons_not_out_yet:", mapper?.current?.properties?.battle.other?.first_mons_not_out_yet?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle());
+            });
+            mapper?.current?.properties?.battle.other?.action_result_or_took_battle_turn?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle.other?.action_result_or_took_battle_turn:", mapper?.current?.properties?.battle.other?.action_result_or_took_battle_turn?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle());
+            });
+            mapper?.current?.properties?.battle.other?.battle_result?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle.other?.battle_result:", mapper?.current?.properties?.battle.other?.battle_result?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle());
+            });
+            mapper?.current?.properties?.battle.other?.outcome_flags?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle.other?.outcome_flags:", mapper?.current?.properties?.battle.other?.outcome_flags?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle()); 
+            });
+            mapper?.current?.properties?.battle.opponent?.cur_opponent?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle.opponent?.cur_opponent:", mapper?.current?.properties?.battle.opponent?.cur_opponent?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle()); 
+            });
+
+            mapper?.current?.properties?.battle?.player?.party_position?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle?.player?.party_position:", mapper?.current?.properties?.battle?.player?.party_position?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle());
+            });
+
+            mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_0?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_0:", mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_0?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle());
+            });
+
+            mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_1?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_1:", mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_1?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle());
+            });
+
+            mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_2?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_2:", mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_2?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle());
+            });
+
+            mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_3?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_3:", mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_3?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle());
+            });
+
+            mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_4?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_4:", mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_4?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle());
+            });
+
+            mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_5?.change(async function (x) {
+                console.log("mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_5:", mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_5?.value);
+                console.log("setInBattle:", getInBattle());
+                setInBattle(getInBattle());
+            });
+
             console.log("setState:", { ...state, changeCallbacksSet: true, properties: properties });
             setState({ ...state, changeCallbacksSet: true, properties: properties });
+            console.log("setInBattle:", getInBattle());
+            setInBattle(getInBattle());            
         }
 
         return () => {
@@ -487,35 +631,6 @@ const App: FunctionComponent = () => {
         return () => clearInterval(interval);
     }, [state.gamehookLoaded, state.isConnected, state.pokemonModelSet, state.changeCallbacksSet]);
 
-    var in_battle = false;
-
-    var mode = state.properties?.["battle.mode"]?.value;
-    var battle_start = state.properties?.["battle.other.battle_start"]?.value;
-    var battle_ended = state.properties?.["battle.other.battle_ended"]?.value;
-    var first_mons_not_out_yet = state.properties?.["battle.other.first_mons_not_out_yet"]?.value;
-    var action_result_or_took_battle_turn = state.properties?.["battle.other.action_result_or_took_battle_turn"]?.value;
-    var battle_result = state.properties?.["battle.other.battle_result"]?.value;
-    var outcome_flags = state.properties?.["battle.other.outcome_flags"]?.value;
-    var cur_opponent = state.properties?.["battle.opponent.cur_opponent"]?.value;
-    //console.log("mode:", mode, 
-    //			"battle_start:", battle_start, 
-    //			"battle_ended:", battle_ended, 
-    //			"first_mons_not_out_yet:", first_mons_not_out_yet,
-    //			"action_result_or_took_battle_turn:", action_result_or_took_battle_turn,
-    //			"battle_result:", battle_result,
-    //			"outcome_flags:", outcome_flags,
-    //			"cur_opponent:", cur_opponent);
-
-    in_battle = (mode != 0 && mode != "None")
-        && (battle_start != 0)
-        && (battle_ended == null || battle_ended == 0)
-        && (first_mons_not_out_yet == null || first_mons_not_out_yet == 0)
-        && (action_result_or_took_battle_turn == null || action_result_or_took_battle_turn == 0)
-        && (battle_result == null || battle_result == 0)
-        && (outcome_flags == null || outcome_flags == 0)
-        && (cur_opponent == null || cur_opponent != 0);
-    //console.log("in_battle:", in_battle);
-
     return (
         //<div>
         //  <div className={styles.title}>CSS module works!</div>
@@ -529,7 +644,7 @@ const App: FunctionComponent = () => {
         //  </div>
         //  <SamplePage />
         //</div>
-        <StateContext.Provider value={{ stateContext: { state, setState }, playTimeStateContext: { playTimeState, setPlayTimeState }, in_battleContext: { in_battle }, persistentStateContext: { persistentState, setPersistentState } }}>
+        <StateContext.Provider value={{ stateContext: { state, setState }, playTimeStateContext: { playTimeState, setPlayTimeState }, persistentStateContext: { persistentState, setPersistentState }, inBattleContext: { inBattle, setInBattle } }}>
             <table width="100%" height="100%">
                 <tbody>
                     <tr width="100%" height="100%">
