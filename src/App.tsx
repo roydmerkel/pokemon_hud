@@ -71,6 +71,10 @@ import { default as MtsLookupGoldSilver } from './Model/GoldSilver/MtsLookup.tsx
 import { default as MtsLookupYellow } from './Model/Yellow/MtsLookup.tsx';
 import { default as MtsLookupRedBlue } from './Model/RedBlue/MtsLookup.tsx';
 
+import { default as TitleFirstRowsCrystal } from './Model/Crystal/TitleFirstRows.tsx';
+import { default as TitleFirstRowsGoldSilver } from './Model/GoldSilver/TitleFirstRows.tsx';
+import { default as TitleFirstRowsYellow } from './Model/Yellow/TitleFirstRows.tsx';
+import { default as TitleFirstRowsRedBlue } from './Model/RedBlue/TitleFirstRows.tsx';
 
 window.signalR = signalR;
 
@@ -143,10 +147,11 @@ const App: FunctionComponent = () => {
         changeCallbacksSet: false,
         properties: null,
         new_colors: true,
-        modelClasses: { TypeLookup: null, PokemonStatsLookup: null, SpeciesImageLookup: null, PokemonMechanics: null, TrainersLookup: null, SpeciesNameLookup: null, MoveLookup: null, PokemonMovesLookup: null, TmsLookup: null, HmsLookup: null, MtsLookup: null }
+        modelClasses: { TypeLookup: null, PokemonStatsLookup: null, SpeciesImageLookup: null, PokemonMechanics: null, TrainersLookup: null, SpeciesNameLookup: null, MoveLookup: null, PokemonMovesLookup: null, TmsLookup: null, HmsLookup: null, MtsLookup: null, TitleFirstRows: null }
     });
 
     const [inBattle, setInBattle] = useState(false);
+    const [inTitle, setInTitle] = useState(false);
 
     const [changes, setChanges] = useState(new Array<{ path: string[], key: any, val: any }>());
 
@@ -245,6 +250,7 @@ const App: FunctionComponent = () => {
                                 newModelClasses.TmsLookup = TmsLookupRedBlue;
                                 newModelClasses.HmsLookup = HmsLookupRedBlue;
                                 newModelClasses.MtsLookup = MtsLookupRedBlue;
+                                newModelClasses.TitleFirstRows = TitleFirstRowsRedBlue;
                                 break;
                             case "Third Version":
                                 newModelClasses.TypeLookup = TypeLookupYellow;
@@ -258,6 +264,7 @@ const App: FunctionComponent = () => {
                                 newModelClasses.TmsLookup = TmsLookupYellow;
                                 newModelClasses.HmsLookup = HmsLookupYellow;
                                 newModelClasses.MtsLookup = MtsLookupYellow;
+                                newModelClasses.TitleFirstRows = TitleFirstRowsYellow;
                                 break;
                             default:
                             case null:
@@ -272,6 +279,7 @@ const App: FunctionComponent = () => {
                                 newModelClasses.TmsLookup = null;
                                 newModelClasses.HmsLookup = null;
                                 newModelClasses.MtsLookup = null;
+                                newModelClasses.TitleFirstRows = null;
                                 break;
                         }
                         break;
@@ -289,6 +297,8 @@ const App: FunctionComponent = () => {
                                 newModelClasses.TmsLookup = TmsLookupGoldSilver;
                                 newModelClasses.HmsLookup = HmsLookupGoldSilver;
                                 newModelClasses.MtsLookup = MtsLookupGoldSilver;
+                                newModelClasses.TitleFirstRows = TitleFirstRowsGoldSilver;
+
                                 break;
                             case "Third Version":
                                 newModelClasses.TypeLookup = TypeLookupCrystal;
@@ -302,6 +312,7 @@ const App: FunctionComponent = () => {
                                 newModelClasses.TmsLookup = TmsLookupCrystal;
                                 newModelClasses.HmsLookup = HmsLookupCrystal;
                                 newModelClasses.MtsLookup = MtsLookupCrystal;
+                                newModelClasses.TitleFirstRows = TitleFirstRowsCrystal;
                                 break;
                             default:
                             case null:
@@ -316,6 +327,7 @@ const App: FunctionComponent = () => {
                                 newModelClasses.TmsLookup = null;
                                 newModelClasses.HmsLookup = null;
                                 newModelClasses.MtsLookup = null;
+                                newModelClasses.TitleFirstRows = null;
                                 break;
                         }
                         break;
@@ -449,21 +461,21 @@ const App: FunctionComponent = () => {
                 var battle_participants_including_fainted_slot_4 = mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_4?.value;
                 var battle_participants_including_fainted_slot_5 = mapper?.current?.properties?.battle.other?.battle_participants_including_fainted_slot_5?.value;
 
-                console.log("mode:", mode, 
-                			"battle_start:", battle_start, 
-                			"battle_ended:", battle_ended, 
-                			"first_mons_not_out_yet:", first_mons_not_out_yet,
-                			"action_result_or_took_battle_turn:", action_result_or_took_battle_turn,
-                			"battle_result:", battle_result,
-                			"outcome_flags:", outcome_flags,
-                            "cur_opponent:", cur_opponent,
-                            "party_position:", party_position,
-                            "battle_participants_including_fainted_slot_0:", battle_participants_including_fainted_slot_0,
-                            "battle_participants_including_fainted_slot_1:", battle_participants_including_fainted_slot_1,
-                            "battle_participants_including_fainted_slot_2:", battle_participants_including_fainted_slot_2,
-                            "battle_participants_including_fainted_slot_3:", battle_participants_including_fainted_slot_3,
-                            "battle_participants_including_fainted_slot_4:", battle_participants_including_fainted_slot_4,
-                            "battle_participants_including_fainted_slot_5:", battle_participants_including_fainted_slot_5,
+                console.log("mode:", mode,
+                    "battle_start:", battle_start,
+                    "battle_ended:", battle_ended,
+                    "first_mons_not_out_yet:", first_mons_not_out_yet,
+                    "action_result_or_took_battle_turn:", action_result_or_took_battle_turn,
+                    "battle_result:", battle_result,
+                    "outcome_flags:", outcome_flags,
+                    "cur_opponent:", cur_opponent,
+                    "party_position:", party_position,
+                    "battle_participants_including_fainted_slot_0:", battle_participants_including_fainted_slot_0,
+                    "battle_participants_including_fainted_slot_1:", battle_participants_including_fainted_slot_1,
+                    "battle_participants_including_fainted_slot_2:", battle_participants_including_fainted_slot_2,
+                    "battle_participants_including_fainted_slot_3:", battle_participants_including_fainted_slot_3,
+                    "battle_participants_including_fainted_slot_4:", battle_participants_including_fainted_slot_4,
+                    "battle_participants_including_fainted_slot_5:", battle_participants_including_fainted_slot_5,
                 );
 
                 in_battle = (mode != null && mode != 0 && mode != "None")
@@ -487,7 +499,240 @@ const App: FunctionComponent = () => {
                 return in_battle;
             }
 
-            mapper?.current?.properties?.battle.mode?.change(async function (x) {
+            function getInTitle() {
+                var tile0 = mapper?.current?.properties?.screen?.column_0?.tiles?.[0]?.value;
+                var tile1 = mapper?.current?.properties?.screen?.column_1?.tiles?.[0]?.value;
+                var tile2 = mapper?.current?.properties?.screen?.column_2?.tiles?.[0]?.value;
+                var tile3 = mapper?.current?.properties?.screen?.column_3?.tiles?.[0]?.value;
+                var tile4 = mapper?.current?.properties?.screen?.column_4?.tiles?.[0]?.value;
+                var tile5 = mapper?.current?.properties?.screen?.column_5?.tiles?.[0]?.value;
+                var tile6 = mapper?.current?.properties?.screen?.column_6?.tiles?.[0]?.value;
+                var tile7 = mapper?.current?.properties?.screen?.column_7?.tiles?.[0]?.value;
+                var tile8 = mapper?.current?.properties?.screen?.column_8?.tiles?.[0]?.value;
+                var tile9 = mapper?.current?.properties?.screen?.column_9?.tiles?.[0]?.value;
+                var tile10 = mapper?.current?.properties?.screen?.column_10?.tiles?.[0]?.value;
+                var tile11 = mapper?.current?.properties?.screen?.column_11?.tiles?.[0]?.value;
+                var tile12 = mapper?.current?.properties?.screen?.column_12?.tiles?.[0]?.value;
+                var tile13 = mapper?.current?.properties?.screen?.column_13?.tiles?.[0]?.value;
+                var tile14 = mapper?.current?.properties?.screen?.column_14?.tiles?.[0]?.value;
+                var tile15 = mapper?.current?.properties?.screen?.column_15?.tiles?.[0]?.value;
+                var tile16 = mapper?.current?.properties?.screen?.column_16?.tiles?.[0]?.value;
+                var tile17 = mapper?.current?.properties?.screen?.column_17?.tiles?.[0]?.value;
+                var tile18 = mapper?.current?.properties?.screen?.column_18?.tiles?.[0]?.value;
+                var tile19 = mapper?.current?.properties?.screen?.column_19?.tiles?.[0]?.value;
+                var tile20 = mapper?.current?.properties?.screen?.column_20?.tiles?.[0]?.value;
+                var tile21 = mapper?.current?.properties?.screen?.column_21?.tiles?.[0]?.value;
+                var tile22 = mapper?.current?.properties?.screen?.column_22?.tiles?.[0]?.value;
+                var tile23 = mapper?.current?.properties?.screen?.column_23?.tiles?.[0]?.value;
+                var tile24 = mapper?.current?.properties?.screen?.column_24?.tiles?.[0]?.value;
+                var tile25 = mapper?.current?.properties?.screen?.column_25?.tiles?.[0]?.value;
+                var tile26 = mapper?.current?.properties?.screen?.column_26?.tiles?.[0]?.value;
+                var tile27 = mapper?.current?.properties?.screen?.column_27?.tiles?.[0]?.value;
+                var tile28 = mapper?.current?.properties?.screen?.column_28?.tiles?.[0]?.value;
+                var tile29 = mapper?.current?.properties?.screen?.column_29?.tiles?.[0]?.value;
+                var tile30 = mapper?.current?.properties?.screen?.column_30?.tiles?.[0]?.value;
+                var tile31 = mapper?.current?.properties?.screen?.column_31?.tiles?.[0]?.value;
+
+                var map_index = mapper?.current?.properties?.overworld?.map_index?.value;
+                var x = mapper?.current?.properties?.overworld?.x?.value;
+                var y = mapper?.current?.properties?.overworld?.y?.value;
+
+                console.log("mapper?.current?.properties?.screen?.column_[0-31]?.tiles?.[0]:",
+                    mapper?.current?.properties?.screen?.column_0?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_1?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_2?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_3?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_4?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_5?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_6?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_7?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_8?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_9?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_10?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_11?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_12?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_13?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_14?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_15?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_16?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_17?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_18?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_19?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_20?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_21?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_22?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_23?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_24?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_25?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_26?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_27?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_28?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_29?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_30?.tiles?.[0]?.value,
+                    mapper?.current?.properties?.screen?.column_31?.tiles?.[0]?.value/*,
+                    "mapper?.current?.properties?.overworld?.map_index:",
+                    mapper?.current?.properties?.overworld?.map_index?.value,
+                    "mapper?.current?.properties?.overworld?.x:",
+                    mapper?.current?.properties?.overworld?.x?.value,
+                    "mapper?.current?.properties?.overworld?.y:",
+                    mapper?.current?.properties?.overworld?.y?.value*/
+                );
+
+                var firstRow = [
+                    tile0, tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9,
+                    tile10, tile11, tile12, tile13, tile14, tile15, tile16, tile17, tile18, tile19,
+                    tile20, tile21, tile22, tile23, tile24, tile25, tile26, tile27, tile28, tile29,
+                    tile30, tile31,
+                ];
+
+                return _.findIndex(state?.modelClasses?.TitleFirstRows?.titleFirstRows, function (o) { return _.isEqual(o, firstRow); }) != -1;
+            }
+            //const [inTitle, setInTitle] = useState(false);
+
+            mapper?.current?.properties?.screen?.column_0?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_1?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_2?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_3?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_4?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_5?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_6?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+
+            mapper?.current?.properties?.screen?.column_7?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_8?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_9?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_10?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_11?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_12?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_13?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_14?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_15?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_16?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_17?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_18?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_19?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_20?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_21?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_22?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_23?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_24?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_25?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_26?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_27?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_28?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_29?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_30?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.screen?.column_31?.tiles?.[0]?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+
+
+            mapper?.current?.properties?.overworld?.map_index?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.overworld?.x?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.overworld?.y?.change(async function (x) {
+                console.log("setInTitle:", getInTitle());
+                setInTitle(getInTitle());
+            });
+            mapper?.current?.properties?.battle?.mode?.change(async function (x) {
                 console.log("mapper?.current?.properties?.battle.mode:", mapper?.current?.properties?.battle.mode?.value);
                 console.log("setInBattle:", getInBattle());
                 setInBattle(getInBattle());
@@ -520,12 +765,12 @@ const App: FunctionComponent = () => {
             mapper?.current?.properties?.battle.other?.outcome_flags?.change(async function (x) {
                 console.log("mapper?.current?.properties?.battle.other?.outcome_flags:", mapper?.current?.properties?.battle.other?.outcome_flags?.value);
                 console.log("setInBattle:", getInBattle());
-                setInBattle(getInBattle()); 
+                setInBattle(getInBattle());
             });
             mapper?.current?.properties?.battle.opponent?.cur_opponent?.change(async function (x) {
                 console.log("mapper?.current?.properties?.battle.opponent?.cur_opponent:", mapper?.current?.properties?.battle.opponent?.cur_opponent?.value);
                 console.log("setInBattle:", getInBattle());
-                setInBattle(getInBattle()); 
+                setInBattle(getInBattle());
             });
 
             mapper?.current?.properties?.battle?.player?.party_position?.change(async function (x) {
@@ -573,7 +818,9 @@ const App: FunctionComponent = () => {
             console.log("setState:", { ...state, changeCallbacksSet: true, properties: properties });
             setState({ ...state, changeCallbacksSet: true, properties: properties });
             console.log("setInBattle:", getInBattle());
-            setInBattle(getInBattle());            
+            setInBattle(getInBattle());
+            console.log("setInTitle:", getInTitle());
+            setInTitle(getInTitle());
         }
 
         return () => {
@@ -644,7 +891,7 @@ const App: FunctionComponent = () => {
         //  </div>
         //  <SamplePage />
         //</div>
-        <StateContext.Provider value={{ stateContext: { state, setState }, playTimeStateContext: { playTimeState, setPlayTimeState }, persistentStateContext: { persistentState, setPersistentState }, inBattleContext: { inBattle, setInBattle } }}>
+        <StateContext.Provider value={{ stateContext: { state, setState }, playTimeStateContext: { playTimeState, setPlayTimeState }, persistentStateContext: { persistentState, setPersistentState }, inBattleContext: { inBattle, setInBattle }, inTitleContext: { inTitle, setInTitle } }}>
             <table width="100%" height="100%">
                 <tbody>
                     <tr width="100%" height="100%">

@@ -1,6 +1,6 @@
 export class MoveLookup {
-	private static moveLookupKV = {
-		0: { name: "-", pp: 225, accuracy: 52, power: 9, type: 0xd1 },
+    private static moveLookupKV = {
+        0: { name: "-", pp: 225, accuracy: 52, power: 9, type: 0xd1 },
         1: { name: "POUND", pp: 35, accuracy: 255, power: 40, type: 0x00 },
         2: { name: "KARATE CHOP", pp: 25, accuracy: 255, power: 50, type: 0x01 },
         3: { name: "DOUBLESLAP", pp: 10, accuracy: 216, power: 15, type: 0x00 },
@@ -256,10 +256,10 @@ export class MoveLookup {
         253: { name: "\u{2026}\u{2026}Pk\u{306E}\u{FF9E}'t\u{00FC}\u{1D40B}\u{304C}\0", pp: 119, accuracy: 205, power: 6, type: 0x01 },
         254: { name: "&\u{FE55}POKE\u{1D40C}\n", pp: 234, accuracy: 61, power: 104, type: 0xd2 },
         255: { name: "\u{1D40B}POKE\u{00B7}.\u{FE55}\u{30DC}\u{00B7}e\u{1D412}", pp: 215, accuracy: 33, power: 197, type: 0xd5 },
-	};
-  
-	private static keyValuePairs = Object.entries(this.moveLookupKV);
-	public static moveLookup = new Map(this.keyValuePairs);
+    };
+
+    private static keyValuePairs = Object.entries(this.moveLookupKV);
+    public static moveLookup = new Map(this.keyValuePairs);
 };
 
 export default MoveLookup;

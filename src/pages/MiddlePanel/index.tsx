@@ -7,22 +7,22 @@ import ResetsBattlesPlaytime from './Components/ResetsBattlesPlaytime';
 import { FunctionComponent } from 'react';
 
 const MiddlePanel: FunctionComponent = () => {
-  return (
-    <table width="100%" height="100%">
-      <tbody>
-        <tr width="100%" height="90%">
-          <td>
-            &nbsp;
-          </td>
-        </tr>
-        <tr width="100%" height="10%" id="resets_panel">
-          <td>
-            <ResetsBattlesPlaytime />
-          </td>
-        </tr>
-	  </tbody>
-    </table>
-  );
+    return (
+        <table width="100%" height="100%">
+            <tbody>
+                <tr width="100%" height="90%">
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr width="100%" height="10%" id="resets_panel">
+                    <td>
+                        <ResetsBattlesPlaytime />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    );
 };
 
 export default MiddlePanel;

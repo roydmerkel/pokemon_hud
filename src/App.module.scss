@@ -1,14 +1,14 @@
 // scss module
 .title {
-  color: #10b981;
-  font-weight: bold;
+    color: #10b981;
+    font-weight: bold;
 }
 // scss module and tailwind combination
 .subtitle {
-  @apply text-emerald-500;
+    @apply text-emerald-500;
 }
 
 .body {
-	background-color: #1c76be
-	/*background-color: #FFFFFF*/
+    background-color: #1c76be
+    /*background-color: #FFFFFF*/
 }

@@ -5,11 +5,12 @@ import { FunctionComponent, useContext } from 'react';
 import { StateContext } from '../../../StateContext';
 
 const ResetsBattlesPlaytime: FunctionComponent = () => {
-    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext } = useContext(StateContext);
+    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext, inTitleContext } = useContext(StateContext);
     const { state, setState } = stateContext;
     const { playTimeState, setPlayTimeState } = playTimeStateContext;
     const { persistentState, setPersistentState } = persistentStateContext;
     const { inBattle, setInBattle } = inBattleContext;
+    const { inTitle, setInTitle } = inTitleContext;
 
     const in_battle = inBattle;
 

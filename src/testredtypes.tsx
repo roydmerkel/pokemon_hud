@@ -7,21 +7,21 @@ import "react-app-polyfill/ie9";
 import "react-app-polyfill/ie11";
 import "react-app-polyfill/stable";
 
-require('extensions'); 
+require('extensions');
 
 import { createRoot } from 'react-dom/client';
 
 //import TestRedTypesApp from './TestRedTypesApp';
 let TestRedTypesApp = null;
 if (window.fetch) {
-  // Check whether ES6 is supported in Modern Browsers
-  const module = await import("./TestRedTypesApp");
-  TestRedTypesApp = module.default;
+    // Check whether ES6 is supported in Modern Browsers
+    const module = await import("./TestRedTypesApp");
+    TestRedTypesApp = module.default;
 } else {
-  // For legacy or old browsers
-  await import("./polyfills");
-  const module = await import("./TestRedTypesApp");
-  TestRedTypesApp = module.default;
+    // For legacy or old browsers
+    await import("./polyfills");
+    const module = await import("./TestRedTypesApp");
+    TestRedTypesApp = module.default;
 }
 
 const container = document.getElementById('root');

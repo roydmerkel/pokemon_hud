@@ -5,11 +5,12 @@ import { StateContext } from '../../../StateContext'
 import { FunctionComponent, useContext } from 'react';
 
 const CurrentBadges: FunctionComponent = () => {
-    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext } = useContext(StateContext);
+    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext, inTitleContext } = useContext(StateContext);
     const { state, setState } = stateContext;
     const { playTimeState, setPlayTimeState } = playTimeStateContext;
     const { persistentState, setPersistentState } = persistentStateContext;
     const { inBattle, setInBattle } = inBattleContext;
+    const { inTitle, setInTitle } = inTitleContext;
 
     const in_battle = inBattle;
 
