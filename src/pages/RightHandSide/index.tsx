@@ -18,16 +18,15 @@ const RightHandSide: FunctionComponent = () => {
 
     const in_battle = inBattle;
 
-    if (inTitle) {
-        return (
-            <Title />
-        );
-    }
-    else if (in_battle) {
+    if (in_battle) {
         return (
             <Battle />
         );
-    }
+    } else if (inTitle) {
+        return (
+            <Title />
+        );
+    } 
     else {
         return (
             <Overworld />

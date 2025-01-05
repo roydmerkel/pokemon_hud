@@ -19,9 +19,33 @@ const LeftHandSide: FunctionComponent = () => {
 
     const in_battle = inBattle;
 
-    if (inTitle) {
+    if (!inBattle && inTitle) {
         return (
             <table width="100%" height="100%">
+                <tbody>
+                    <tr width="100%" height="50%">
+                        <td valign="middle" align="center" height="100%" >
+                        </td>
+                    </tr>
+                    <tr width="100%" height="20%">
+                        <td>
+                        </td>
+                    </tr>
+                    <tr width="100%" height="10%">
+                        <td width="100%" height="100%">
+                        </td>
+                    </tr>
+                    <tr width="100%" height="20%">
+                        <td width="100%" height="100%">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        );
+    }
+    else if (!state?.properties?.["player.team_count"]?.value) {
+        return (
+            <table width="100%" height="100%" id="current_pokemon">
                 <tbody>
                     <tr width="100%" height="50%">
                         <td valign="middle" align="center" height="100%" >
