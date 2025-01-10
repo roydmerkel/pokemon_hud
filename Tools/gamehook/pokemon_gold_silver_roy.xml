@@ -3206,6 +3206,9 @@
 		</event>
 		<event name="softreset" bank="0" address="0x05b0" event-type="execute"/>
 		<event name="InitializeWorld.doNewGame" bank="1" address="0x5da6" event-type="execute"/>
+		<event name="TryAddMonToParty" bank="0x03" address="0x5892" event-type="execute"/>
+		<event name="GeneratePartyMonStats.done" bank="0x03" address="0x5a71" event-type="execute"/>
+		<event name="_SaveGameData" bank="0x05" address="0x4ccc" event-type="execute"/>
 	</events>
     <references>
         <text_speeds>

@@ -2409,6 +2409,9 @@
 		</event>
 		<event name="softreset" bank="0" address="0x1F49" event-type="execute"/>
 		<event name="OakSpeech.doNewGame" bank="1" address="0x6250" event-type="execute"/>
+		<event name="_AddPartyMon" bank="0x03" address="0x72e5" event-type="execute"/>
+		<event name="_AddPartyMon.done" bank="0x03" address="0x7471" event-type="execute"/>
+		<event name="SaveSAV.save" bank="0x1c" address="0x772d" event-type="execute"/>
 	</events>
     <references>
         <text_speeds>

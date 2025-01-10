@@ -135,6 +135,10 @@ const App: FunctionComponent = () => {
         setPersistentState((persistentState: { newgame_is_reset: boolean, battles: number, resets: number }) => { persistentState.battles--; return persistentState; });
     };
 
+    const setInObtainPokemonFlow = (value: boolean) => {
+        setState((curState) => { return { ...curState, in_obtain_pokemon_flow: value } });
+    };
+    
     useEffect(
         () => { persistentStateRef.current = persistentState },
         [persistentState]
@@ -147,6 +151,7 @@ const App: FunctionComponent = () => {
         changeCallbacksSet: false,
         properties: null,
         new_colors: true,
+        in_obtain_pokemon_flow: false,
         modelClasses: { TypeLookup: null, PokemonStatsLookup: null, SpeciesImageLookup: null, PokemonMechanics: null, TrainersLookup: null, SpeciesNameLookup: null, MoveLookup: null, PokemonMovesLookup: null, TmsLookup: null, HmsLookup: null, MtsLookup: null, TitleFirstRows: null }
     });
 
@@ -157,7 +162,7 @@ const App: FunctionComponent = () => {
 
     function getPlayTimeState() {
         const playTimeString = window?.localStorage?.getItem("playTime");
-        const lastPlayTimeString = window?.localStorage?.getItem("playTime");
+        const lastPlayTimeString = window?.localStorage?.getItem("lastPlayTime");
         const playTime = playTimeString ? parseInt(playTimeString) : 0;
         const lastPlayTime = lastPlayTimeString && lastPlayTimeString != "" ? parseInt(lastPlayTimeString) : null;
 
@@ -426,6 +431,7 @@ const App: FunctionComponent = () => {
                     case "_softreset":
                     case "_hardreset":
                         incrementResets();
+                        setInObtainPokemonFlow(false);
                         break;
                     case "OakSpeech.doNewGame":
                     case "InitializeWorld.doNewGame":
@@ -436,6 +442,14 @@ const App: FunctionComponent = () => {
                             resetBattles();
                             resetPlayTime();
                         }
+                        break;
+                    case "_AddPartyMon":
+                    case "TryAddMonToParty":
+                        setInObtainPokemonFlow(true);
+                        break;
+                    case "_AddPartyMon.done":
+                    case "GeneratePartyMonStats.done":
+                        setInObtainPokemonFlow(false);
                         break;
                 }
             }

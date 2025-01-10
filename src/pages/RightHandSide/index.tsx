@@ -22,11 +22,13 @@ const RightHandSide: FunctionComponent = () => {
         return (
             <Battle />
         );
-    } else if (inTitle) {
+    } else if (inTitle ||
+        (!state?.properties?.["player.team_count"]?.value) ||
+        (state?.properties?.["player.team_count"]?.value == 1 && state?.in_obtain_pokemon_flow)) {
         return (
             <Title />
         );
-    } 
+    }
     else {
         return (
             <Overworld />

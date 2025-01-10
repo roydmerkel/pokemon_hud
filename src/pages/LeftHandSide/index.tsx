@@ -43,7 +43,7 @@ const LeftHandSide: FunctionComponent = () => {
             </table>
         );
     }
-    else if (!state?.properties?.["player.team_count"]?.value) {
+    else if ((!state?.properties?.["player.team_count"]?.value) || (state?.properties?.["player.team_count"]?.value == 1 && state?.in_obtain_pokemon_flow)) {
         return (
             <table width="100%" height="100%" id="current_pokemon">
                 <tbody>
