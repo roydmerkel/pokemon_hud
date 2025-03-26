@@ -3,56 +3,66 @@ import * as typeStyles from '../../../../../Types.module';
 import * as pokemonCommonStyles from '../../../../../PokemonCommon.module';
 import { StateContext } from '../../../../../StateContext';
 
-import { FunctionComponent, useContext } from 'react';
+import { Dispatch, FunctionComponent, SetStateAction, useContext } from 'react';
+import { IPokemonMechanics } from '../../../../../Model/Interfaces/IPokemonMechanics';
+import { IPokemonStatsLookup } from '../../../../../Model/Interfaces/IPokemonStatsLookup';
+import { IPokemonGen1BaseStats, IPokemonGen2BaseStats, IPokemonStats } from '../../../../../Model/Interfaces/IPokemonStats';
+import { IPersistentState } from '../../../../../IPersistentState';
+import { IPlayTimeState } from '../../../../../IPlayTimeState';
+import { IState } from '../../../../../IState';
+import { IStateContext, ILastPokemonStats } from '../../../../../IStateContext';
 
 const EnemyPokemonStats: FunctionComponent = () => {
-    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext, inTitleContext } = useContext(StateContext);
-    const { state, setState } = stateContext;
-    const { playTimeState, setPlayTimeState } = playTimeStateContext;
-    const { persistentState, setPersistentState } = persistentStateContext;
-    const { inBattle, setInBattle } = inBattleContext;
-    const { inTitle, setInTitle } = inTitleContext;
+    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext, inTitleContext, lastPokemonContext, lastEnemyPokemonContext }: IStateContext = useContext(StateContext);
+    const { state, setState }: { state: IState | null, setState: Dispatch<SetStateAction<IState>> | null } = stateContext;
+    const { playTimeState, setPlayTimeState }: { playTimeState: IPlayTimeState | null, setPlayTimeState: Dispatch<SetStateAction<IPlayTimeState>> | null } = playTimeStateContext;
+    const { persistentState, setPersistentState }: { persistentState: IPersistentState | null, setPersistentState: Dispatch<SetStateAction<IPersistentState>> | null } = persistentStateContext;
+    const { inBattle, setInBattle }: { inBattle: boolean | null, setInBattle: Dispatch<SetStateAction<boolean>> | null } = inBattleContext;
+    const { inTitle, setInTitle }: { inTitle: boolean | null, setInTitle: Dispatch<SetStateAction<boolean>> | null } = inTitleContext;
+    const { lastPokemon, setLastPokemon }: { lastPokemon: ILastPokemonStats | null, setLastPokemon: Dispatch<SetStateAction<ILastPokemonStats | null>> | null } = lastPokemonContext;
+    const { lastEnemyPokemon, setLastEnemyPokemon }: { lastEnemyPokemon: ILastPokemonStats | null, setLastEnemyPokemon: Dispatch<SetStateAction<ILastPokemonStats | null>> | null } = lastEnemyPokemonContext;
 
-    var PokemonStatsLookup = state?.modelClasses?.PokemonStatsLookup;
-    var PokemonMechanics = state?.modelClasses?.PokemonMechanics;
-    var indexNumber = state?.properties?.["battle.opponent.active_pokemon.index_number"]?.value;
-    var dex_number = state?.properties?.["battle.opponent.active_pokemon.dex_number"]?.value;
+    var PokemonStatsLookup: undefined | null | IPokemonStatsLookup = state?.modelClasses?.PokemonStatsLookup;
+    var PokemonMechanics: undefined | null | IPokemonMechanics = state?.modelClasses?.PokemonMechanics;
+    var indexNumber: undefined | null | number = state?.properties?.["battle.opponent.active_pokemon.index_number"]?.value;
+    var dex_number: undefined | null | number = state?.properties?.["battle.opponent.active_pokemon.dex_number"]?.value;
 
-    var level = state?.properties?.["battle.opponent.active_pokemon.level"]?.value;
-    var hp = state?.properties?.["battle.opponent.active_pokemon.stats.hp"]?.value;
-    var hp_max = state?.properties?.["battle.opponent.active_pokemon.stats.hp_max"]?.value;
-    var attack = state?.properties?.["battle.opponent.active_pokemon.stats.attack"]?.value;
-    var defense = state?.properties?.["battle.opponent.active_pokemon.stats.defense"]?.value;
-    var special_attack = state?.properties?.["battle.opponent.active_pokemon.stats.special_attack"]?.value;
-    var special_defense = state?.properties?.["battle.opponent.active_pokemon.stats.special_defense"]?.value;
-    var special = state?.properties?.["battle.opponent.active_pokemon.stats.special"]?.value;
-    var speed = state?.properties?.["battle.opponent.active_pokemon.stats.speed"]?.value;
-    var pokemon_stats = PokemonStatsLookup?.statsLookup?.get(((indexNumber != null) ? indexNumber : 0).toString());
-    var base_hp = pokemon_stats?.base_stats?.hp;
-    var base_atk = pokemon_stats?.base_stats?.atk;
-    var base_def = pokemon_stats?.base_stats?.def;
-    var base_spc = pokemon_stats?.base_stats?.spc;
-    var base_sp_atk = pokemon_stats?.base_stats?.sp_atk;
-    var base_sp_def = pokemon_stats?.base_stats?.sp_def;
-    var base_spd = pokemon_stats?.base_stats?.spd;
+    var level: undefined | null | number = state?.properties?.["battle.opponent.active_pokemon.level"]?.value;
+    var hp: undefined | null | number = state?.properties?.["battle.opponent.active_pokemon.stats.hp"]?.value;
+    var hp_max: undefined | null | number = state?.properties?.["battle.opponent.active_pokemon.stats.hp_max"]?.value;
+    var attack: undefined | null | number = state?.properties?.["battle.opponent.active_pokemon.stats.attack"]?.value;
+    var defense: undefined | null | number = state?.properties?.["battle.opponent.active_pokemon.stats.defense"]?.value;
+    var special_attack: undefined | null | number = state?.properties?.["battle.opponent.active_pokemon.stats.special_attack"]?.value;
+    var special_defense: undefined | null | number = state?.properties?.["battle.opponent.active_pokemon.stats.special_defense"]?.value;
+    var special: undefined | null | number = state?.properties?.["battle.opponent.active_pokemon.stats.special"]?.value;
+    var speed: undefined | null | number = state?.properties?.["battle.opponent.active_pokemon.stats.speed"]?.value;
+    var pokemon_stats: undefined | IPokemonStats = PokemonStatsLookup?.statsLookup?.get((indexNumber != null) ? indexNumber : 0);
+    var base_stats: null | IPokemonGen1BaseStats | IPokemonGen2BaseStats = (typeof pokemon_stats?.base_stats == 'undefined' || typeof pokemon_stats?.base_stats == 'string') ? ((typeof lastEnemyPokemon?.base_stats == 'undefined') ? null : lastEnemyPokemon?.base_stats) : pokemon_stats?.base_stats;
+    var base_hp: number = base_stats?.hp ?? 0;
+    var base_atk: number = base_stats?.atk ?? 0;
+    var base_def: number = base_stats?.def ?? 0;
+    var base_spc: number = (base_stats && 'spc' in base_stats) ? base_stats?.spc : 0;
+    var base_sp_atk: number = (base_stats && 'sp_atk' in base_stats) ? base_stats?.sp_atk : 0;
+    var base_sp_def: number = (base_stats && 'sp_def' in base_stats) ? base_stats?.sp_def : 0;
+    var base_spd: number = base_stats?.spd ?? 0;
 
-    var focus_energy = state?.properties?.["battle.opponent.active_pokemon.effects.focus_energy"]?.value;
-    var held_item = state?.properties?.["battle.opponent.active_pokemon.effects.held_item"]?.value;
-    var transformed = state?.properties?.["battle.opponent.active_pokemon.effects.transformed"]?.value;
+    var focus_energy: number | boolean = state?.properties?.["battle.opponent.active_pokemon.effects.focus_energy"]?.value ?? false;
+    var held_item: null | number | string = state?.properties?.["battle.opponent.active_pokemon.effects.held_item"]?.value ?? null;
+    var transformed: number | boolean = state?.properties?.["battle.opponent.active_pokemon.effects.transformed"]?.value ?? false;
 
-    var hp_modifier = state?.properties?.["battle.opponent.active_pokemon.modifiers.hp"]?.value;
-    var attack_modifier = state?.properties?.["battle.opponent.active_pokemon.modifiers.attack"]?.value;
-    var defense_modifier = state?.properties?.["battle.opponent.active_pokemon.modifiers.defense"]?.value;
-    var speed_modifier = state?.properties?.["battle.opponent.active_pokemon.modifiers.speed"]?.value;
-    var special_modifier = state?.properties?.["battle.opponent.active_pokemon.modifiers.special"]?.value;
-    var special_attack_modifier = state?.properties?.["battle.opponent.active_pokemon.modifiers.special_attack"]?.value;
-    var special_defense_modifier = state?.properties?.["battle.opponent.active_pokemon.modifiers.special_defense"]?.value;
-    var accuracy_modifier = state?.properties?.["battle.opponent.active_pokemon.modifiers.accuracy"]?.value;
-    var evasion_modifier = state?.properties?.["battle.opponent.active_pokemon.modifiers.evasion"]?.value;
+    var hp_modifier: number = state?.properties?.["battle.opponent.active_pokemon.modifiers.hp"]?.value ?? 0;
+    var attack_modifier: number = state?.properties?.["battle.opponent.active_pokemon.modifiers.attack"]?.value ?? 0;
+    var defense_modifier: number = state?.properties?.["battle.opponent.active_pokemon.modifiers.defense"]?.value ?? 0;
+    var speed_modifier: number = state?.properties?.["battle.opponent.active_pokemon.modifiers.speed"]?.value ?? 0;
+    var special_modifier: number = state?.properties?.["battle.opponent.active_pokemon.modifiers.special"]?.value ?? 0;
+    var special_attack_modifier: number = state?.properties?.["battle.opponent.active_pokemon.modifiers.special_attack"]?.value ?? 0;
+    var special_defense_modifier: number = state?.properties?.["battle.opponent.active_pokemon.modifiers.special_defense"]?.value ?? 0;
+    var accuracy_modifier: number = state?.properties?.["battle.opponent.active_pokemon.modifiers.accuracy"]?.value ?? 0;
+    var evasion_modifier: number = state?.properties?.["battle.opponent.active_pokemon.modifiers.evasion"]?.value ?? 0;
 
-    const in_battle = inBattle;
+    const in_battle: null | boolean = inBattle;
 
-    var crit_stage = 0;
+    var crit_stage: number = 0;
     if (focus_energy) {
         crit_stage++;
     }
@@ -72,23 +82,23 @@ const EnemyPokemonStats: FunctionComponent = () => {
     }
 
     return (
-        <table width="100%" height="100%">
+        <table style={{ width: "100%", height: "100%" }} >
             <tbody>
                 <tr>
                     <td width="5%">&nbsp;</td>
                     <td width="90%" height="100%" className={`${baseStyles.container}`}>
-                        <table width="100%" height="100%" id="enemy-pokemon-stats" className={`${pokemonCommonStyles.pokemon_stats}`}>
+                        <table style={{ width: "100%", height: "100%" }} id="enemy-pokemon-stats" className={`${pokemonCommonStyles.pokemon_stats}`}>
                             <thead>
                                 <tr>
                                     <th id="enemy-pokemon-stats-lvl-th">LV. 100 STATS</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr width="100%">
+                                <tr style={{ width: "100%" }} >
                                     <td width="100%">
-                                        <table width="100%" height="100%">
+                                        <table style={{ width: "100%", height: "100%" }} >
                                             <tbody>
-                                                <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_hp_new}` : `${pokemonCommonStyles.pokemon_stats_hp_old}`} width="100%" height="100%">
+                                                <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_hp_new}` : `${pokemonCommonStyles.pokemon_stats_hp_old}`} style={{ width: "100%", height: "100%" }} >
                                                     <td width="40%">
                                                         <b><p>HP: {(hp != null) ? hp : 0}/{(hp_max != null) ? hp_max : 0}</p></b>
                                                     </td>
@@ -103,11 +113,11 @@ const EnemyPokemonStats: FunctionComponent = () => {
                                         </table>
                                     </td>
                                 </tr>
-                                <tr width="100%">
+                                <tr style={{ width: "100%" }} >
                                     <td width="100%">
-                                        <table width="100%" height="100%">
+                                        <table style={{ width: "100%", height: "100%" }} >
                                             <tbody>
-                                                <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_att_new}` : `${pokemonCommonStyles.pokemon_stats_att_old}`} width="100%" height="100%">
+                                                <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_att_new}` : `${pokemonCommonStyles.pokemon_stats_att_old}`} style={{ width: "100%", height: "100%" }} >
                                                     <td width="40%">
                                                         <b><p>ATT: {(attack != null) ? attack : 0}</p></b>
                                                     </td>
@@ -122,11 +132,11 @@ const EnemyPokemonStats: FunctionComponent = () => {
                                         </table>
                                     </td>
                                 </tr>
-                                <tr width="100%">
+                                <tr style={{ width: "100%" }} >
                                     <td width="100%">
-                                        <table width="100%" height="100%">
+                                        <table style={{ width: "100%", height: "100%" }} >
                                             <tbody>
-                                                <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_def_new}` : `${pokemonCommonStyles.pokemon_stats_def_old}`} width="100%" height="100%">
+                                                <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_def_new}` : `${pokemonCommonStyles.pokemon_stats_def_old}`} style={{ width: "100%", height: "100%" }} >
                                                     <td width="40%">
                                                         <b><p>DEF: {(defense != null) ? defense : 0}</p></b>
                                                     </td>
@@ -142,13 +152,13 @@ const EnemyPokemonStats: FunctionComponent = () => {
                                     </td>
                                 </tr>
                                 {
-                                    (state?.properties?.["meta.generation"] != null && state?.properties?.["meta.generation"] == "2") ?
+                                    (typeof state?.properties?.["meta.generation"]?.value != undefined && state?.properties?.["meta.generation"]?.value != null && (state?.properties?.["meta.generation"]?.value == "2" || state?.properties?.["meta.generation"]?.value == 2)) ?
                                         <>
-                                            <tr width="100%">
+                                            <tr style={{ width: "100%" }} >
                                                 <td width="100%">
-                                                    <table width="100%" height="100%">
+                                                    <table style={{ width: "100%", height: "100%" }} >
                                                         <tbody>
-                                                            <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_spc_atk_new}` : `${pokemonCommonStyles.pokemon_stats_spc_atk_old}`} width="100%" height="100%">
+                                                            <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_spc_atk_new}` : `${pokemonCommonStyles.pokemon_stats_spc_atk_old}`} style={{ width: "100%", height: "100%" }} >
                                                                 <td width="40%">
                                                                     <b><p>SPAtk: {(special_attack != null) ? special_attack : 0}</p></b>
                                                                 </td>
@@ -163,11 +173,11 @@ const EnemyPokemonStats: FunctionComponent = () => {
                                                     </table>
                                                 </td>
                                             </tr>
-                                            <tr width="100%">
+                                            <tr style={{ width: "100%" }} >
                                                 <td width="100%">
-                                                    <table width="100%" height="100%">
+                                                    <table style={{ width: "100%", height: "100%" }} >
                                                         <tbody>
-                                                            <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_spc_def_new}` : `${pokemonCommonStyles.pokemon_stats_spc_def_old}`} width="100%" height="100%">
+                                                            <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_spc_def_new}` : `${pokemonCommonStyles.pokemon_stats_spc_def_old}`} style={{ width: "100%", height: "100%" }} >
                                                                 <td width="40%">
                                                                     <b><p>SPDef: {(special_defense != null) ? special_defense : 0}</p></b>
                                                                 </td>
@@ -184,11 +194,11 @@ const EnemyPokemonStats: FunctionComponent = () => {
                                             </tr>
                                         </>
                                         :
-                                        <tr width="100%">
+                                        <tr style={{ width: "100%" }} >
                                             <td width="100%">
-                                                <table width="100%" height="100%">
+                                                <table style={{ width: "100%", height: "100%" }} >
                                                     <tbody>
-                                                        <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_spc_new}` : `${pokemonCommonStyles.pokemon_stats_spc_old}`} width="100%" height="100%">
+                                                        <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_spc_new}` : `${pokemonCommonStyles.pokemon_stats_spc_old}`} style={{ width: "100%", height: "100%" }} >
                                                             <td width="40%">
                                                                 <b><p>SPC: {(special != null) ? special : 0}</p></b>
                                                             </td>
@@ -204,11 +214,11 @@ const EnemyPokemonStats: FunctionComponent = () => {
                                             </td>
                                         </tr>
                                 }
-                                <tr width="100%">
+                                <tr style={{ width: "100%" }} >
                                     <td width="100%">
-                                        <table width="100%" height="100%">
+                                        <table style={{ width: "100%", height: "100%" }} >
                                             <tbody>
-                                                <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_spd_new}` : `${pokemonCommonStyles.pokemon_stats_spd_old}`} width="100%" height="100%">
+                                                <tr className={(state?.new_colors) ? `${pokemonCommonStyles.pokemon_stats_spd_new}` : `${pokemonCommonStyles.pokemon_stats_spd_old}`} style={{ width: "100%", height: "100%" }} >
                                                     <td width="40%">
                                                         <b><p>SPD: {(speed != null) ? speed : 0}</p></b>
                                                     </td>
@@ -223,18 +233,18 @@ const EnemyPokemonStats: FunctionComponent = () => {
                                         </table>
                                     </td>
                                 </tr>
-                                <tr width="100%">
+                                <tr style={{ width: "100%" }} >
                                     <td width="100%">
-                                        <table width="100%" height="100%">
+                                        <table style={{ width: "100%", height: "100%" }} >
                                             <tbody>
-                                                <tr className={`${pokemonCommonStyles.pokemon_stats_acc_eva_tr}`} width="100%" height="100%">
-                                                    <td width="40%" colSpan="2">
+                                                <tr className={`${pokemonCommonStyles.pokemon_stats_acc_eva_tr}`} style={{ width: "100%", height: "100%" }} >
+                                                    <td width="40%" colSpan={ 2 } >
                                                         <b><p>EVA: </p></b>
                                                     </td>
                                                     <td width="10%">
                                                         <p>{(evasion_modifier != null) ? evasion_modifier : 0}</p>
                                                     </td>
-                                                    <td width="40%" colSpan="2">
+                                                    <td width="40%" colSpan={ 2 } >
                                                         <b><p>ACC: </p></b>
                                                     </td>
                                                     <td width="10%">

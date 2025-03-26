@@ -1,5 +1,5 @@
 
-export const WatchPaths = [
+export const WatchPaths : string[][] = [
     ["player"],
     ["bag"],
     ["overworld"],
@@ -12,7 +12,7 @@ export const WatchPaths = [
     ["meta"]
 ];
 
-export const ExcludePaths = [
+export const ExcludePaths : string[][] = [
     ["player", "expandedTeam"],
     ["bag", "extendedItems"],
     ["player", "name", "_client"]

@@ -1,98 +1,108 @@
 import * as baseStyles from '../../../Base.module';
 import * as typeStyles from '../../../Types.module';
 
-import { FunctionComponent, useContext } from 'react';
+import { FunctionComponent, useContext, Dispatch, SetStateAction } from 'react';
 import { StateContext } from '../../../StateContext';
+import { ILastPokemonStats, IStateContext } from '../../../IStateContext';
+import { IState } from '../../../IState';
+import { IPlayTimeState } from '../../../IPlayTimeState';
+import { IPersistentState } from '../../../IPersistentState';
 
 const ResetsBattlesPlaytime: FunctionComponent = () => {
-    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext, inTitleContext } = useContext(StateContext);
-    const { state, setState } = stateContext;
-    const { playTimeState, setPlayTimeState } = playTimeStateContext;
-    const { persistentState, setPersistentState } = persistentStateContext;
-    const { inBattle, setInBattle } = inBattleContext;
-    const { inTitle, setInTitle } = inTitleContext;
+    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext, inTitleContext, lastPokemonContext, lastEnemyPokemonContext }: IStateContext = useContext<IStateContext>(StateContext);
+    const { state, setState }: { state: IState | null, setState: Dispatch<SetStateAction<IState>> | null } = stateContext;
+    const { playTimeState, setPlayTimeState }: { playTimeState: IPlayTimeState | null, setPlayTimeState: Dispatch<SetStateAction<IPlayTimeState>> | null } = playTimeStateContext;
+    const { persistentState, setPersistentState }: { persistentState: IPersistentState | null, setPersistentState: Dispatch<SetStateAction<IPersistentState>> | null } = persistentStateContext;
+    const { inBattle, setInBattle }: { inBattle: boolean | null, setInBattle: Dispatch<SetStateAction<boolean>> | null } = inBattleContext;
+    const { inTitle, setInTitle }: { inTitle: boolean | null, setInTitle: Dispatch<SetStateAction<boolean>> | null } = inTitleContext;
+    const { lastPokemon, setLastPokemon }: { lastPokemon: ILastPokemonStats | null, setLastPokemon: Dispatch<SetStateAction<ILastPokemonStats | null>> | null } = lastPokemonContext;
+    const { lastEnemyPokemon, setLastEnemyPokemon }: { lastEnemyPokemon: ILastPokemonStats | null, setLastEnemyPokemon: Dispatch<SetStateAction<ILastPokemonStats | null>> | null } = lastEnemyPokemonContext;
 
-    const in_battle = inBattle;
+    const in_battle: boolean | null = inBattle;
 
-    var hours = (state?.properties?.["game_time.hours"]?.value) ? state?.properties?.["game_time.hours"]?.value : 0;
+    var hours: number = (state?.properties?.["game_time.hours"]?.value) ? state?.properties?.["game_time.hours"]?.value : 0;
+    var hoursStr: string;
     if (hours < 10) {
-        hours = "00" + hours.toString();
+        hoursStr = "00" + hours.toString();
     } else if (hours < 100) {
-        hours = "0" + hours.toString();
+        hoursStr = "0" + hours.toString();
     } else {
-        hours = hours.toString();
+        hoursStr = hours.toString();
     }
-    var minutes = (state?.properties?.["game_time.minutes"]?.value) ? state?.properties?.["game_time.minutes"]?.value : 0;
+    var minutes: number = (state?.properties?.["game_time.minutes"]?.value) ? state?.properties?.["game_time.minutes"]?.value : 0;
+    var minutesStr: string;
     if (minutes < 10) {
-        minutes = "0" + minutes.toString();
+        minutesStr = "0" + minutes.toString();
     } else {
-        minutes = minutes.toString();
+        minutesStr = minutes.toString();
     }
-    var seconds = (state?.properties?.["game_time.seconds"]?.value) ? state?.properties?.["game_time.seconds"]?.value : 0;
+    var seconds: number = (state?.properties?.["game_time.seconds"]?.value) ? state?.properties?.["game_time.seconds"]?.value : 0;
+    var secondsStr: string;
     if (seconds < 10) {
-        seconds = "0" + seconds.toString();
+        secondsStr = "0" + seconds.toString();
     } else {
-        seconds = seconds.toString();
+        secondsStr = seconds.toString();
     }
-    var frames = (state?.properties?.["game_time.frames"]?.value) ? state?.properties?.["game_time.frames"]?.value : 0;
+    var frames: number = (state?.properties?.["game_time.frames"]?.value) ? state?.properties?.["game_time.frames"]?.value : 0;
+    var framesStr: string;
     frames = Math.trunc(frames * 1000 / 60)
     if (frames < 10) {
-        frames = "00" + frames.toString();
+        framesStr = "00" + frames.toString();
     } else if (frames < 100) {
-        frames = "0" + frames.toString();
+        framesStr = "0" + frames.toString();
     } else {
-        frames = frames.toString();
+        framesStr = frames.toString();
     }
-    var playTimeVal = playTimeState.playTime ? playTimeState.playTime : 0;
-    var playTimeMS = (playTimeVal % 1000).toFixed(0);
-    var playTimeSec = ((playTimeVal / 1000) % 60).toFixed(0);
-    var playTimeMin = ((playTimeVal / (1000 * 60)) % 60).toFixed(0);
-    var playTimeHours = (playTimeVal / (1000 * 60 * 60)).toFixed(0);
-    if (playTimeHours < 10) {
+    var playTimeVal: number = playTimeState && playTimeState.playTime ? playTimeState.playTime : 0;
+    var playTimeMS: string = (playTimeVal % 1000).toFixed(0);
+    var playTimeSec: string = ((playTimeVal / 1000) % 60).toFixed(0);
+    var playTimeMin: string = ((playTimeVal / (1000 * 60)) % 60).toFixed(0);
+    var playTimeHours: string = (playTimeVal / (1000 * 60 * 60)).toFixed(0);
+    if (Number.parseInt(playTimeHours) < 10) {
         playTimeHours = "00" + playTimeHours.toString();
-    } else if (playTimeHours < 100) {
+    } else if (Number.parseInt(playTimeHours) < 100) {
         playTimeHours = "0" + playTimeHours.toString();
     } else {
         playTimeHours = playTimeHours.toString();
     }
-    if (playTimeMin < 10) {
+    if (Number.parseInt(playTimeMin) < 10) {
         playTimeMin = "0" + playTimeMin.toString();
     } else {
         playTimeMin = playTimeMin.toString();
     }
-    if (playTimeSec < 10) {
+    if (Number.parseInt(playTimeSec) < 10) {
         playTimeSec = "0" + playTimeSec.toString();
     } else {
         playTimeSec = playTimeSec.toString();
     }
-    if (playTimeMS < 10) {
+    if (Number.parseInt(playTimeMS) < 10) {
         playTimeMS = "00" + playTimeMS.toString();
-    } else if (playTimeMS < 100) {
+    } else if (Number.parseInt(playTimeMS) < 100) {
         playTimeMS = "0" + playTimeMS.toString();
     } else {
         playTimeMS = playTimeMS.toString();
     }
     return (
-        <table width="100%" height="100%">
+        <table style={{ width: "100%", height: "100%" }}>
             <tbody>
                 <tr>
                     <td width="10%" height="100%">
                     </td>
                     <td width="80%" height="100%" className={`${baseStyles.container}`}>
-                        <table width="100%" height="100%">
+                        <table style={{ width: "100%", height: "100%" }}>
                             <tbody>
                                 <tr>
                                     <td width="10%">
                                         <p>BATTLES:</p>
                                     </td>
                                     <td width="10%">
-                                        <p id="battle_count">{persistentState.battles}</p>
+                                        <p id="battle_count">{persistentState ? persistentState.battles : -1}</p>
                                     </td>
                                     <td width="10%">
                                         <p>RESETS:</p>
                                     </td>
                                     <td width="15%">
-                                        <p id="reset_count">{persistentState.resets}</p>
+                                        <p id="reset_count">{persistentState ? persistentState.resets : -1}</p>
                                     </td>
                                     <td width="10%">
                                         &nbsp;
@@ -107,7 +117,7 @@ const ResetsBattlesPlaytime: FunctionComponent = () => {
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <p id="game_time">GAME TIME:    {hours}:{minutes}:{seconds}.{frames}</p>
+                                                        <p id="game_time">GAME TIME:    {hoursStr}:{minutesStr}:{secondsStr}.{framesStr}</p>
                                                     </td>
                                                 </tr>
                                             </tbody>

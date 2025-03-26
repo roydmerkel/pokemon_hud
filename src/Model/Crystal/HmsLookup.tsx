@@ -1,5 +1,8 @@
-export class HmsLookup {
-    private static hmsLookupKV = {
+import IHmsLookup from "../Interfaces/IHmsLookup";
+import { NumberOrString } from 'Util'
+
+export class HmsLookup implements IHmsLookup {
+    private hmsLookupKV: { [key: number | string]: number } = {
         1: 15,
         2: 19,
         3: 57,
@@ -9,8 +12,8 @@ export class HmsLookup {
         7: 127,
     };
 
-    private static keyValuePairs = Object.entries(this.hmsLookupKV);
-    public static hmsLookup = new Map(this.keyValuePairs);
+    private keyValuePairs: [string | number, number][] = Object.entries(this.hmsLookupKV).map(([key, value]) => [NumberOrString(key), value]);
+    public hmsLookup: Map<string | number, number> = new Map<string | number, number>(this.keyValuePairs);
 };
 
 export default HmsLookup;

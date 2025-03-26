@@ -1,18 +1,20 @@
 import { useEffect, useState, useRef, FunctionComponent } from 'react';
 
 import TrainersLookup from './Model/RedBlue/TrainersLookup';
+import { ITrainer, ITrainerTeam } from './Model/Interfaces/ITrainer';
+import { JSX } from 'react/jsx-runtime';
 
 const TestRedTrainersApp: FunctionComponent = () => {
-    function GetTrainers() {
-        var trainers = [];
+    var trainersLookup: TrainersLookup = new TrainersLookup();
+    function GetTrainers(): JSX.Element[] {
+        var trainers: JSX.Element[] = [];
 
-        console.log("TrainersLookup.trainersLookup:", TrainersLookup.trainersLookup);
-        TrainersLookup.trainersLookup.forEach((value, key, map) => {
-            var hasTeam = false;
-            value.teams.forEach((v, k, m) => {
-                var name = "";
-                var image = "";
-                var reference = "";
+        trainersLookup.trainersLookup.forEach((value: ITrainer, key: string | number, map: Map<string | number, ITrainer>) => {
+            var hasTeam: boolean = false;
+            value.teams.forEach((v: ITrainerTeam, k: string | number, m: Map<string | number, ITrainerTeam>) => {
+                var name: string = "";
+                var image: string = "";
+                var reference: string = "";
 
                 if (v && v.fullname) {
                     name = v.fullname;
@@ -47,7 +49,7 @@ const TestRedTrainersApp: FunctionComponent = () => {
                     reference = value.reference;
                 }
                 hasTeam = true;
-                trainers.push(<tr width="100%" height="100%">
+                trainers.push(<tr style={{ width: '100%', height: '100%' }}>
                     <td>{key.toString()}</td>
                     <td>{k.toString()}</td>
                     <td>{name}</td>
@@ -57,7 +59,7 @@ const TestRedTrainersApp: FunctionComponent = () => {
                 </tr>);
             });
             if (!hasTeam) {
-                trainers.push(<tr width="100%" height="100%">
+                trainers.push(<tr style={{ width: '100%', height: '100%' }}>
                     <td>{key.toString()}</td>
                     <td>N/A</td>
                     <td>{((value.name) ? value.name : "")}</td>
@@ -84,9 +86,9 @@ const TestRedTrainersApp: FunctionComponent = () => {
         //  </div>
         //  <SamplePage />
         //</div>
-        <table width="100%" height="100%">
+        <table style={{ width: '100%', height: '100%' }}>
             <thead>
-                <tr width="100%" height="100%">
+                <tr style={{ width: '100%', height: '100%' }}>
                     <th>trainer class id</th>
                     <td>team id</td>
                     <td>name</td>

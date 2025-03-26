@@ -1,13 +1,9 @@
-export class PokemonMovesLookup {
-    private static objMap = (obj, process, shouldProcess) => {
-        return Object.fromEntries(
-            Object.entries(obj).map(([k, v]) =>
-                [k, (v === Object(v) && !Array.isArray(v) && shouldProcess(k, v)) ? this.objMap(v, process, shouldProcess) : process(k, v)]
-            )
-        );
-    }
+import IPokemonMovesLookup from "../Interfaces/IPokemonMovesLookup";
+import { NumberOrString, objMap } from 'Util'
+import { IPokemonMoveInternal, IPokemonMove } from '../Interfaces/IPokemonMove';
 
-    private static pokemonTmsLookupKV = {
+export class PokemonMovesLookup implements IPokemonMovesLookup {
+    private pokemonTmsLookupKV: { [key: number | string]: IPokemonMoveInternal } = {
         "": {
             initial: [],
             levelup: {},
@@ -5484,8 +5480,9 @@ export class PokemonMovesLookup {
         }, // 'M
     };
 
-    private static trainersLookupTeamsMap = this.objMap(this.pokemonTmsLookupKV, (k, v) => { return (k === "levelup" && v === Object(v) && !Array.isArray(v)) ? new Map(Object.entries(v)) : v; }, (k, v) => { return k !== "levelup"; });
-    public static pokemonTmsLookup = new Map(Object.entries(this.trainersLookupTeamsMap));
+    private trainersLookupTeamsEntries: { [key: string]: IPokemonMove } = objMap(this.pokemonTmsLookupKV, (k, v) => { return (k === "levelup" && v === Object(v) && !Array.isArray(v)) ? new Map<number | string, string | number | number[]>(Object.entries(v as object).map(([key, value]) => [NumberOrString(key), value])) : v; }, (k, v) => { return k !== "levelup"; });
+    private trainersLookupTeamsMap: [number | string, IPokemonMove][] = Object.entries(this.trainersLookupTeamsEntries).map(([key, value]) => [NumberOrString(key), value])
+    public pokemonTmsLookup: Map<number | string, IPokemonMove> = new Map<number | string, IPokemonMove>(this.trainersLookupTeamsMap);
 };
 
 export default PokemonMovesLookup;

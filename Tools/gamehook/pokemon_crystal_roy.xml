@@ -3312,7 +3312,8 @@
 		<event name="InitializeWorld.doNewGame" bank="1" address="0x5d32" event-type="execute"/>
 		<event name="TryAddMonToParty" bank="0x03" address="0x588c" event-type="execute"/>
 		<event name="GeneratePartyMonStats.done" bank="0x03" address="0x5a6b" event-type="execute"/>
-		<event name="_SaveGameData" bank="0x05" address="0x4b85" event-type="execute"/>
+		<event name="_SaveGameData" bank="0x05" address="0x4C10" event-type="execute"/>
+		<event name="Continue.Check2Pass" bank="0x01" address="0x5d96" event-type="execute"/>
 	</events>
     <references>
         <text_speeds>

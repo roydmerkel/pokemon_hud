@@ -9,11 +9,12 @@ import "react-app-polyfill/stable";
 
 require('extensions');
 
-import { createRoot } from 'react-dom/client';
+import { createRoot, Root } from 'react-dom/client';
+import { FunctionComponent } from 'react';
 
 //import App from './App';
-let App = null;
-if (window.fetch) {
+let App: FunctionComponent | null = null;
+if (typeof window.fetch != "undefined" && window.fetch != null) {
     // Check whether ES6 is supported in Modern Browsers
     const module = await import("./App");
     App = module.default;
@@ -24,8 +25,10 @@ if (window.fetch) {
     App = module.default;
 }
 
-const container = document.getElementById('root');
+const container: HTMLElement | null = document.getElementById('root');
 //const root = createRoot(container!);
-const root = createRoot(container);
+if (container != null && App != null) {
+    const root: Root = createRoot(container);
 
-root.render(<App />);
+    root.render(<App />);
+}

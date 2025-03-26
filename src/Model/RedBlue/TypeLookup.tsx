@@ -1,7 +1,10 @@
 import * as typeStyles from '../../Types.module';
+import ITypeLookup from '../Interfaces/ITypeLookup'
+import { NumberOrString } from 'Util'
+import IType from '../Interfaces/IType'
 
-export class TypeLookup {
-    private static typeLookupKV = {
+export class TypeLookup implements ITypeLookup {
+    private typeLookupKV: { [key: string | number]: IType } = {
         0x00: { name: "Normal", old_css_class: typeStyles.normal_type_old, new_css_class: typeStyles.normal_type_new },
         0x01: { name: "Fighting", old_css_class: typeStyles.fighting_type_old, new_css_class: typeStyles.fighting_type_new },
         0x02: { name: "Flying", old_css_class: typeStyles.flying_type_old, new_css_class: typeStyles.flying_type_new },
@@ -172,7 +175,7 @@ export class TypeLookup {
         0xA7: { name: "99 9 9 9II99to", old_css_class: typeStyles.fake_type_old, new_css_class: typeStyles.fake_type_new },
         0xA8: { name: "9", old_css_class: typeStyles.fake_type_old, new_css_class: typeStyles.fake_type_new },
         0xA9: { name: "POK\xE9 BB(PKMN)d\xE9", old_css_class: typeStyles.fake_type_old, new_css_class: typeStyles.fake_type_new },
-        0x2A: { name: "99 9 9", old_css_class: typeStyles.fake_type_old, new_css_class: typeStyles.fake_type_new },
+        0xAA: { name: "99 9 9", old_css_class: typeStyles.fake_type_old, new_css_class: typeStyles.fake_type_new },
         0xAB: { name: "9", old_css_class: typeStyles.fake_type_old, new_css_class: typeStyles.fake_type_new },
         0xAC: { name: "99", old_css_class: typeStyles.fake_type_old, new_css_class: typeStyles.fake_type_new },
         0xAD: { name: "696 9 99 99 9 9 99 99 9 9", old_css_class: typeStyles.fake_type_old, new_css_class: typeStyles.fake_type_new },
@@ -260,8 +263,8 @@ export class TypeLookup {
         0xFF: { name: "(blank)", old_css_class: typeStyles.fake_type_old, new_css_class: typeStyles.fake_type_new },
     };
 
-    private static keyValuePairs = Object.entries(this.typeLookupKV);
-    public static typeLookup = new Map(this.keyValuePairs);
+    private keyValuePairs: [string | number, IType][] = Object.entries(this.typeLookupKV).map(([key, value]) => [NumberOrString(key), value]);
+    public typeLookup: Map<string | number, IType> = new Map<string | number, IType>(this.keyValuePairs);
 };
 
 export default TypeLookup;

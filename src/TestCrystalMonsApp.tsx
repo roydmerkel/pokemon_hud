@@ -12,93 +12,162 @@ import TmsLookup from './Model/Crystal/TmsLookup';
 import HmsLookup from './Model/Crystal/HmsLookup';
 import MtsLookup from './Model/Crystal/MtsLookup';
 import MoveLookup from './Model/Crystal/MoveLookup';
+import IMove from './Model/Interfaces/IMove';
+import IPokemonExperienceGroup from './Model/Interfaces/IPokemonExperienceGroup';
+import IPokemonMove from './Model/Interfaces/IPokemonMove';
+import { IPokemonStats, IPokemonGen1BaseStats, IPokemonGen2BaseStats } from './Model/Interfaces/IPokemonStats';
+import IType from './Model/Interfaces/IType';
 
 const TestCrystalMonsApp: FunctionComponent = () => {
-    function GetMons() {
-        var mons = [];
+    var pokemonMechanics: PokemonMechanics = new PokemonMechanics();
+    var pokemonStatsLookup: PokemonStatsLookup = new PokemonStatsLookup();
+    var pokemonMovesLookup: PokemonMovesLookup = new PokemonMovesLookup();
+    var moveLookup: MoveLookup = new MoveLookup();
+    var tmsLookup: TmsLookup = new TmsLookup();
+    var hmsLookup: HmsLookup = new HmsLookup();
+    var mtsLookup: MtsLookup = new MtsLookup();
+    var speciesNameLookup: SpeciesNameLookup = new SpeciesNameLookup();
+    var dexIndexToPokemonIndex: DexIndexToPokemonIndex = new DexIndexToPokemonIndex();
+    var pokemonExperienceGroupsLookup: PokemonExperienceGroupsLookup = new PokemonExperienceGroupsLookup();
+    var typeLookup: TypeLookup = new TypeLookup();
+    var speciesImageLookup: SpeciesImageLookup = new SpeciesImageLookup();
 
-        for (var i = PokemonMechanics.getMinimumPokedexGlitchId(); i <= PokemonMechanics.getMaximumPokedexGlitchId(); i++) {
-            var stats = PokemonStatsLookup.statsLookup.get(i.toString());
-            var initial = PokemonMovesLookup.pokemonTmsLookup.get(i.toString()).initial;
-            var levelup = PokemonMovesLookup.pokemonTmsLookup.get(i.toString()).levelup;
-            var levelupEntries = [];
-            initial = initial.map((x) => { return MoveLookup.moveLookup.get(x.toString()).name; });
-            if (levelup === Object(levelup)) {
-                levelup.forEach((value, key) => {
+    function GetMons(): JSX.Element[] {
+        var mons: JSX.Element[] = [];
+
+        for (var pokedex: number = pokemonMechanics.getMinimumPokedexGlitchId(); pokedex <= pokemonMechanics.getMaximumPokedexGlitchId(); pokedex++) {
+            var i: number | undefined = dexIndexToPokemonIndex.indexPokemonLookup.get(pokedex);
+
+            if (!i) {
+                continue;
+            }
+
+            var stats: IPokemonStats | undefined = pokemonStatsLookup.statsLookup.get(i);
+            var tmsLookupEntry: IPokemonMove | undefined = pokemonMovesLookup.pokemonTmsLookup.get(i);
+            var initial: number[] | string[] = (tmsLookupEntry) ? tmsLookupEntry.initial : [] as number[];
+            var levelup: string | Map<string | number, string | number | number[]> = (tmsLookupEntry) ? tmsLookupEntry.levelup : new Map<string | number, number | number[]>();
+            var levelupEntries: string[] = [];
+            var movesLookupEnt: IPokemonMove | undefined = pokemonMovesLookup.pokemonTmsLookup.get(i);
+            initial = initial.map((x: number) => {
+                var moveLookupEnt: IMove | undefined = (moveLookup.moveLookup.has(x)) ? moveLookup.moveLookup.get(x) : undefined;
+                if (moveLookupEnt)
+                    return moveLookupEnt.name;
+            }).filter((value: string | undefined): boolean => value !== undefined) as string[];
+            if (typeof levelup == 'string') {
+                levelupEntries.push(levelup);
+            }
+            else {
+                levelup.forEach((value: string | number | number[], key: string | number) => {
                     if (Array.isArray(value)) {
-                        value.forEach((val) => {
-                            levelupEntries.push(key.toString() + ": " + MoveLookup.moveLookup.get(val.toString()).name);
+                        value.forEach((val: number) => {
+                            var moveLookupEnt: IMove | undefined = moveLookup.moveLookup.get(val);
+                            if (moveLookupEnt)
+                                levelupEntries.push(key.toString() + ": " + moveLookupEnt.name);
                         });
                     }
                     else if (value === "last") {
                         levelupEntries.push(key.toString() + ": " + value);
                     }
                     else {
-                        levelupEntries.push(key.toString() + ": " + MoveLookup.moveLookup.get(value.toString()).name);
+                        var moveLookupEnt: IMove | undefined = moveLookup.moveLookup.get(value);
+                        if (moveLookupEnt)
+                            levelupEntries.push(key.toString() + ": " + moveLookupEnt.name);
                     }
                 });
             }
-            else {
-                levelupEntries.push(levelup);
-            }
-            var tms = PokemonMovesLookup.pokemonTmsLookup.get(i.toString()).tms;
-            if (tms !== Object(tms)) {
+            var tms : string | number[] | string[] = (movesLookupEnt) ? movesLookupEnt.tms : [];
+            if (typeof tms == "string") {
                 tms = [tms];
             }
             else {
-                var newtms = [];
-                tms.forEach((tm) => { newtms.push(MoveLookup.moveLookup.get(TmsLookup.tmsLookup.get(tm.toString()).toString()).name); });
+                var newtms : string[] = [];
+                tms.forEach((tm) => {
+                    var tmsLookupEnt: number | unknown = tmsLookup.tmsLookup.get(tm);
+                    if (typeof tmsLookupEnt == 'number') {
+                        var moveLookupEnt: IMove | undefined = moveLookup.moveLookup.get(tmsLookupEnt);
+                        if (moveLookupEnt)
+                            newtms.push(moveLookupEnt.name);
+                    }
+                });
                 tms = newtms;
             }
-            var hms = PokemonMovesLookup.pokemonTmsLookup.get(i.toString()).hms;
-            if (hms !== Object(hms)) {
+            var hms : string | number[] | string[] = (movesLookupEnt) ? movesLookupEnt.hms : [];
+            if (typeof hms == "string") {
                 hms = [hms];
             }
             else {
-                var newhms = [];
-                hms.forEach((hm) => { newhms.push(MoveLookup.moveLookup.get(HmsLookup.hmsLookup.get(hm.toString()).toString()).name); });
+                var newhms : string[] = [];
+                hms.forEach((hm) => {
+                    var hmsLookupEnt: number | unknown = hmsLookup.hmsLookup.get(hm);
+                    if (typeof hmsLookupEnt == 'number') {
+                        var moveLookupEnt: IMove | undefined = moveLookup.moveLookup.get(hmsLookupEnt);
+                        if (moveLookupEnt)
+                            newhms.push(moveLookupEnt.name);
+                    }
+                });
                 hms = newhms;
             }
-            var mts = PokemonMovesLookup.pokemonTmsLookup.get(i.toString()).mts;
-            if (mts !== Object(mts)) {
+            var mts : string | number[] | string[] = (movesLookupEnt) ? movesLookupEnt.mts : [];
+            if (typeof mts == "string") {
                 mts = [mts];
             }
             else {
-                var newmts = [];
-                mts.forEach((mt) => { newmts.push(MoveLookup.moveLookup.get(MtsLookup.mtsLookup.get(mt.toString()).toString()).name); });
+                var newmts : string[] = [];
+                mts.forEach((mt) => {
+                    var mtsLookupEnt: number | unknown = mtsLookup.mtsLookup.get(mt);
+                    if (typeof mtsLookupEnt == 'number') {
+                        var moveLookupEnt: IMove | undefined = moveLookup.moveLookup.get(mtsLookupEnt);
+                        if (moveLookupEnt)
+                            newmts.push(moveLookupEnt.name);
+                    }
+                });
                 mts = newmts;
             }
-            var egg_moves = PokemonMovesLookup.pokemonTmsLookup.get(i.toString()).egg_moves;
-            if (egg_moves !== Object(egg_moves)) {
+            var egg_moves: string | number[] | string[] = (movesLookupEnt) ? movesLookupEnt.egg_moves : [];
+            if (typeof egg_moves == "string") {
                 egg_moves = [egg_moves];
             }
             else {
-                var newegg_moves = [];
-                egg_moves.forEach((egg_move) => { newegg_moves.push(MoveLookup.moveLookup.get(egg_move.toString()).name); });
+                var newegg_moves : string[] = [];
+                egg_moves.forEach((egg_move: number) => {
+                    var moveLookupEnt: IMove | undefined = moveLookup.moveLookup.get(egg_move);
+                    if (moveLookupEnt)
+                        newegg_moves.push(moveLookupEnt.name);
+                });
                 egg_moves = newegg_moves;
             }
-            mons.push(<tr width="100%" height="100%">
+            var base_stats: IPokemonGen2BaseStats | IPokemonGen1BaseStats | string = (stats) ? ((typeof stats == 'string') ? stats : ((stats.base_stats) ? stats.base_stats : "undefined")) : "undefined"
+            var growth_rate: string | number | undefined = (stats && stats.growth_rate) ? stats.growth_rate : undefined
+            var experience_group: IPokemonExperienceGroup | undefined = (growth_rate && pokemonExperienceGroupsLookup.experienceGroups.has(growth_rate)) ? pokemonExperienceGroupsLookup.experienceGroups.get(growth_rate) : undefined;
+            var types: number[] | string | undefined = (stats && stats.types) ? stats.types : undefined
+            var types0: number | undefined = (types && typeof types != "string" && 0 in types) ? types[0] : undefined;
+            var types1: number | undefined = (types && typeof types != "string" && 1 in types) ? types[1] : undefined;
+            var typeLookupEnt0: IType | undefined = (types0 && typeLookup.typeLookup.has(types0)) ? typeLookup.typeLookup.get(types0) : undefined;
+            var typeLookupEnt1: IType | undefined = (types1 && typeLookup.typeLookup.has(types1)) ? typeLookup.typeLookup.get(types1) : undefined;
+            var types0Str: string = (types) ? ((typeof types == "string") ? types : ((typeLookupEnt0) ? typeLookupEnt0.name : "N/A")) : "N/A";
+            var types1Str: string = (types) ? ((typeof types == "string") ? "N/A" : ((typeLookupEnt1) ? typeLookupEnt1.name : "N/A")) : "N/A";
+            mons.push(<tr style={{ width: '100%', height: '100%' }}>
+                <td>{pokedex.toString()}</td>
+                <td>{speciesNameLookup.pokemonSpeciesNameLookup.get(i)}</td>
                 <td>{i.toString()}</td>
-                <td>{SpeciesNameLookup.pokemonSpeciesNameLookup.get(i.toString())}</td>
-                <td>{DexIndexToPokemonIndex.indexPokemonLookup.get(i.toString())}</td>
-                <td>{stats.base_stats.hp}</td>
-                <td>{stats.base_stats.atk}</td>
-                <td>{stats.base_stats.def}</td>
-                <td>{stats.base_stats.spd}</td>
-                <td>{stats.base_stats.sp_atk}</td>
-                <td>{stats.base_stats.sp_def}</td>
-                <td>{PokemonExperienceGroupsLookup.experienceGroups.get(stats.growth_rate.toString()).name}</td>
-                <td>{PokemonExperienceGroupsLookup.experienceGroups.get(stats.growth_rate.toString()).exp_to_level(100)}</td>
-                <td>{((stats.types && 0 in stats.types) ? TypeLookup.typeLookup.get(stats.types[0].toString()).name : "N/A")}</td>
-                <td>{((stats.types && 1 in stats.types) ? TypeLookup.typeLookup.get(stats.types[1].toString()).name : "N/A")}</td>
+                <td>{(base_stats) ? ((typeof base_stats == 'string') ? base_stats : base_stats.hp) : "undefined"}</td>
+                <td>{(base_stats) ? ((typeof base_stats == 'string') ? base_stats : base_stats.atk) : "undefined"}</td>
+                <td>{(base_stats) ? ((typeof base_stats == 'string') ? base_stats : base_stats.def) : "undefined"}</td>
+                <td>{(base_stats) ? ((typeof base_stats == 'string') ? base_stats : base_stats.spd) : "undefined"}</td>
+                <td>{(base_stats) ? ((typeof base_stats == 'string') ? base_stats : (("sp_atk" in base_stats) ? base_stats.sp_atk : "undefined")) : "undefined"}</td>
+                <td>{(base_stats) ? ((typeof base_stats == 'string') ? base_stats : (("sp_def" in base_stats) ? base_stats.sp_def : "undefined")) : "undefined"}</td>
+                <td>{(experience_group) ? experience_group.name : "undefined"}</td>
+                <td>{(experience_group) ? experience_group.exp_to_level(100) : "undefined"}</td>
+                <td>{types0Str}</td>
+                <td>{types1Str}</td>
                 <td>{initial.join(", ")}</td>
                 <td>{levelupEntries.join(", ")}</td>
                 <td>{tms.join(", ")}</td>
                 <td>{hms.join(", ")}</td>
                 <td>{mts.join(", ")}</td>
                 <td>{egg_moves.join(", ")}</td>
-                <td>{SpeciesImageLookup.pokemonImageSourceLookup.get(i.toString())}</td>
-                <td><img src={SpeciesImageLookup.pokemonImageLookup.get(i.toString())} /></td>
+                <td>{speciesImageLookup.pokemonImageSourceLookup.get(i)}</td>
+                <td><img src={speciesImageLookup.pokemonImageLookup.get(i)} /></td>
             </tr>);
         }
         return mons;
@@ -117,9 +186,9 @@ const TestCrystalMonsApp: FunctionComponent = () => {
         //  </div>
         //  <SamplePage />
         //</div>
-        <table width="100%" height="100%">
+        <table style={{ width: '100%', height: '100%' }}>
             <thead>
-                <tr width="100%" height="100%">
+                <tr style={{ width: '100%', height: '100%' }}>
                     <th>pokedex number</th>
                     <th>Name</th>
                     <th>index</th>

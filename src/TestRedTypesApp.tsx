@@ -1,13 +1,16 @@
 import { useEffect, useState, useRef, FunctionComponent } from 'react';
 
 import TypeLookup from './Model/RedBlue/TypeLookup';
+import { JSX } from 'react/jsx-runtime';
+import IType from './Model/Interfaces/IType';
 
 const TestRedTrainersApp: FunctionComponent = () => {
-    function GetTypes() {
-        var types = [];
+    var typeLookup: TypeLookup = new TypeLookup();
+    function GetTypes(): JSX.Element[] {
+        var types: JSX.Element[] = [];
 
-        TypeLookup.typeLookup.forEach((value, key, map) => {
-            types.push(<tr width="100%" height="100%">
+        typeLookup.typeLookup.forEach((value: IType, key: string | number, map: Map<string | number, IType>) => {
+            types.push(<tr style={{ width: '100%', height: '100%' }}>
                 <td>{value.name}</td>
                 <td className={`${value.old_css_class}`}><span>{value.name}</span></td>
                 <td className={`${value.new_css_class}`}><span>{value.name}</span></td>
@@ -30,9 +33,9 @@ const TestRedTrainersApp: FunctionComponent = () => {
         //  </div>
         //  <SamplePage />
         //</div>
-        <table width="100%" height="100%">
+        <table style={{ width: '100%', height: '100%' }}>
             <thead>
-                <tr width="100%" height="100%">
+                <tr style={{ width: '100%', height: '100%' }}>
                     <th>type</th>
                     <td>old</td>
                     <td>new</td>

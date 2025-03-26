@@ -1,5 +1,8 @@
-export class TmsLookup {
-    private static tmsLookupKV = {
+import ITmsLookup from '../Interfaces/ITmsLookup'
+import { NumberOrString } from 'Util'
+
+export class TmsLookup implements ITmsLookup {
+    private tmsLookupKV: { [key: number | string]: number } = {
         1: 223,
         2: 29,
         3: 174,
@@ -52,8 +55,8 @@ export class TmsLookup {
         50: 171,
     };
 
-    private static keyValuePairs = Object.entries(this.tmsLookupKV);
-    public static tmsLookup = new Map(this.keyValuePairs);
+    private keyValuePairs: [number | string, number][] = Object.entries(this.tmsLookupKV).map(([key, value]) => [NumberOrString(key), value]);
+    public tmsLookup: Map<number | string, number> = new Map<number | string, number>(this.keyValuePairs);
 };
 
 export default TmsLookup;

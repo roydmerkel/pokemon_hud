@@ -1,5 +1,8 @@
-export class PokemonStatsLookup {
-    private static statsLookupKV = {
+import { IPokemonStatsLookup } from "../Interfaces/IPokemonStatsLookup";
+import { IPokemonStats } from "../Interfaces/IPokemonStats";
+import { NumberOrString } from 'Util'
+export class PokemonStatsLookup implements IPokemonStatsLookup {
+    private statsLookupKV: { [key: number | string]: IPokemonStats } = {
         "": {
             growth_rate: "",
             base_stats: { "hp": 0, "atk": 0, "def": 0, "spd": 0, "sp_atk": 0, "sp_def": 0 },
@@ -1287,8 +1290,8 @@ export class PokemonStatsLookup {
         }, // ?????
     };
 
-    private static keyValuePairs = Object.entries(this.statsLookupKV);
-    public static statsLookup = new Map(this.keyValuePairs);
+    private keyValuePairs: [number | string, IPokemonStats][] = Object.entries(this.statsLookupKV).map(([key, value]) => [NumberOrString(key), value]);
+    public statsLookup: Map<string | number, IPokemonStats> = new Map<string | number, IPokemonStats>(this.keyValuePairs);
 };
 
 export default PokemonStatsLookup;

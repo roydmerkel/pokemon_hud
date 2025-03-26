@@ -146,7 +146,7 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.(js|jsx|ts|tsx)$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules|\.test\.js|\.test\.tsx)/,
         use: [
           {
             loader: require.resolve('babel-loader'),

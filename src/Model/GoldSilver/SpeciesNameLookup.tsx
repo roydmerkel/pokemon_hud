@@ -1,5 +1,7 @@
-export class SpeciesNameLookup {
-    private static pokemonSpeciesNameLookupKV = {
+import ISpeciesNameLookup from '../Interfaces/ISpeciesNameLookup'
+import { NumberOrString } from 'Util'
+export class SpeciesNameLookup implements ISpeciesNameLookup {
+    private pokemonSpeciesNameLookupKV: { [key: string | number]: string } = {
         "0": "?????",
         "1": "BULBASAUR",
         "2": "IVYSAUR",
@@ -258,8 +260,8 @@ export class SpeciesNameLookup {
         "255": "?????",
     };
 
-    private static keyValuePairs = Object.entries(this.pokemonSpeciesNameLookupKV);
-    public static pokemonSpeciesNameLookup = new Map(this.keyValuePairs);
+    private keyValuePairs: [string | number, string][] = Object.entries(this.pokemonSpeciesNameLookupKV).map(([key, value]) => [NumberOrString(key), value]);
+    public pokemonSpeciesNameLookup: Map<string | number, string> = new Map<string | number, string>(this.keyValuePairs);
 };
 
 export default SpeciesNameLookup;

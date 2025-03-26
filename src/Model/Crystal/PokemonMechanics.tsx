@@ -1,5 +1,7 @@
-export class PokemonMechanics {
-    public static getCritRate(baseSpeed: number, critStage: number, highCritMove: boolean): number {
+import IPokemonMechanics from '../Interfaces/IPokemonMechanics';
+
+export class PokemonMechanics implements IPokemonMechanics {
+    public getCritRate: (baseSpeed: number, critStage: number, highCritMove: boolean) => number = (baseSpeed: number, critStage: number, highCritMove: boolean): number => {
         if (highCritMove) {
             critStage += 2;
         }
@@ -19,26 +21,26 @@ export class PokemonMechanics {
         }
     };
 
-    public static getMinimumPokedexGlitchId(): number {
+    public getMinimumPokedexGlitchId: () => number = (): number => {
         return 0;
     };
 
-    public static getMaximumPokedexGlitchId(): number {
+    public getMaximumPokedexGlitchId: () => number = (): number => {
         return 255;
     };
 
-    public static getMinimumPokedexId(): number {
+    public getMinimumPokedexId: () => number = (): number => {
         return 1;
     };
 
-    public static getMaximumPokedexId(): number {
+    public getMaximumPokedexId: () => number = (): number => {
         return 251;
     };
 
-    public static getHP(attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseHP: number, hpStatExp: number): number {
+    public getHP: (attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseHP: number, hpStatExp: number) => number = (attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseHP: number, hpStatExp: number): number => {
         hpDV = Math.floor((attackDV & 0x01) << 3 | (defenseDV & 0x01) << 2 | (speedDV & 0x01) << 1 | (specialDV & 0x01) << 0);
-        var statPoint = Math.floor(Math.ceil(Math.sqrt(hpStatExp)) / 4);
-        var stat = Math.floor((((baseHP + hpDV) * 2 + statPoint) * level) / 100) + level + 10;
+        var statPoint: number = Math.floor(Math.ceil(Math.sqrt(hpStatExp)) / 4);
+        var stat: number = Math.floor((((baseHP + hpDV) * 2 + statPoint) * level) / 100) + level + 10;
 
         //var statPoint = Math.trunc((Math.sqrt(hpStatExp - 1) + 1) / 4);
         //var stat = Math.trunc(((baseHP + hpDV) * 2 + statPoint) * level / 100) + level + 10;
@@ -57,9 +59,9 @@ export class PokemonMechanics {
         return stat;
     };
 
-    public static getAtk(attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseATK: number, atkStatExp: number): number {
-        var statPoint = Math.floor(Math.ceil(Math.sqrt(atkStatExp)) / 4);
-        var stat = Math.floor((((baseATK + attackDV) * 2 + statPoint) * level) / 100) + 5;
+    public getAtk: (attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseATK: number, atkStatExp: number) => number = (attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseATK: number, atkStatExp: number): number => {
+        var statPoint: number = Math.floor(Math.ceil(Math.sqrt(atkStatExp)) / 4);
+        var stat: number = Math.floor((((baseATK + attackDV) * 2 + statPoint) * level) / 100) + 5;
 
         //var statPoint = Math.trunc((Math.sqrt(atkStatExp - 1) + 1) / 4);
         //var stat = Math.trunc(((baseATK + attackDV) * 2 + statPoint) * level / 100) + 5;
@@ -78,9 +80,9 @@ export class PokemonMechanics {
         return stat;
     };
 
-    public static getDef(attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseDef: number, defStatExp: number): number {
-        var statPoint = Math.floor(Math.ceil(Math.sqrt(defStatExp)) / 4);
-        var stat = Math.floor((((baseDef + defenseDV) * 2 + statPoint) * level) / 100) + 5;
+    public getDef: (attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseDef: number, defStatExp: number) => number = (attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseDef: number, defStatExp: number): number => {
+        var statPoint: number = Math.floor(Math.ceil(Math.sqrt(defStatExp)) / 4);
+        var stat: number = Math.floor((((baseDef + defenseDV) * 2 + statPoint) * level) / 100) + 5;
 
         //var statPoint = Math.trunc((Math.sqrt(defStatExp - 1) + 1) / 4);
         //var stat = Math.trunc(((baseDef + defenseDV) * 2 + statPoint) * level / 100) + 5;
@@ -99,9 +101,9 @@ export class PokemonMechanics {
         return stat;
     };
 
-    public static getSpd(attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseSpd: number, spdStatExp: number): number {
-        var statPoint = Math.floor(Math.ceil(Math.sqrt(spdStatExp)) / 4);
-        var stat = Math.floor((((baseSpd + speedDV) * 2 + statPoint) * level) / 100) + 5;
+    public getSpd: (attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseSpd: number, spdStatExp: number) => number = (attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseSpd: number, spdStatExp: number): number => {
+        var statPoint: number = Math.floor(Math.ceil(Math.sqrt(spdStatExp)) / 4);
+        var stat: number = Math.floor((((baseSpd + speedDV) * 2 + statPoint) * level) / 100) + 5;
 
         //var statPoint = Math.trunc((Math.sqrt(spdStatExp - 1) + 1) / 4);
         //var stat = Math.trunc(((baseSpd + speedDV) * 2 + statPoint) * level / 100) + 5;
@@ -120,9 +122,9 @@ export class PokemonMechanics {
         return stat;
     };
 
-    public static getSpc(attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseSpc: number, spcStatExp: number): number {
-        var statPoint = Math.floor(Math.ceil(Math.sqrt(spcStatExp)) / 4);
-        var stat = Math.floor((((baseSpc + specialDV) * 2 + statPoint) * level) / 100) + 5;
+    public getSpc: (attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseSpc: number, spcStatExp: number) => number = (attackDV: number, defenseDV: number, speedDV: number, specialDV: number, hpDV: number, level: number, baseSpc: number, spcStatExp: number): number => {
+        var statPoint: number = Math.floor(Math.ceil(Math.sqrt(spcStatExp)) / 4);
+        var stat: number = Math.floor((((baseSpc + specialDV) * 2 + statPoint) * level) / 100) + 5;
 
         //var statPoint = Math.trunc((Math.sqrt(spcStatExp - 1) + 1) / 4);
         //var stat = Math.trunc(((baseSpc + specialDV) * 2 + statPoint) * level / 100) + 5;
@@ -141,12 +143,12 @@ export class PokemonMechanics {
         return stat;
     };
 
-    public static getSpAtk(attackDV: number, defenseDV: number, speedDV: number, specialAttackDV: number, specialDefenseDV: number, hpDV: number, level: number, baseSpAtk: number, spAtkStatExp: number): number {
-        return getSpc(attackDV, defenseDV, speedDV, specialAttackDV, hpDV, level, baseSpAtk, spAtkStatExp);
+    public getSpAtk: (attackDV: number, defenseDV: number, speedDV: number, specialAttackDV: number, specialDefenseDV: number, hpDV: number, level: number, baseSpAtk: number, spAtkStatExp: number) => number = (attackDV: number, defenseDV: number, speedDV: number, specialAttackDV: number, specialDefenseDV: number, hpDV: number, level: number, baseSpAtk: number, spAtkStatExp: number): number => {
+        return this.getSpc(attackDV, defenseDV, speedDV, specialAttackDV, hpDV, level, baseSpAtk, spAtkStatExp);
     };
 
-    public static getSpDef(attackDV: number, defenseDV: number, speedDV: number, specialAttackDV: number, specialDefenseDV: number, hpDV: number, level: number, baseSpDef: number, spDefStatExp: number): number {
-        return getSpc(attackDV, defenseDV, speedDV, specialDefenseDV, hpDV, level, baseSpDef, spDefStatExp);
+    public getSpDef: (attackDV: number, defenseDV: number, speedDV: number, specialAttackDV: number, specialDefenseDV: number, hpDV: number, level: number, baseSpDef: number, spDefStatExp: number) => number = (attackDV: number, defenseDV: number, speedDV: number, specialAttackDV: number, specialDefenseDV: number, hpDV: number, level: number, baseSpDef: number, spDefStatExp: number): number => {
+        return this.getSpc(attackDV, defenseDV, speedDV, specialDefenseDV, hpDV, level, baseSpDef, spDefStatExp);
     };
 };
 

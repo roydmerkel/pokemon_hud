@@ -4,9 +4,9 @@ import { FunctionComponent } from 'react';
 
 const Battle: FunctionComponent = () => {
     return (
-        <table width="100%" height="100%" id="battle_rhs">
+        <table style={{ width: "100%", height: "100%" }} id="battle_rhs">
             <tbody>
-                <tr width="100%" height="100%">
+                <tr style={{ width: "100%", height: "100%" }} >
                     <td width="100%" height="100%">
                         <EnemyPokemon />
                     </td>

@@ -3209,6 +3209,7 @@
 		<event name="TryAddMonToParty" bank="0x03" address="0x5892" event-type="execute"/>
 		<event name="GeneratePartyMonStats.done" bank="0x03" address="0x5a71" event-type="execute"/>
 		<event name="_SaveGameData" bank="0x05" address="0x4ccc" event-type="execute"/>
+		<event name="Continue.Check2Pass" bank="0x01" address="0x5e04" event-type="execute"/>
 	</events>
     <references>
         <text_speeds>

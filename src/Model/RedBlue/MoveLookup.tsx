@@ -1,5 +1,9 @@
-export class MoveLookup {
-    private static moveLookupKV = {
+import IMoveLookup from "../Interfaces/IMoveLookup";
+import IMove from "../Interfaces/IMove";
+import { NumberOrString } from 'Util'
+
+export class MoveLookup implements IMoveLookup {
+    private moveLookupKV: { [key: number | string]: IMove } = {
         0: { name: "-", pp: 13, accuracy: 80, power: 102, type: 0x7A },
         1: { name: "POUND", pp: 35, accuracy: 255, power: 40, type: 0x00 },
         2: { name: "KARATE CHOP", pp: 25, accuracy: 255, power: 50, type: 0x00 },
@@ -169,7 +173,6 @@ export class MoveLookup {
         166: { name: "Super Glitch", pp: 8, accuracy: 45, power: 49, type: 0x31 },
         167: { name: "Super Glitch", pp: 0, accuracy: 85, power: 45, type: 0x40 },
         168: { name: "Super Glitch", pp: 0, accuracy: 45, power: 64, type: 0x21 },
-        168: { name: "Super Glitch", pp: 0, accuracy: 45, power: 64, type: 0x21 },
         169: { name: "Super Glitch", pp: 21, accuracy: 56, power: 164, type: 0x03 },
         170: { name: "Super Glitch", pp: 60, accuracy: 2, power: 6, type: 0x00 },
         171: { name: "Super Glitch", pp: 3, accuracy: 22, power: 60, type: 0x50 },
@@ -178,7 +181,6 @@ export class MoveLookup {
         174: { name: "Super Glitch", pp: 8, accuracy: 3, power: 56, type: 0xC0 },
         175: { name: "Super Glitch", pp: 26, accuracy: 82, power: 3, type: 0x50 },
         176: { name: "Super Glitch", pp: 37, accuracy: 45, power: 22, type: 0x03 },
-        177: { name: "Super Glitch", pp: 33, accuracy: 67, power: 65, type: 0x77 },
         177: { name: "Super Glitch", pp: 33, accuracy: 67, power: 65, type: 0x77 },
         178: { name: "Super Glitch", pp: 10, accuracy: 164, power: 22, type: 0x03 },
         179: { name: "Super Glitch", pp: 0, accuracy: 6, power: 3, type: 0x08 },
@@ -260,8 +262,8 @@ export class MoveLookup {
         255: { name: "TM55", pp: 0, accuracy: 0, power: 0, type: 0x00 },
     };
 
-    private static keyValuePairs = Object.entries(this.moveLookupKV);
-    public static moveLookup = new Map(this.keyValuePairs);
+    private keyValuePairs: [string | number, IMove][] = Object.entries(this.moveLookupKV).map(([key, value]) => [NumberOrString(key), value]);
+    public moveLookup: Map<string | number, IMove> = new Map<string | number, IMove>(this.keyValuePairs);
 };
 
 export default MoveLookup;

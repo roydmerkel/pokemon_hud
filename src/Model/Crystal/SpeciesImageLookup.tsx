@@ -1,5 +1,7 @@
-export class SpeciesImageLookup {
-    private static pokemonImageLookupKV = {
+import ISpeciesImageLookup from "../Interfaces/ISpeciesImageLookup";
+import { NumberOrString } from 'Util'
+export class SpeciesImageLookup implements ISpeciesImageLookup {
+    private pokemonImageLookupKV: { [key: string | number]: string } = {
         "": "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D",
         //"0": "https://static.wikitide.net/glitchcitywiki/a/a2/S_C000_front.webp",
         "0": "https://static.merkelhaus.us/overlayimages/pokemon/S_C000_front.webp",
@@ -517,7 +519,7 @@ export class SpeciesImageLookup {
         "255": "https://static.merkelhaus.us/overlayimages/pokemon/S_C255_front.webp",
     };
 
-    private static pokemonImageSourceKV = {
+    private pokemonImageSourceKV: { [key: string | number]: string } = {
         "": "https://stackoverflow.com/a/19126281",
         "0": "https://glitchcity.wiki/wiki/GlitchDex/C:000",
         "1": "https://pokemondb.net/pokedex/bulbasaur",
@@ -779,11 +781,11 @@ export class SpeciesImageLookup {
         "255": "https://glitchcity.wiki/wiki/GlitchDex/C:255",
     };
 
-    private static imageKeyValuePairs = Object.entries(this.pokemonImageLookupKV);
-    public static pokemonImageLookup = new Map(this.imageKeyValuePairs);
+    private imageKeyValuePairs: [string | number, string][] = Object.entries(this.pokemonImageLookupKV).map(([key, value]) => [NumberOrString(key), value]);
+    public pokemonImageLookup: Map<string | number, string> = new Map<string | number, string>(this.imageKeyValuePairs);
 
-    private static sourceKeyValuePairs = Object.entries(this.pokemonImageSourceKV);
-    public static pokemonImageSourceLookup = new Map(this.sourceKeyValuePairs);
+    private sourceKeyValuePairs: [string | number, string][] = Object.entries(this.pokemonImageSourceKV).map(([key, value]) => [NumberOrString(key), value]);
+    public pokemonImageSourceLookup: Map<string | number, string> = new Map<string | number, string>(this.sourceKeyValuePairs);
 };
 
 export default SpeciesImageLookup;

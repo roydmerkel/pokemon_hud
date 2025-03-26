@@ -3,34 +3,52 @@ import * as baseStyles from '../../../Base.module';
 import * as typeStyles from '../../../Types.module';
 import * as pokemonCommonStyles from '../../../PokemonCommon.module';
 import { StateContext } from '../../../StateContext'
+import { ILastPokemonStats, IStateContext } from '../../../IStateContext';
+import { IState } from '../../../IState';
+import { IPlayTimeState } from '../../../IPlayTimeState';
+import { IPersistentState } from '../../../IPersistentState';
+import { IMoveLookup } from '../../../Model/Interfaces/IMoveLookup';
+import { ITypeLookup } from '../../../Model/Interfaces/ITypeLookup';
+import { IMove } from '../../../Model/Interfaces/IMove';
+import { IType } from '../../../Model/Interfaces/IType';
 
-import { FunctionComponent, useContext } from 'react';
+import { FunctionComponent, useContext, Dispatch, SetStateAction } from 'react';
 
 const CurrentPokemonMoves: FunctionComponent = () => {
-    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext, inTitleContext } = useContext(StateContext);
-    const { state, setState } = stateContext;
-    const { playTimeState, setPlayTimeState } = playTimeStateContext;
-    const { persistentState, setPersistentState } = persistentStateContext;
-    const { inBattle, setInBattle } = inBattleContext;
-    const { inTitle, setInTitle } = inTitleContext;
+    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext, inTitleContext, lastPokemonContext, lastEnemyPokemonContext }: IStateContext = useContext<IStateContext>(StateContext);
+    const { state, setState }: { state: IState | null, setState: Dispatch<SetStateAction<IState>> | null } = stateContext;
+    const { playTimeState, setPlayTimeState }: { playTimeState: IPlayTimeState | null, setPlayTimeState: Dispatch<SetStateAction<IPlayTimeState>> | null } = playTimeStateContext;
+    const { persistentState, setPersistentState }: { persistentState: IPersistentState | null, setPersistentState: Dispatch<SetStateAction<IPersistentState>> | null } = persistentStateContext;
+    const { inBattle, setInBattle }: { inBattle: boolean | null, setInBattle: Dispatch<SetStateAction<boolean>> | null } = inBattleContext;
+    const { inTitle, setInTitle }: { inTitle: boolean | null, setInTitle: Dispatch<SetStateAction<boolean>> | null } = inTitleContext;
+    const { lastPokemon, setLastPokemon }: { lastPokemon: ILastPokemonStats | null, setLastPokemon: Dispatch<SetStateAction<ILastPokemonStats | null>> | null } = lastPokemonContext;
+    const { lastEnemyPokemon, setLastEnemyPokemon }: { lastEnemyPokemon: ILastPokemonStats | null, setLastEnemyPokemon: Dispatch<SetStateAction<ILastPokemonStats | null>> | null } = lastEnemyPokemonContext;
 
-    const in_battle = inBattle;
+    const in_battle: null | boolean = inBattle;
 
-    var active_pokemon_key = (in_battle) ? "battle.player.active_pokemon" : "player.active_pokemon";
-    var MoveLookup = state?.modelClasses?.MoveLookup;
-    var TypeLookup = state?.modelClasses?.TypeLookup;
-    var move1struct_key = active_pokemon_key + ".moves.0";
-    var move2struct_key = active_pokemon_key + ".moves.1";
-    var move3struct_key = active_pokemon_key + ".moves.2";
-    var move4struct_key = active_pokemon_key + ".moves.3";
-    var move1 = MoveLookup?.moveLookup?.get(state?.properties?.[move1struct_key + ".move_int"]?.value?.toString());
-    var move2 = MoveLookup?.moveLookup?.get(state?.properties?.[move2struct_key + ".move_int"]?.value?.toString());
-    var move3 = MoveLookup?.moveLookup?.get(state?.properties?.[move3struct_key + ".move_int"]?.value?.toString());
-    var move4 = MoveLookup?.moveLookup?.get(state?.properties?.[move4struct_key + ".move_int"]?.value?.toString());
-    var move1type = TypeLookup?.typeLookup?.get(move1?.type?.toString());
-    var move2type = TypeLookup?.typeLookup?.get(move2?.type?.toString());
-    var move3type = TypeLookup?.typeLookup?.get(move3?.type?.toString());
-    var move4type = TypeLookup?.typeLookup?.get(move4?.type?.toString());
+    var active_pokemon_key: string = (in_battle) ? "battle.player.active_pokemon" : "player.active_pokemon";
+    var MoveLookup: undefined | null | IMoveLookup = state?.modelClasses?.MoveLookup;
+    var TypeLookup: undefined | null | ITypeLookup = state?.modelClasses?.TypeLookup;
+    var move1struct_key: string = active_pokemon_key + ".moves.0";
+    var move2struct_key: string = active_pokemon_key + ".moves.1";
+    var move3struct_key: string = active_pokemon_key + ".moves.2";
+    var move4struct_key: string = active_pokemon_key + ".moves.3";
+    var move1int_key: string = move1struct_key + ".move_int";
+    var move2int_key: string = move2struct_key + ".move_int";
+    var move3int_key: string = move3struct_key + ".move_int";
+    var move4int_key: string = move4struct_key + ".move_int";
+    var move1int: string | number = state?.properties?.[move1int_key]?.value ?? "";
+    var move2int: string | number = state?.properties?.[move2int_key]?.value ?? "";
+    var move3int: string | number = state?.properties?.[move3int_key]?.value ?? "";
+    var move4int: string | number = state?.properties?.[move4int_key]?.value ?? "";
+    var move1: undefined | IMove = MoveLookup?.moveLookup?.get(move1int);
+    var move2: undefined | IMove = MoveLookup?.moveLookup?.get(move2int);
+    var move3: undefined | IMove = MoveLookup?.moveLookup?.get(move3int);
+    var move4: undefined | IMove = MoveLookup?.moveLookup?.get(move4int);
+    var move1type: undefined | IType = TypeLookup?.typeLookup?.get(move1?.type ?? "");
+    var move2type: undefined | IType = TypeLookup?.typeLookup?.get(move2?.type ?? "");
+    var move3type: undefined | IType = TypeLookup?.typeLookup?.get(move3?.type ?? "");
+    var move4type: undefined | IType = TypeLookup?.typeLookup?.get(move4?.type ?? "");
 
     return (
         <table id="pokemon_cur_moves" className={`${pokemonCommonStyles.pokemon_moves}`} width="100%">
@@ -65,7 +83,7 @@ const CurrentPokemonMoves: FunctionComponent = () => {
                         {move1?.power}
                     </td>
                     <td>
-                        {Math.round(100 * move1?.accuracy / 255, 0)}
+                        {Math.round(100 * (move1?.accuracy ?? 0) / 255)}
                     </td>
                     <td>
                         {state?.properties?.[move1struct_key + ".pp"]?.value}
@@ -82,7 +100,7 @@ const CurrentPokemonMoves: FunctionComponent = () => {
                         {move2?.power}
                     </td>
                     <td>
-                        {Math.round(100 * move2?.accuracy / 255, 0)}
+                        {Math.round(100 * (move2?.accuracy ?? 0) / 255)}
                     </td>
                     <td>
                         {state?.properties?.[move2struct_key + ".pp"]?.value}
@@ -99,7 +117,7 @@ const CurrentPokemonMoves: FunctionComponent = () => {
                         {move3?.power}
                     </td>
                     <td>
-                        {Math.round(100 * move3?.accuracy / 255, 0)}
+                        {Math.round(100 * (move3?.accuracy ?? 0) / 255)}
                     </td>
                     <td>
                         {state?.properties?.[move3struct_key + ".pp"]?.value}
@@ -116,7 +134,7 @@ const CurrentPokemonMoves: FunctionComponent = () => {
                         {move4?.power}
                     </td>
                     <td>
-                        {Math.round(100 * move4?.accuracy / 255, 0)}
+                        {Math.round(100 * (move4?.accuracy ?? 0) / 255)}
                     </td>
                     <td>
                         {state?.properties?.[move4struct_key + ".pp"]?.value}

@@ -1,5 +1,8 @@
-export class PokemonIndexToDexIndex {
-    private static pokemonIndexLookupKV = {
+import IPokemonIndexToDexIndex from "../Interfaces/IPokemonIndexToDexIndex";
+import { NumberOrString } from 'Util'
+
+export class PokemonIndexToDexIndex implements IPokemonIndexToDexIndex {
+    private pokemonIndexLookupKV: { [key: number | string]: number } = {
         0x00: 0,
         0x01: 112,
         0x02: 115,
@@ -258,8 +261,8 @@ export class PokemonIndexToDexIndex {
         0xff: 6,
     };
 
-    private static keyValuePairs = Object.entries(this.pokemonIndexLookupKV);
-    public static pokemonIndexLookup = new Map(this.keyValuePairs);
+    private keyValuePairs: [string | number, number][] = Object.entries(this.pokemonIndexLookupKV).map(([key, value]) => [NumberOrString(key), value]);
+    public pokemonIndexLookup: Map<string | number, number> = new Map<string | number, number>(this.keyValuePairs);
 };
 
 export default PokemonIndexToDexIndex;

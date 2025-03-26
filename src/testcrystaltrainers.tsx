@@ -9,11 +9,11 @@ import "react-app-polyfill/stable";
 
 require('extensions');
 
-import { createRoot } from 'react-dom/client';
+import { Container, createRoot } from 'react-dom/client';
 
 //import TestCrystalTrainersApp from './TestCrystalTrainersApp';
 let TestCrystalTrainersApp = null;
-if (window.fetch) {
+if (typeof window?.fetch != 'undefined' && window?.fetch != null) {
     // Check whether ES6 is supported in Modern Browsers
     const module = await import("./TestCrystalTrainersApp");
     TestCrystalTrainersApp = module.default;
@@ -24,7 +24,7 @@ if (window.fetch) {
     TestCrystalTrainersApp = module.default;
 }
 
-const container = document.getElementById('root');
+const container: Container = document.getElementById('root') as Container;
 //const root = createRoot(container!);
 const root = createRoot(container);
 

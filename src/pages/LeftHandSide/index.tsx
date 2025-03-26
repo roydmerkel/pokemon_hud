@@ -6,36 +6,40 @@ import CurrentPokemonStats from './Components/CurrentPokemonStats';
 import CurrentBadges from './Components/CurrentBadges';
 import CurrentPokemonMoves from './Components/CurrentPokemonMoves';
 import { StateContext } from '../../StateContext';
+import { ILastPokemonStats, IStateContext } from '../../IStateContext';
+import { IState } from '../../IState';
+import { IPlayTimeState } from '../../IPlayTimeState';
+import { IPersistentState } from '../../IPersistentState';
 
-import { FunctionComponent, useContext } from 'react';
+import { FunctionComponent, useContext, Dispatch, SetStateAction } from 'react';
 
 const LeftHandSide: FunctionComponent = () => {
-    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext, inTitleContext } = useContext(StateContext);
-    const { state, setState } = stateContext;
-    const { playTimeState, setPlayTimeState } = playTimeStateContext;
-    const { persistentState, setPersistentState } = persistentStateContext;
-    const { inBattle, setInBattle } = inBattleContext;
-    const { inTitle, setInTitle } = inTitleContext;
-
-    const in_battle = inBattle;
+    const { stateContext, playTimeStateContext, persistentStateContext, inBattleContext, inTitleContext, lastPokemonContext, lastEnemyPokemonContext }: IStateContext = useContext<IStateContext>(StateContext);
+    const { state, setState }: { state: IState | null, setState: Dispatch<SetStateAction<IState>> | null } = stateContext;
+    const { playTimeState, setPlayTimeState }: { playTimeState: IPlayTimeState | null, setPlayTimeState: Dispatch<SetStateAction<IPlayTimeState>> | null } = playTimeStateContext;
+    const { persistentState, setPersistentState }: { persistentState: IPersistentState | null, setPersistentState: Dispatch<SetStateAction<IPersistentState>> | null } = persistentStateContext;
+    const { inBattle, setInBattle }: { inBattle: boolean | null, setInBattle: Dispatch<SetStateAction<boolean>> | null } = inBattleContext;
+    const { inTitle, setInTitle }: { inTitle: boolean | null, setInTitle: Dispatch<SetStateAction<boolean>> | null } = inTitleContext;
+    const { lastPokemon, setLastPokemon }: { lastPokemon: ILastPokemonStats | null, setLastPokemon: Dispatch<SetStateAction<ILastPokemonStats | null>> | null } = lastPokemonContext;
+    const { lastEnemyPokemon, setLastEnemyPokemon }: { lastEnemyPokemon: ILastPokemonStats | null, setLastEnemyPokemon: Dispatch<SetStateAction<ILastPokemonStats | null>> | null } = lastEnemyPokemonContext;
 
     if (!inBattle && inTitle) {
         return (
-            <table width="100%" height="100%">
+            <table style={{ width: "100%", height: "100%" }}>
                 <tbody>
-                    <tr width="100%" height="50%">
+                    <tr style={{ width: "100%", height: "50%" }}>
                         <td valign="middle" align="center" height="100%" >
                         </td>
                     </tr>
-                    <tr width="100%" height="20%">
+                    <tr style={{ width: "100%", height: "20%"}}>
                         <td>
                         </td>
                     </tr>
-                    <tr width="100%" height="10%">
+                    <tr style={{ width: "100%", height: "10%" }}>
                         <td width="100%" height="100%">
                         </td>
                     </tr>
-                    <tr width="100%" height="20%">
+                    <tr style={{ width: "100%", height: "20%" }}>
                         <td width="100%" height="100%">
                         </td>
                     </tr>
@@ -45,21 +49,21 @@ const LeftHandSide: FunctionComponent = () => {
     }
     else if ((!state?.properties?.["player.team_count"]?.value) || (state?.properties?.["player.team_count"]?.value == 1 && state?.in_obtain_pokemon_flow)) {
         return (
-            <table width="100%" height="100%" id="current_pokemon">
+            <table style={{ width: "100%", height: "100%" }} id="current_pokemon">
                 <tbody>
-                    <tr width="100%" height="50%">
+                    <tr style={{ width: "100%", height: "50%" }}>
                         <td valign="middle" align="center" height="100%" >
                         </td>
                     </tr>
-                    <tr width="100%" height="20%">
+                    <tr style={{ width: "100%", height: "20%" }}>
                         <td>
                         </td>
                     </tr>
-                    <tr width="100%" height="10%">
+                    <tr style={{ width: "100%", height: "10%" }}>
                         <td width="100%" height="100%">
                         </td>
                     </tr>
-                    <tr width="100%" height="20%">
+                    <tr style={{ width: "100%", height: "20%" }}>
                         <td width="100%" height="100%">
                         </td>
                     </tr>
@@ -69,24 +73,24 @@ const LeftHandSide: FunctionComponent = () => {
     }
     else {
         return (
-            <table width="100%" height="100%" id="current_pokemon">
+            <table style={{ width: "100%", height: "100%" }} id="current_pokemon">
                 <tbody>
-                    <tr width="100%" height="50%">
+                    <tr style={{ width: "100%", height: "50%" }}>
                         <td valign="middle" align="center" height="100%" >
                             <CurrentPokemonImage />
                         </td>
                     </tr>
-                    <tr width="100%" height="20%">
+                    <tr style={{ width: "100%", height: "20%" }}>
                         <td>
                             <CurrentPokemonStats />
                         </td>
                     </tr>
-                    <tr width="100%" height="10%">
+                    <tr style={{ width: "100%", height: "10%" }}>
                         <td width="100%" height="100%">
                             <CurrentBadges />
                         </td>
                     </tr>
-                    <tr width="100%" height="20%">
+                    <tr style={{ width: "100%", height: "20%" }}>
                         <td width="100%" height="100%">
                             <CurrentPokemonMoves />
                         </td>

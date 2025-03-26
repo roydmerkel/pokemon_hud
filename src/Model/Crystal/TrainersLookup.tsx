@@ -1,13 +1,9 @@
-export class TrainersLookup {
-    private static objMap = (obj, process, shouldProcess) => {
-        return Object.fromEntries(
-            Object.entries(obj).map(([k, v]) =>
-                [k, (v === Object(v) && !Array.isArray(v) && shouldProcess(k, v)) ? this.objMap(v, process, shouldProcess) : process(k, v)]
-            )
-        );
-    }
+import ITrainersLookup from '../Interfaces/ITrainersLookup'
+import { NumberOrString, objMap } from 'Util'
+import { ITrainerInternal, ITrainer, ITrainerTeam } from '../Interfaces/ITrainer';
 
-    private static trainersLookupKV = {
+export class TrainersLookup implements ITrainersLookup {
+    private trainersLookupKV: { [key: string | number]: ITrainerInternal } = {
         "": {
             name: "",
             class: "",
@@ -1310,8 +1306,9 @@ export class TrainersLookup {
         },
     };
 
-    private static trainersLookupTeamsMap = this.objMap(this.trainersLookupKV, (k, v) => { return k === "teams" ? new Map(Object.entries(v)) : v; }, (k, v) => { return k !== "teams"; });
-    public static trainersLookup = new Map(Object.entries(this.trainersLookupTeamsMap));
+    private trainersLookupTeamsEntries: { [key: string | number]: ITrainer } = objMap(this.trainersLookupKV, (k, v) => { return k === "teams" ? new Map<string | number, ITrainerTeam>(Object.entries(v as object).map(([key, value]) => [NumberOrString(key), value])) : v; }, (k, v) => { return k !== "teams"; });
+    private trainersLookupTeamsMap: [string | number, ITrainer][] = Object.entries(this.trainersLookupTeamsEntries).map(([key, value]) => [NumberOrString(key), value]);
+    public trainersLookup: Map<string | number, ITrainer> = new Map<string | number, ITrainer>(this.trainersLookupTeamsMap);
 };
 
 export default TrainersLookup;

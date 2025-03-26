@@ -2922,6 +2922,7 @@
 		<event name="_AddPartyMon" bank="0x3" address="0x7161" event-type="execute"/>
 		<event name="_AddPartyMon.done" bank="0x3" address="0x72f7" event-type="execute"/>
 		<event name="SaveSAV.save" bank="0x1c" address="0x7a95" event-type="execute"/>
+		<event name="MainMenu.pressedA" bank="0x01" address="0x5c83" event-type="execute"/>
 	</events>
     <references>
         <text_speeds>

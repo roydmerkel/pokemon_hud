@@ -8,14 +8,14 @@ import { FunctionComponent } from 'react';
 
 const MiddlePanel: FunctionComponent = () => {
     return (
-        <table width="100%" height="100%">
+        <table style={{ width: "100%", height: "100%" }}>
             <tbody>
-                <tr width="100%" height="90%">
+                <tr style={{ width: "100%", height: "90%" }}>
                     <td>
                         &nbsp;
                     </td>
                 </tr>
-                <tr width="100%" height="10%" id="resets_panel">
+                <tr style={{ width: "100%", height: "10%" }} id="resets_panel">
                     <td>
                         <ResetsBattlesPlaytime />
                     </td>

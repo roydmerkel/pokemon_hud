@@ -1,5 +1,9 @@
-export class MoveLookup {
-    private static moveLookupKV = {
+import IMoveLookup from "../Interfaces/IMoveLookup";
+import IMove from "../Interfaces/IMove";
+import { NumberOrString } from 'Util'
+
+export class MoveLookup implements IMoveLookup {
+    private moveLookupKV: { [key: number | string]: IMove } = {
         0: { name: "-", pp: 225, accuracy: 52, power: 5, type: 0xd0 },
         1: { name: "POUND", pp: 35, accuracy: 255, power: 40, type: 0x00 },
         2: { name: "KARATE CHOP", pp: 25, accuracy: 255, power: 50, type: 0x01 },
@@ -258,8 +262,8 @@ export class MoveLookup {
         255: { name: "\n\u{3049}\n)\n\u{3055}\n\u{3092}\n9\n\n", pp: 34, accuracy: 33, power: 197, type: 0xd5 },
     };
 
-    private static keyValuePairs = Object.entries(this.moveLookupKV);
-    public static moveLookup = new Map(this.keyValuePairs);
+    private keyValuePairs: [string | number, IMove][] = Object.entries(this.moveLookupKV).map(([key, value]) => [NumberOrString(key), value]);
+    public moveLookup: Map<string | number, IMove> = new Map<string | number,IMove>(this.keyValuePairs);
 };
 
 export default MoveLookup;
