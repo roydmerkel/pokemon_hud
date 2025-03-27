@@ -46,14 +46,22 @@
 }
 
 .pokemon_stats tr {
-    /*border: 1px solid black;*/
+    //border-right: 5px solid black;
+}
+
+.pokemon_stats tr:last-child {
+    //border-right: none;
 }
 
 .pokemon_stats th {
 }
 
 .pokemon_stats td {
-    /*border: 1px solid black;*/
+    border-right: 5px solid #00a2a3;
+}
+
+.pokemon_stats td:last-child {
+    border-right: none;
 }
 
 .pokemon_stats_common_button {

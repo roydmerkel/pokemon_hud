@@ -42,7 +42,7 @@ const PokemonMoves: FunctionComponent = () => {
     const ELEMENTS_PER_PAGE: number = 15;
     const UPDATE_INTERVAL: number = 10000;
 
-    var pokemonMoves: undefined | null | IPokemonMove = PokemonMovesLookup?.pokemonTmsLookup?.get(indexNumber?.toString());
+    var pokemonMoves: undefined | null | IPokemonMove = PokemonMovesLookup?.pokemonTmsLookup?.get(indexNumber);
     const in_battle: null | boolean = inBattle;
 
     useEffect(
@@ -99,7 +99,7 @@ const PokemonMoves: FunctionComponent = () => {
                 var hmMove = HmsLookup?.hmsLookup?.get(hm) ?? 0;
                 var mv: IMove | undefined = MoveLookup?.moveLookup?.get(hmMove);
                 var mvtype: number = mv?.type ?? 0;
-                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype.toString());
+                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype);
                 moves.push([("HM" + ((typeof hmNum != 'string' && hmNum < 10) ? ("0" + hmNum.toString()) : hmNum.toString())), mv?.name, typestruct, mv?.power, Math.round((mv?.accuracy ?? 0) * 100 / 255)?.toString() + "%", mv?.pp])
             }
             for (var tm of pokemonMoves?.tms) {
@@ -107,7 +107,7 @@ const PokemonMoves: FunctionComponent = () => {
                 var tmMove = TmsLookup?.tmsLookup?.get(tm) ?? 0;
                 var mv: IMove | undefined = MoveLookup?.moveLookup?.get(tmMove);
                 var mvtype: number = mv?.type ?? 0;
-                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype.toString());
+                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype);
                 moves.push([("TM" + ((typeof tmNum != 'string' && tmNum < 10) ? ("0" + tmNum.toString()) : tmNum.toString())), mv?.name, typestruct, mv?.power, Math.round((mv?.accuracy ?? 0) * 100 / 255)?.toString() + "%", mv?.pp])
             }
             for (var mt of pokemonMoves?.mts) {
@@ -115,31 +115,31 @@ const PokemonMoves: FunctionComponent = () => {
                 var mtMove = MtsLookup?.mtsLookup?.get(mt) ?? 0;
                 var mv: IMove | undefined = MoveLookup?.moveLookup?.get(mtMove);
                 var mvtype: number = mv?.type ?? 0;
-                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype.toString());
+                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype);
                 moves.push(["TUTOR", mv?.name, typestruct, mv?.power, Math.round((mv?.accuracy ?? 0) * 100 / 255)?.toString() + "%", mv?.pp])
             }
             for (var eggMove of pokemonMoves?.egg_moves) {
-                var mv: IMove | undefined = MoveLookup?.moveLookup?.get(eggMove.toString());
+                var mv: IMove | undefined = MoveLookup?.moveLookup?.get(eggMove);
                 var mvtype: number = mv?.type ?? 0;
-                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype.toString());
+                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype);
                 moves.push(["EGG", mv?.name, typestruct, mv?.power, Math.round((mv?.accuracy ?? 0) * 100 / 255)?.toString() + "%", mv?.pp])
             }
             for (var eventMove of pokemonMoves?.event_moves) {
-                var mv: IMove | undefined = MoveLookup?.moveLookup?.get(eventMove.toString());
+                var mv: IMove | undefined = MoveLookup?.moveLookup?.get(eventMove);
                 var mvtype: number = mv?.type ?? 0;
-                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype.toString());
+                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype);
                 moves.push(["EVENT", mv?.name, typestruct, mv?.power, Math.round((mv?.accuracy ?? 0) * 100 / 255)?.toString() + "%", mv?.pp])
             }
             for (var tradeMove of pokemonMoves?.trade_moves) {
-                var mv: IMove | undefined = MoveLookup?.moveLookup?.get(tradeMove.toString());
+                var mv: IMove | undefined = MoveLookup?.moveLookup?.get(tradeMove);
                 var mvtype: number = mv?.type ?? 0;
-                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype.toString());
+                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype);
                 moves.push(["TRADE", mv?.name, typestruct, mv?.power, Math.round((mv?.accuracy ?? 0) * 100 / 255)?.toString() + "%", mv?.pp])
             }
             for (var crossGenTradeMove of pokemonMoves?.cross_gen_trade_moves) {
-                var mv: IMove | undefined = MoveLookup?.moveLookup?.get(crossGenTradeMove.toString());
+                var mv: IMove | undefined = MoveLookup?.moveLookup?.get(crossGenTradeMove);
                 var mvtype: number = mv?.type ?? 0;
-                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype.toString());
+                var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype);
                 moves.push(["TRADE BACK", mv?.name, typestruct, mv?.power, Math.round((mv?.accuracy ?? 0) * 100 / 255)?.toString() + "%", mv?.pp])
             }
         }

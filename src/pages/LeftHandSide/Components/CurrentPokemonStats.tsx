@@ -41,7 +41,7 @@ const CurrentPokemonStats: FunctionComponent = () => {
     var special_defense: undefined | null | number = state?.properties?.[active_pokemon_key + ".stats.special_defense"]?.value;
     var special: undefined | null | number = state?.properties?.[active_pokemon_key + ".stats.special"]?.value;
     var speed: undefined | null | number = state?.properties?.[active_pokemon_key + ".stats.speed"]?.value;
-    var pokemon_stats: undefined | null | IPokemonStats = PokemonStatsLookup?.statsLookup?.get(((indexNumber != null) ? indexNumber : 0).toString());
+    var pokemon_stats: undefined | null | IPokemonStats = PokemonStatsLookup?.statsLookup?.get(((indexNumber != null) ? indexNumber : 0));
     var team_count: number = state?.properties?.[team_count_key]?.value ?? 0;
     var base_hp: undefined | number;
     var base_atk: undefined | number;

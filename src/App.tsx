@@ -626,7 +626,7 @@ const App: FunctionComponent = () => {
                 var x: undefined | null | number = mapper?.current?.properties?.overworld?.x?.value;
                 var y: undefined | null | number = mapper?.current?.properties?.overworld?.y?.value;
 
-                console.log("mapper?.current?.properties?.screen?.column_[0-31]?.tiles?.[0]:",
+                /*console.log("mapper?.current?.properties?.screen?.column_[0-31]?.tiles?.[0]:",
                     mapper?.current?.properties?.screen?.column_0?.tiles?.[0]?.value,
                     mapper?.current?.properties?.screen?.column_1?.tiles?.[0]?.value,
                     mapper?.current?.properties?.screen?.column_2?.tiles?.[0]?.value,
@@ -658,14 +658,8 @@ const App: FunctionComponent = () => {
                     mapper?.current?.properties?.screen?.column_28?.tiles?.[0]?.value,
                     mapper?.current?.properties?.screen?.column_29?.tiles?.[0]?.value,
                     mapper?.current?.properties?.screen?.column_30?.tiles?.[0]?.value,
-                    mapper?.current?.properties?.screen?.column_31?.tiles?.[0]?.value/*,
-                    "mapper?.current?.properties?.overworld?.map_index:",
-                    mapper?.current?.properties?.overworld?.map_index?.value,
-                    "mapper?.current?.properties?.overworld?.x:",
-                    mapper?.current?.properties?.overworld?.x?.value,
-                    "mapper?.current?.properties?.overworld?.y:",
-                    mapper?.current?.properties?.overworld?.y?.value*/
-                );
+                    mapper?.current?.properties?.screen?.column_31?.tiles?.[0]?.value
+                );*/
 
                 var firstRow: (number | null | undefined)[] = [
                     tile0, tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9,
