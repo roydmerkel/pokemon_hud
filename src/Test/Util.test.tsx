@@ -48,7 +48,6 @@ describe('utils module', () => {
     })
 
     test('toUnsigned of null should be NaN', () => {
-        ;
         expect(toUnsigned(null)).toBeNaN();
     })
 
