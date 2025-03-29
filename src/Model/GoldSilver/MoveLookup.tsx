@@ -263,7 +263,7 @@ export class MoveLookup implements IMoveLookup {
     };
 
     private keyValuePairs: [string | number, IMove][] = Object.entries(this.moveLookupKV).map(([key, value]) => [NumberOrString(key), value]);
-    public moveLookup: Map<string | number, IMove> = new Map<string | number,IMove>(this.keyValuePairs);
+    public moveLookup: Map<string | number, IMove> = new Map<string | number, IMove>(this.keyValuePairs);
 };
 
 export default MoveLookup;

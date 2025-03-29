@@ -5,9 +5,9 @@ import * as pokemonCommonStyles from '../../../../../PokemonCommon.module';
 import { StateContext } from '../../../../../StateContext';
 
 import { Dispatch, FunctionComponent, SetStateAction, useContext } from 'react';
-import { IPersistentState }  from '../../../../../IPersistentState';
-import { IPlayTimeState }  from '../../../../../IPlayTimeState';
-import { IState }  from '../../../../../IState';
+import { IPersistentState } from '../../../../../IPersistentState';
+import { IPlayTimeState } from '../../../../../IPlayTimeState';
+import { IState } from '../../../../../IState';
 import { IStateContext, ILastPokemonStats } from '../../../../../IStateContext';
 import { IMoveLookup } from '../../../../../Model/Interfaces/IMoveLookup';
 import { ITypeLookup } from '../../../../../Model/Interfaces/ITypeLookup';

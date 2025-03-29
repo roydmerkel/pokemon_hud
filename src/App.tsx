@@ -179,15 +179,15 @@ const App: FunctionComponent = () => {
     };
 
     const setInObtainPokemonFlow: (value: boolean) => void = (value: boolean) => {
-        setState((curState : IState) => { return { ...curState, in_obtain_pokemon_flow: value } });
+        setState((curState: IState) => { return { ...curState, in_obtain_pokemon_flow: value } });
     };
-    
+
     useEffect(
         () => { persistentStateRef.current = persistentState },
         [persistentState]
     )
 
-    const [state, setState]: [IState, React.Dispatch<React.SetStateAction<IState>>] = useState <IState>({
+    const [state, setState]: [IState, React.Dispatch<React.SetStateAction<IState>>] = useState<IState>({
         gamehookLoaded: false,
         isConnected: false,
         pokemonModelSet: false,
@@ -239,12 +239,12 @@ const App: FunctionComponent = () => {
         });
     };
 
-    function loadExternalJSScript(name : string, url : string, loadCallback: () => void, setStateFunction : (loaded : boolean) => void) {
+    function loadExternalJSScript(name: string, url: string, loadCallback: () => void, setStateFunction: (loaded: boolean) => void) {
         useEffect(() => {
             console.log("loadExternalJSScript!");
             setStateFunction(false);
 
-            var resScript : HTMLScriptElement | null = null;
+            var resScript: HTMLScriptElement | null = null;
             function loadExternalJSScriptInternal(name: string, url: string, loadCallback: () => void, setStateFunction: (loaded: boolean) => void) {
                 const script: HTMLScriptElement = document.createElement('script');
 
@@ -271,9 +271,9 @@ const App: FunctionComponent = () => {
         //console.log("self:", self);
         //console.log("hh:", state, state.gamehookLoaded, mapper.current);
         if (state.gamehookLoaded && !state.isConnected) {
-            var isConnected : boolean = false;
-            var pokemonModelSet : boolean = false;
-            var connect : () => Promise<void> = async () => {
+            var isConnected: boolean = false;
+            var pokemonModelSet: boolean = false;
+            var connect: () => Promise<void> = async () => {
                 console.log("connecting to gamehook.");
                 await mapper.current?.connect();
 
@@ -282,7 +282,7 @@ const App: FunctionComponent = () => {
 
                 console.log("set models.");
 
-                var newModelClasses : IModelClasses = { ...state.modelClasses };
+                var newModelClasses: IModelClasses = { ...state.modelClasses };
                 console.log("mapper?.current?.properties?.meta?.generation:", mapper?.current?.properties?.meta?.generation?.value);
                 console.log("mapper?.current?.properties?.meta?.game_type:", mapper?.current?.properties?.meta?.game_type?.value);
                 switch (mapper?.current?.properties?.meta?.generation?.value) {
@@ -573,7 +573,7 @@ const App: FunctionComponent = () => {
                 in_battle = (modeIsDefined && modeIsNotNone)
                     && (battleStarted ||
                         (first_mons_not_out_yet_undefined && battle_participants_including_fainted) ||
-                    (!first_mons_not_out_yet_undefined && modeIsNotTrainer && has_party_position))
+                        (!first_mons_not_out_yet_undefined && modeIsNotTrainer && has_party_position))
                     && !battle_is_ended
                     && (first_mons_not_out_yet_false || has_party_position)
                     && !has_action_result_or_took_battle_turn
@@ -585,7 +585,7 @@ const App: FunctionComponent = () => {
                 return in_battle;
             }
 
-            function getInTitle() : boolean {
+            function getInTitle(): boolean {
                 var mode: undefined | null | number | string = mapper?.current?.properties?.battle.mode?.value;
                 var cur_opponent: undefined | null | number = mapper?.current?.properties?.battle.opponent?.cur_opponent?.value;
 
@@ -725,14 +725,14 @@ const App: FunctionComponent = () => {
                             typeof team_pokemon_stats?.growth_rate == 'undefined' ||
                             team_pokemon_stats?.growth_rate === null ||
                             typeof team_pokemon_stats?.growth_rate == 'string' ||
-                            typeof team_pokemon_stats?.types == 'undefined' || 
+                            typeof team_pokemon_stats?.types == 'undefined' ||
                             team_pokemon_stats?.types === null ||
                             typeof team_pokemon_stats?.types == 'string') {
                             continue;
                         }
-                        if (typeof team_pokemon_moves?.initial == 'undefined' || 
+                        if (typeof team_pokemon_moves?.initial == 'undefined' ||
                             team_pokemon_moves?.initial === null ||
-                            typeof team_pokemon_moves?.initial == 'string' || 
+                            typeof team_pokemon_moves?.initial == 'string' ||
                             typeof team_pokemon_moves?.levelup == 'undefined' ||
                             team_pokemon_moves?.levelup === null ||
                             typeof team_pokemon_moves?.levelup == 'string' ||
@@ -1247,7 +1247,7 @@ const App: FunctionComponent = () => {
         if (state.pokemonModelSet && state.changeCallbacksSet && changes.length > 0) {
             var properties: { [key: string | number]: GameHookProperty<any> } = { ...state.properties };
 
-            setChanges((changes : IChange[]) => {
+            setChanges((changes: IChange[]) => {
                 for (var change of changes) {
                     var key: string = change.key;
                     var val: GameHookProperty<any> = change.val;
@@ -1259,7 +1259,7 @@ const App: FunctionComponent = () => {
                 return [];
             });
 
-            setState((state : IState) => {
+            setState((state: IState) => {
                 console.log("setState:", { ...state, properties: properties });
                 return { ...state, properties: properties };
             });
@@ -1267,7 +1267,7 @@ const App: FunctionComponent = () => {
     }, [changes]);
 
     useEffect(() => {
-        const interval: NodeJS.Timeout = setInterval(() => setPlayTimeState((playTimeState : IPlayTimeState) => {
+        const interval: NodeJS.Timeout = setInterval(() => setPlayTimeState((playTimeState: IPlayTimeState) => {
             var playTime: number;
             var lastPlayTime: number | null;
 
@@ -1307,7 +1307,7 @@ const App: FunctionComponent = () => {
         //  </div>
         //  <SamplePage />
         //</div>
-        <StateContext.Provider value={{ stateContext: { state, setState }, playTimeStateContext: { playTimeState, setPlayTimeState }, persistentStateContext: { persistentState, setPersistentState }, inBattleContext: { inBattle, setInBattle }, inTitleContext: { inTitle, setInTitle }, lastPokemonContext: { lastPokemon, setLastPokemon }, lastEnemyPokemonContext: { lastEnemyPokemon, setLastEnemyPokemon} }}>
+        <StateContext.Provider value={{ stateContext: { state, setState }, playTimeStateContext: { playTimeState, setPlayTimeState }, persistentStateContext: { persistentState, setPersistentState }, inBattleContext: { inBattle, setInBattle }, inTitleContext: { inTitle, setInTitle }, lastPokemonContext: { lastPokemon, setLastPokemon }, lastEnemyPokemonContext: { lastEnemyPokemon, setLastEnemyPokemon } }}>
             <table width="100%" style={{ height: '100%' }}>
                 <tbody>
                     <tr style={{ width: '100%', height: '100%' }}>

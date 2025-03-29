@@ -31,7 +31,7 @@ const LeftHandSide: FunctionComponent = () => {
                         <td valign="middle" align="center" height="100%" >
                         </td>
                     </tr>
-                    <tr style={{ width: "100%", height: "20%"}}>
+                    <tr style={{ width: "100%", height: "20%" }}>
                         <td>
                         </td>
                     </tr>

@@ -72,7 +72,7 @@ const PokemonMoves: FunctionComponent = () => {
                     if ((typeof state?.properties?.["meta.generation"] == 'number' && state?.properties?.["meta.generation"] == 1) ||
                         (typeof state?.properties?.["meta.generation"] == 'string' && state?.properties?.["meta.generation"] == "1")) {
                         if (move.length > 0) {
-                            var mv : IMove | undefined = MoveLookup?.moveLookup?.get(move[0]);
+                            var mv: IMove | undefined = MoveLookup?.moveLookup?.get(move[0]);
                             var mvtype: number = mv?.type ?? 0;
                             var typestruct: IType | undefined = TypeLookup?.typeLookup?.get(mvtype);
                             moves.push([level, mv?.name, typestruct, mv?.power, Math.round((mv?.accuracy ?? 0) * 100 / 255)?.toString() + "%", mv?.pp])

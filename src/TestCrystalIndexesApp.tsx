@@ -35,24 +35,24 @@ const TestCrystalIndexesApp: FunctionComponent = () => {
     function GetMons(): JSX.Element[] {
         var mons: JSX.Element[] = [];
 
-        for (var i : number = 0; i <= 255; i++) {
-            var pokedex : number | undefined = pokemonIndexToDexIndex.pokemonIndexLookup.get(i);
+        for (var i: number = 0; i <= 255; i++) {
+            var pokedex: number | undefined = pokemonIndexToDexIndex.pokemonIndexLookup.get(i);
             if (pokedex || pokedex === 0) {
                 var stats: IPokemonStats | undefined = pokemonStatsLookup.statsLookup.get(i);
                 var tmsLookupEntry: IPokemonMove | undefined = pokemonMovesLookup.pokemonTmsLookup.get(i);
-                var initial : number[] | string[] = (tmsLookupEntry) ? tmsLookupEntry.initial : [] as number[];
+                var initial: number[] | string[] = (tmsLookupEntry) ? tmsLookupEntry.initial : [] as number[];
                 var levelup: string | Map<string | number, string | number | number[]> = (tmsLookupEntry) ? tmsLookupEntry.levelup : new Map<string | number, number | number[]>();
                 var levelupEntries: string[] = [];
-                initial = initial.map((x: number) => { var moveLookupEnt: IMove | undefined = moveLookup.moveLookup.get(x); if (moveLookupEnt) return moveLookupEnt.name; }).filter((value : string | undefined) : boolean => value !== undefined) as string[];
+                initial = initial.map((x: number) => { var moveLookupEnt: IMove | undefined = moveLookup.moveLookup.get(x); if (moveLookupEnt) return moveLookupEnt.name; }).filter((value: string | undefined): boolean => value !== undefined) as string[];
                 if (typeof levelup == 'string') {
                     levelupEntries.push(levelup);
                 }
                 else {
                     levelup.forEach((value: string | number | number[], key: string | number) => {
                         if (Array.isArray(value)) {
-                            value.forEach((val : number) => {
+                            value.forEach((val: number) => {
                                 var moveLookupEnt: IMove | undefined = moveLookup.moveLookup.get(val);
-                                if(moveLookupEnt)
+                                if (moveLookupEnt)
                                     levelupEntries.push(key.toString() + ": " + moveLookupEnt.name);
                             });
                         }
@@ -66,12 +66,12 @@ const TestCrystalIndexesApp: FunctionComponent = () => {
                         }
                     });
                 }
-                var tms : string | number[] | string[] = (tmsLookupEntry) ? tmsLookupEntry.tms : [];
+                var tms: string | number[] | string[] = (tmsLookupEntry) ? tmsLookupEntry.tms : [];
                 if (typeof tms == "string") {
                     tms = [tms];
                 }
                 else {
-                    var newtms : string[] = [];
+                    var newtms: string[] = [];
                     tms.forEach((tm: number) => {
                         var tmsLookupEnt: number | unknown = tmsLookup.tmsLookup.get(tm);
                         if (typeof tmsLookupEnt == 'number') {
@@ -82,12 +82,12 @@ const TestCrystalIndexesApp: FunctionComponent = () => {
                     });
                     tms = newtms;
                 }
-                var hms : string | number[] | string[] = (tmsLookupEntry) ? tmsLookupEntry.hms : [];
+                var hms: string | number[] | string[] = (tmsLookupEntry) ? tmsLookupEntry.hms : [];
                 if (typeof hms == "string") {
                     hms = [hms];
                 }
                 else {
-                    var newhms : string[] = [];
+                    var newhms: string[] = [];
                     hms.forEach((hm: number) => {
                         var hmsLookupEnt: number | unknown = hmsLookup.hmsLookup.get(hm);
                         if (typeof hmsLookupEnt == 'number') {
@@ -119,7 +119,7 @@ const TestCrystalIndexesApp: FunctionComponent = () => {
                     egg_moves = [egg_moves];
                 }
                 else {
-                    var newegg_moves : string[] = [];
+                    var newegg_moves: string[] = [];
                     egg_moves.forEach((egg_move) => { var eggMoveEnt: IMove | undefined = moveLookup.moveLookup.get(egg_move); if (eggMoveEnt) newegg_moves.push(eggMoveEnt.name); });
                     egg_moves = newegg_moves;
                 }
@@ -131,8 +131,8 @@ const TestCrystalIndexesApp: FunctionComponent = () => {
                 var types1: number | undefined = (types && typeof types != "string" && 1 in types) ? types[1] : undefined;
                 var typeLookupEnt0: IType | undefined = (types0 && typeLookup.typeLookup.has(types0)) ? typeLookup.typeLookup.get(types0) : undefined;
                 var typeLookupEnt1: IType | undefined = (types1 && typeLookup.typeLookup.has(types1)) ? typeLookup.typeLookup.get(types1) : undefined;
-                var types0Str : string = (types) ? ((typeof types == "string") ? types : ((typeLookupEnt0) ? typeLookupEnt0.name : "N/A")) : "N/A";
-                var types1Str : string = (types) ? ((typeof types == "string") ? "N/A" : ((typeLookupEnt1) ? typeLookupEnt1.name : "N/A")) : "N/A";
+                var types0Str: string = (types) ? ((typeof types == "string") ? types : ((typeLookupEnt0) ? typeLookupEnt0.name : "N/A")) : "N/A";
+                var types1Str: string = (types) ? ((typeof types == "string") ? "N/A" : ((typeLookupEnt1) ? typeLookupEnt1.name : "N/A")) : "N/A";
                 mons.push(<tr style={{ width: '100%', height: '100%' }}>
                     <td>{pokedex.toString()}</td>
                     <td>{speciesNameLookup.pokemonSpeciesNameLookup.get(i)}</td>

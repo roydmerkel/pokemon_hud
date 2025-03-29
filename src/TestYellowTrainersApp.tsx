@@ -10,7 +10,7 @@ const TestYellowTrainersApp: FunctionComponent = () => {
         var trainers: JSX.Element[] = [];
 
         trainersLookup.trainersLookup.forEach((value: ITrainer, key: string | number, map: Map<string | number, ITrainer>) => {
-            var hasTeam : boolean = false;
+            var hasTeam: boolean = false;
             value.teams.forEach((v: ITrainerTeam, k: string | number, m: Map<string | number, ITrainerTeam>) => {
                 var name: string = "";
                 var image: string = "";
@@ -49,7 +49,7 @@ const TestYellowTrainersApp: FunctionComponent = () => {
                     reference = value.reference;
                 }
                 hasTeam = true;
-                trainers.push(<tr style={{ width: '100%', height: '100%'}}>
+                trainers.push(<tr style={{ width: '100%', height: '100%' }}>
                     <td>{key.toString()}</td>
                     <td>{k.toString()}</td>
                     <td>{name}</td>

@@ -238,13 +238,13 @@ const EnemyPokemonStats: FunctionComponent = () => {
                                         <table style={{ width: "100%", height: "100%" }} >
                                             <tbody>
                                                 <tr className={`${pokemonCommonStyles.pokemon_stats_acc_eva_tr}`} style={{ width: "100%", height: "100%" }} >
-                                                    <td width="40%" colSpan={ 2 } >
+                                                    <td width="40%" colSpan={2} >
                                                         <b><p>EVA: </p></b>
                                                     </td>
                                                     <td width="10%">
                                                         <p>{(evasion_modifier != null) ? evasion_modifier : 0}</p>
                                                     </td>
-                                                    <td width="40%" colSpan={ 2 } >
+                                                    <td width="40%" colSpan={2} >
                                                         <b><p>ACC: </p></b>
                                                     </td>
                                                     <td width="10%">

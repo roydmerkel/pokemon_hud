@@ -75,12 +75,12 @@ const TestCrystalMonsApp: FunctionComponent = () => {
                     }
                 });
             }
-            var tms : string | number[] | string[] = (movesLookupEnt) ? movesLookupEnt.tms : [];
+            var tms: string | number[] | string[] = (movesLookupEnt) ? movesLookupEnt.tms : [];
             if (typeof tms == "string") {
                 tms = [tms];
             }
             else {
-                var newtms : string[] = [];
+                var newtms: string[] = [];
                 tms.forEach((tm) => {
                     var tmsLookupEnt: number | unknown = tmsLookup.tmsLookup.get(tm);
                     if (typeof tmsLookupEnt == 'number') {
@@ -91,12 +91,12 @@ const TestCrystalMonsApp: FunctionComponent = () => {
                 });
                 tms = newtms;
             }
-            var hms : string | number[] | string[] = (movesLookupEnt) ? movesLookupEnt.hms : [];
+            var hms: string | number[] | string[] = (movesLookupEnt) ? movesLookupEnt.hms : [];
             if (typeof hms == "string") {
                 hms = [hms];
             }
             else {
-                var newhms : string[] = [];
+                var newhms: string[] = [];
                 hms.forEach((hm) => {
                     var hmsLookupEnt: number | unknown = hmsLookup.hmsLookup.get(hm);
                     if (typeof hmsLookupEnt == 'number') {
@@ -107,12 +107,12 @@ const TestCrystalMonsApp: FunctionComponent = () => {
                 });
                 hms = newhms;
             }
-            var mts : string | number[] | string[] = (movesLookupEnt) ? movesLookupEnt.mts : [];
+            var mts: string | number[] | string[] = (movesLookupEnt) ? movesLookupEnt.mts : [];
             if (typeof mts == "string") {
                 mts = [mts];
             }
             else {
-                var newmts : string[] = [];
+                var newmts: string[] = [];
                 mts.forEach((mt) => {
                     var mtsLookupEnt: number | unknown = mtsLookup.mtsLookup.get(mt);
                     if (typeof mtsLookupEnt == 'number') {
@@ -128,7 +128,7 @@ const TestCrystalMonsApp: FunctionComponent = () => {
                 egg_moves = [egg_moves];
             }
             else {
-                var newegg_moves : string[] = [];
+                var newegg_moves: string[] = [];
                 egg_moves.forEach((egg_move: number) => {
                     var moveLookupEnt: IMove | undefined = moveLookup.moveLookup.get(egg_move);
                     if (moveLookupEnt)

@@ -12,7 +12,7 @@ const TestCrystalTrainersApp: FunctionComponent = () => {
         trainersLookup.trainersLookup.forEach((value: ITrainer, key: string | number, map: Map<string | number, ITrainer>) => {
             var hasTeam: boolean = false;
             value.teams.forEach((v: ITrainerTeam, k: string | number, m: Map<string | number, ITrainerTeam>) => {
-                var name : string = "";
+                var name: string = "";
                 var image: string = "";
                 var reference: string = "";
 

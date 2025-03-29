@@ -32,10 +32,10 @@ export function toUnsigned(val: number | undefined | null): number {
 };
 
 export function multAndTrunc(a: number, b: number): number {
-    var ua : BigNumber = new BigNumber(toUnsigned(a).toString(), 10);
-    var ub : BigNumber = new BigNumber(toUnsigned(b).toString(), 10);
-    var uc:BigNumber = ua.multipliedBy(ub);
-    var ret:BigNumber = uc.mod(new BigNumber("100000000", 16));
+    var ua: BigNumber = new BigNumber(toUnsigned(a).toString(), 10);
+    var ub: BigNumber = new BigNumber(toUnsigned(b).toString(), 10);
+    var uc: BigNumber = ua.multipliedBy(ub);
+    var ret: BigNumber = uc.mod(new BigNumber("100000000", 16));
     return ret.toNumber()
 };
 
@@ -61,7 +61,7 @@ export function divAndTrunc(a: number, b: number): number {
     var ub: BigNumber = new BigNumber(b.toString(), 10);
     var uc: BigNumber = ua.dividedBy(ub);
     var ret: BigNumber = uc.mod(new BigNumber("100000000", 16));
-    var retn : number = toUnsigned(ret.toNumber());
+    var retn: number = toUnsigned(ret.toNumber());
     if (retn == -0) {
         retn = 0;
     }
@@ -133,23 +133,23 @@ export function getPropertyByPath(obj: { [key: string | number]: any }, path: st
 }
 
 function recursiveWalkIter(key: string, obj: object | any[], path: string[], parent: any, process: (key: any, val: any, path: string[], parent: any) => any, processed: Map<any, boolean>, fullProcessed: Map<any, boolean>, handleUnderscore: boolean): void {
-    var path2 : string[] = (key != "" && key != null) ? [...path, key] : [...path];
+    var path2: string[] = (key != "" && key != null) ? [...path, key] : [...path];
     if (processed.get(obj)) {
         return;
     }
     if (fullProcessed.get(obj)) {
         return;
     }
-    var objIsArrayObject : boolean = obj != null && (typeof obj === 'object' || Array.isArray(obj));
+    var objIsArrayObject: boolean = obj != null && (typeof obj === 'object' || Array.isArray(obj));
     if (objIsArrayObject) {
         processed.set(obj, true);
         process(key, obj, path, parent);
-        var idxs : string[] = [];
+        var idxs: string[] = [];
         for (var idx in obj) {
             idxs.push(idx);
         }
         idxs = idxs.sort();
-        idxs = idxs.filter((value : string, index : number, array : string[]) => (array.indexOf(value) === index));
+        idxs = idxs.filter((value: string, index: number, array: string[]) => (array.indexOf(value) === index));
         for (var idx of idxs) {
             var subObjIsArrayObject: boolean = (obj as any)[idx] != null && (typeof (obj as any)[idx] === 'object' || Array.isArray((obj as any)[idx]));
             if (subObjIsArrayObject) {
@@ -165,7 +165,7 @@ function recursiveWalkIter(key: string, obj: object | any[], path: string[], par
         }
         var isFullyProcessed: boolean = true;
         for (var idx of idxs) {
-            var subObjIsArrayObject : boolean = (obj as any)[idx] != null && (typeof (obj as any)[idx] === 'object' || Array.isArray((obj as any)[idx]));
+            var subObjIsArrayObject: boolean = (obj as any)[idx] != null && (typeof (obj as any)[idx] === 'object' || Array.isArray((obj as any)[idx]));
             if (!fullProcessed.get((obj as any)[idx]) &&
                 (subObjIsArrayObject || (!handleUnderscore && (idx.startsWith("_") || idx.startsWith("#"))))) {
                 isFullyProcessed = false;

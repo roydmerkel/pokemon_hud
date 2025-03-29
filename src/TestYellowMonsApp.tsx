@@ -36,8 +36,8 @@ const TestYellowMonsApp: FunctionComponent = () => {
     function GetMons(): JSX.Element[] {
         var mons: JSX.Element[] = [];
 
-        for (var pokedex : number = pokemonMechanics.getMinimumPokedexGlitchId(); pokedex <= pokemonMechanics.getMaximumPokedexGlitchId(); pokedex++) {
-            var i : number | undefined = dexIndexToPokemonIndex.indexPokemonLookup.get(pokedex);
+        for (var pokedex: number = pokemonMechanics.getMinimumPokedexGlitchId(); pokedex <= pokemonMechanics.getMaximumPokedexGlitchId(); pokedex++) {
+            var i: number | undefined = dexIndexToPokemonIndex.indexPokemonLookup.get(pokedex);
 
             if (!i) {
                 continue;
@@ -130,7 +130,7 @@ const TestYellowMonsApp: FunctionComponent = () => {
             }
             else {
                 var newegg_moves: string[] = [];
-                egg_moves.forEach((egg_move : number) => {
+                egg_moves.forEach((egg_move: number) => {
                     var moveLookupEnt: IMove | undefined = moveLookup.moveLookup.get(egg_move);
                     if (moveLookupEnt)
                         newegg_moves.push(moveLookupEnt.name);
@@ -138,7 +138,7 @@ const TestYellowMonsApp: FunctionComponent = () => {
                 egg_moves = newegg_moves;
             }
             var base_stats: IPokemonGen2BaseStats | IPokemonGen1BaseStats | string = (stats) ? ((typeof stats == 'string') ? stats : ((stats.base_stats) ? stats.base_stats : "undefined")) : "undefined"
-            var growth_rate : string | number | undefined = (stats && stats.growth_rate) ? stats.growth_rate : undefined
+            var growth_rate: string | number | undefined = (stats && stats.growth_rate) ? stats.growth_rate : undefined
             var experience_group: IPokemonExperienceGroup | undefined = (growth_rate && pokemonExperienceGroupsLookup.experienceGroups.has(growth_rate)) ? pokemonExperienceGroupsLookup.experienceGroups.get(growth_rate) : undefined;
             var types: number[] | string | undefined = (stats && stats.types) ? stats.types : undefined
             var types0: number | undefined = (types && typeof types != "string" && 0 in types) ? types[0] : undefined;
